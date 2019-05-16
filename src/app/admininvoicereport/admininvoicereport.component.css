@@ -1,0 +1,124 @@
+.printable-content {
+    /* // margin: 16px; */
+    overflow-x: scroll;
+    overflow-y: scroll;
+    background-color: #ffffff;
+}
+
+.header-table {
+background-color: #18AC52;
+margin: 2%;
+width: 96%;
+}
+/* // color: #ffffff; */
+.title {
+/* // padding: 5px 20px; */
+font-size: 20px;
+font-weight: bold;
+text-transform: uppercase;
+}
+
+.subheader-table {
+margin: 2%;
+/* // margin-left: 2%;
+// margin-right: 2%; */
+width: 96%;
+}
+td {
+vertical-align: top;
+}
+dt {
+font-size: 11px;
+color: #999;
+margin-bottom: 5px;
+}
+dd {
+margin: 0;
+}
+
+    
+
+#shopName{
+    font-size: 28px;
+    font-weight: 500;
+    /* // margin-left: 7px; */
+    text-align: center;
+}
+#shpAdd{
+    font-size: 13px;
+    text-align: center;
+}
+#header_last_row{
+    border-bottom: 2px solid #CCC;
+    text-align: right;
+}
+#tax_title{
+    text-align: center;
+}
+#table2_td:first-child {
+    border-right: solid 2px #CCC;
+  }
+#rate_td{
+    border-right: solid 2px #CCC;
+    width: 6vh;
+}
+#amt_td{
+    width: 6vh;
+}
+#listing_td{
+    border-right: solid 2px #CCC;
+}
+.table2_td{
+    /* float: left; */
+    padding-left: 22px;
+    line-height: 24px;
+    /* padding: 2px; */
+}
+#stateCode{
+    float: right !important;
+}
+#tr_bottum{
+    border-bottom:1pt solid #CCC;
+}
+.bill {
+    font-weight: 600;
+    text-align: center;
+}
+#ship{
+    font-weight: 600;
+    text-align: center;
+}
+#last_total_td{
+    float: left;
+}
+#amtN{
+    float: right;
+}
+#amtText{
+    border-bottom: 2px solid #CCC; 
+}
+#table1{
+    border-top: 2px solid #CCC;
+    border-bottom: 2px solid #CCC;
+    margin-bottom: 0px;
+}
+#table2{
+    border-top: 2px solid #CCC;
+    border-bottom: 2px solid #CCC;
+    margin-top: 0px;
+}
+#Amt_dect{
+    font-weight: 600;
+    border-bottom: 2px solid #CCC;
+}
+#shopN{
+    font-weight: 600;
+}
+.button-inner.sc-ion-back-button-md {
+    color: #fff;
+}
+tr .no-bottom-border {border-bottom: none}
+
+body, h6{
+    color: black;
+}

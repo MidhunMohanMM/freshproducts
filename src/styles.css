@@ -1,0 +1,226 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/bootstrap.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/themes/dark.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    box-shadow: 0 0 0 30px white inset !important;
+}
+
+a{
+    cursor: pointer;
+}
+
+.custom-margin-left-40{
+    margin-left:40px;
+}
+
+.custom-border-right-none{
+    border-right:none;
+}
+
+.custom-border-left-none{
+    border-left:none;
+}
+
+.custom-width-10{
+    width: 10px;
+}
+
+.custom-margin-left-right-auto{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.custom-padding-left-0{
+    padding-left: 0px;
+}
+
+.custom-margin-top-10{
+    margin-top:10px;
+}
+
+.custom-margin-bottom-1rem{
+    margin-bottom:1rem;
+}
+
+.custom-min-height-200{
+    min-height: 200px
+}
+
+.custom-margin-top-n10{
+    margin-top:-10px;
+}
+
+.custom-margin-left-30{
+    margin-left:30px;
+}
+
+.custom-text-align-right{
+    text-align: right;
+}
+
+.custom-margin-top-15{
+    margin-top:15px;
+}
+
+.custom-max-width-1235{
+    max-width:1235px;
+}
+
+.custom-width-140{
+    width:140px;
+}
+
+.custom-width-165{
+    width:165px;
+}
+
+
+.custom-padding-bottom-0{
+    padding-bottom: 0px;
+}
+
+.custom-padding-bottom-57{
+    padding-bottom: 57px;
+}
+
+.custom-margin-bottom-20{
+    margin-bottom: 20px;
+}
+
+.custom-margin-right-10{
+   margin-right:10px;
+}
+
+.custom-margin-left-10{
+    margin-left:10px;
+}
+
+.custom-width-201{
+    width: 201px;
+}
+
+.custom-width-253{
+    width: 253px;
+}
+
+.custom-width-274{
+    width: 274px;
+}
+
+.custom-width-93{
+    width: 93px;
+}
+
+
+
+
+.custom-width-233{
+    width: 233px;
+}
+
+.custom-width-89{
+    width: 89px;
+}
+
+.custom-width-325{
+    width: 325px;
+}
+
+.custom-margin-top-35{
+    margin-top:35px;
+}
+
+.custom-font-weight-300{
+    font-weight: 300!important;
+}
+
+.custom-margin-right-0{
+    margin-right: 0px;
+}
+
+.custom-margin-left-0 {
+    margin-left: 0px;
+}
+
+.custom-padding-right-0{
+    padding-right:0px;
+}
+
+.custom-padding-right-15{
+   padding-right: 15px;
+}
+
+.custom-margin-left-8{
+    margin-left: 8px;
+}
+
+.custom-margin-top-5{
+    margin-top:5px;
+}
+
+.custom-margin-top-9{
+    margin-top:9px;
+}
+
+.custom-font-weight-initial{
+    font-weight: initial;
+}
+
+.custom-margin-left-13{
+    margin-left:13px;
+}
+
+.custom-margin-top-1rem{
+    margin-top: 1rem;
+}
+
+.custom-padding-left-62{
+    padding-left: 62px;
+}
+
+.custom-border-bottom-eaeff3{
+    border-bottom: 1px solid #eaeff3;
+}
+
+.custom-min-height-400{
+    min-height: 400px;
+}
+
+.custom-min-height-331{
+    min-height: 331px;
+}
+
+.custom-w-104px{
+    width: 104px;
+}
+
+.custom-margin-bottom-0{
+    margin-bottom: 0px;
+}
+.custom-width-60-percent{
+    width: 60%;
+}
+
+.custom-width-79-percent{
+    width: 79%;
+}
+
+.custom-width-108{
+    width:108px;
+}
+.load{
+    position: fixed;
+    top: 40%;
+    left: 55%;
+    width: 7%;
+}

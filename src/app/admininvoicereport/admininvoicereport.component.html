@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style>
+        .loader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F5F8FA;
+            z-index: 9998;
+            text-align: center;
+        }
+
+        .plane-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+   </head>
+<body class="light">
+
+ <div id="loader" >
+</div>
+<div id="app">
+
+
+<div class="printable-content" style="border: 1px #d2d2d2 solid;" >
+  <!-- <button type="button" (click) = "downloadPDF()" class="btn btn-sm btn-primary custom-margin-left-30 custom-margin-top-15 "><i class="icon icon-download"></i> Download this invoice as PDF</button> -->
+  <div class="printable-area" id="printable-area" style="background-color: white;    margin-left: auto;
+  margin-right: auto;font-weight: 400; max-width:1150px; ">
+    <table class="subheader-table" id="table1">
+        <tr>
+          <td width="30%">
+            <dd>FSSAI Licence No 11310002323</dd>
+            <dd>GSTIN 11E1FF002323</dd>
+            <dd>Invoice No <b>UG23237</b> </dd>
+            <dd>Invoice Date <b> 13-04-20</b></dd>
+          </td>
+          <td width="40%" >
+            <dt></dt>
+            <dd id="shopName">CHIPO</dd>
+            <dt id="shpAdd">CHERANALLOR, KOCHI, KERALA - 682034</dt>
+          </td>
+          <td width="30%" id="header_last_row">
+            <dd>Mobile: 6473848394</dd>
+            <dd>Office: 6473848394</dd>
+            <dd>Mobile: 6473848394</dd>
+          </td>
+        </tr >
+      </table>
+      <h6 id="tax_title">TAX INVOICE</h6>
+      <table class="subheader-table" id="table2">
+          <tr  id="tr_bottum">
+            <td width="50%" id="table2_td" style="vertical-align: middle;line-height: 24px;">
+              <dd class="custom-width-60-percent">Reverse Charge</dd>
+              <dd class="custom-width-79-percent">State <span style="margin-left:80px;">Kerala</span>  <span id="stateCode">State Code : 32</span></dd>
+            </td>
+            <td width="50%" id="table2_td" class="table2_td" >
+                <dd class="custom-width-60-percent">Transportation Mode <span style="margin-left:80px;">Road</span> </dd>
+                <dd class="custom-width-60-percent">Vehicle Number<span style="margin-left:111px;">{{vanno}}</span> </dd>
+                <dd class="custom-width-60-percent">Date of supply  <span style="margin-left:116px;">{{dateofsupply}}</span></dd>
+                <dd class="custom-width-60-percent">Place of supply  <span style="margin-left:109px;">{{address1}}</span></dd>
+            </td>
+          </tr>
+          <tr id="tr_bottum">
+            <td width="50%" id="table2_td" class="bill">Details of Receiver/ Billed To</td>
+            <td width="50%" id="ship">Details of Consignee/Shipped To</td>
+          </tr>
+          <tr class="no-bottom-border">
+            <td width="51%" id="table2_td" style="line-height: 24px;">
+                <dd class="custom-width-60-percent">Name  <span style="margin-left:80px;">{{customername}}</span> </dd>
+                <dd class="custom-width-79-percent">Address <span style="margin-left:65px;">{{address1}} {{address2}}</span>  </dd>
+                <dd class="custom-width-60-percent">GSTIN <span style="margin-left:77px;">{{gstin}}</span></dd>
+                <dd class="custom-width-79-percent">State <span style="margin-left:85px;">Kerala</span> <span id="stateCode">State Code : 32</span></dd>
+            </td>
+            <td width="49%" id="table2_td" class="table2_td" style="line-height: 24px;">
+              <dd >Name  <span style="margin-left:169px;">{{customername}}</span> </dd>
+              <dd >Address <span style="margin-left:154px;">{{address1}} {{address2}}</span>  </dd>
+              <dd >GSTIN <span style="margin-left:165px;">{{gstin}}</span></dd>
+              <dd >State <span style="margin-left:173px;">Kerala</span> <span id="stateCode">State Code : 32</span></dd>
+        </td>
+          </tr>
+      </table>
+        <!-- product listing -->
+      <table class="subheader-table" id="table2">
+        <thead>
+        <tr  id="tr_bottum" >
+          <td  id="listing_td" >
+            <dd>Sl No</dd>
+          </td>
+          <td  id="listing_td">
+            <dd>MRP</dd>
+          </td>
+          <td  id="listing_td">
+            <dd>Name of the product</dd>
+          </td>
+          <td  id="listing_td">
+            <dd>HSN</dd>
+          </td>
+          <td  id="listing_td">
+            <dd>Qty</dd>
+          </td>
+          <td  id="listing_td">
+            <dd>Free<br> Qty</dd>
+          </td>
+          <td  id="listing_td">
+            <dd>Rate</dd>
+          </td>
+          <td  id="listing_td">
+            <dd>Amount</dd>
+          </td>
+          <td  id="listing_td">
+            <dd>Discount</dd>
+          </td>
+          <td  id="listing_td">
+            <dd>Taxable <br> value</dd>
+          </td>
+          <td  id="listing_td" >
+            <dd style="border-bottom: 1px solid #ccc;">CGST</dd>
+            <tr>
+              <td id="rate_td">
+                <dd>Rate</dd>
+              </td>
+              <td id="amt_td">
+                <dd>Amt</dd>
+              </td>
+            </tr>
+          </td>
+          <td  id="listing_td" >
+            <dd style="border-bottom: 1px solid #ccc;">SGST</dd>
+            <tr>
+              <td id="rate_td">
+                <dd>Rate</dd>
+              </td>
+              <td>
+                <dd>Amt</dd>
+              </td>
+            </tr>
+          </td>
+          <td  >
+              <dd>Total</dd>
+            </td>
+        </tr>
+        </thead>
+        <tbody >
+            <tr *ngFor = " let invoice of invoicedetail;let i = index"  id="tr_bottum" >
+              <td  id="listing_td" >
+                <dd>{{i}}</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>{{invoice.mrp}}</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>{{invoice.product.name}}</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>{{invoice.product.hsn_code}}</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>{{invoice.quantity}}</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>0</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>{{invoice.prod_rate}}</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>{{invoice.product.mrp}}</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>{{invoice.discount_amount}}</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>{{invoice.taxable_amt}}</dd>
+              </td>
+              <td  id="listing_td" >
+                <tr>
+                  <td id="rate_td">
+                    <dd>{{invoice.cgst_perc}}</dd>
+                  </td>
+                  <td id="amt_td">
+                    <dd>{{invoice.cgst_amt}}</dd>
+                  </td>
+                </tr>
+              </td>
+              <td  id="listing_td" >
+                <tr>
+                  <td id="rate_td">
+                    <dd>{{invoice.sgst_perc}}</dd>
+                  </td>
+                  <td id="amt_td">
+                    <dd>{{invoice.sgst_amt}}</dd>
+                  </td>
+                </tr>
+              </td>
+              <td  >
+                  <dd>{{invoice.product_amount}}</dd>
+              </td>
+            </tr>
+            <!-- <tr  id="tr_bottum" >
+              <td  id="listing_td" >
+                <dd>1</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>27</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>Pop Corn</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>2008</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>6</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>0</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>19.71</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>118.26</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>0</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>118.26</dd>
+              </td>
+              <td  id="listing_td" >
+                <tr>
+                  <td id="rate_td">
+                    <dd>6.00</dd>
+                  </td>
+                  <td id="amt_td">
+                    <dd>7.10</dd>
+                  </td>
+                </tr>
+              </td>
+              <td  id="listing_td" >
+                <tr>
+                  <td id="rate_td">
+                    <dd>6.00</dd>
+                  </td>
+                  <td id="amt_td">
+                    <dd>7.10</dd>
+                  </td>
+                </tr>
+              </td>
+              <td  >
+                  <dd>132.45</dd>
+              </td>
+            </tr>
+            <tr  id="tr_bottum" >
+              <td  id="listing_td" >
+                <dd>1</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>27</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>Pop Corn</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>2008</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>6</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>0</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>19.71</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>118.26</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>0</dd>
+              </td>
+              <td  id="listing_td">
+                <dd>118.26</dd>
+              </td>
+              <td  id="listing_td" >
+                <tr>
+                  <td id="rate_td">
+                    <dd>6.00</dd>
+                  </td>
+                  <td id="amt_td">
+                    <dd>7.10</dd>
+                  </td>
+                </tr>
+              </td>
+              <td  id="listing_td" >
+                <tr>
+                  <td id="rate_td">
+                    <dd>6.00</dd>
+                  </td>
+                  <td id="amt_td">
+                    <dd>7.10</dd>
+                  </td>
+                </tr>
+              </td>
+              <td  >
+                  <dd>132.45</dd>
+              </td>
+            </tr>
+            <tr  id="tr_bottum" >
+                <td  id="listing_td" >
+                  <dd>2</dd>
+                </td>
+                <td  id="listing_td">
+                  <dd>27</dd>
+                </td>
+                <td  id="listing_td">
+                  <dd>Pop Corn</dd>
+                </td>
+                <td  id="listing_td">
+                  <dd>2008</dd>
+                </td>
+                <td  id="listing_td">
+                  <dd>6</dd>
+                </td>
+                <td  id="listing_td">
+                  <dd>0</dd>
+                </td>
+                <td  id="listing_td">
+                  <dd>19.71</dd>
+                </td>
+                <td  id="listing_td">
+                  <dd>118.26</dd>
+                </td>
+                <td  id="listing_td">
+                  <dd>0</dd>
+                </td>
+                <td  id="listing_td">
+                  <dd>118.26</dd>
+                </td>
+                <td  id="listing_td" >
+                  <tr>
+                    <td id="rate_td">
+                      <dd>6.00</dd>
+                    </td>
+                    <td id="amt_td">
+                      <dd>7.10</dd>
+                    </td>
+                  </tr>
+                </td>
+                <td  id="listing_td" >
+                  <tr>
+                    <td id="rate_td">
+                      <dd>6.00</dd>
+                    </td>
+                    <td id="amt_td">
+                      <dd>7.10</dd>
+                    </td>
+                  </tr>
+                </td>
+                <td  >
+                    <dd>132.45</dd>
+                </td>
+            </tr>
+            <tr  id="tr_bottum" >
+                <td  id="listing_td" >
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td" >
+                  <tr>
+                    <td id="rate_td">
+                      <dd></dd>
+                    </td>
+                    <td id="amt_td">
+                      <dd></dd>
+                    </td>
+                  </tr>
+                </td>
+                <td  id="listing_td" >
+                  <tr>
+                    <td id="rate_td">
+                      <dd></dd>
+                    </td>
+                    <td id="amt_td">
+                      <dd></dd>
+                    </td>
+                  </tr>
+                </td>
+                <td  >
+                    <dd></dd>
+                </td>
+            </tr> -->
+            <tr  id="tr_bottum" >
+                <td  id="listing_td" >
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd>Total</dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td">
+                  <dd></dd>
+                </td>
+                <td  id="listing_td" >
+                  <tr>
+                    <td id="rate_td">
+                      <dd></dd>
+                    </td>
+                    <td id="amt_td">
+                      <dd></dd>
+                    </td>
+                  </tr>
+                </td>
+                <td   colspan="2" id="last_total_td">
+                 <dd></dd>
+                </td>
+                <td  >
+                    <dd>{{ total }}</dd>
+                </td>
+            </tr>
+            <tr  id="tr_bottum" >
+                <td  id="listing_td" colspan="7" >
+                  <dd id="Amt_dect">Total Amount In Words:  Eight Thousand Three Hundred and Four Rupees and Thirty Six Paisa Only</dd>
+                  <dd  class="custom-width-60-percent">Bank Details</dd>
+                    <dd  class="custom-width-60-percent">Account Number</dd>
+                    <dd  class="custom-width-60-percent">Bank Branch IFSC</dd>
+                    <dd id="amtText"></dd>
+                  <dd>Certified that Perticular shown in above tax invoice are true and Correct in all respects and goods
+                    on which the tax charged and collected are in accordance with provisions of the GST act 2017 and 
+                    rules made thereunder it is also certified that my/our registration unde GST act 2017 is not subject to any suspention/Cancellation and it is valid as on the date of the bill
+                  </dd>
+                </td>
+                <td   colspan="6">
+                  <dd id="amtText">Total Amount Before Tax<span id="amtN">7,414.61</span></dd>
+                  <dd id="amtText">Add CGST <span id="amtN">444.87</span></dd>
+                  <dd id="amtText">Add SGST <span id="amtN">444.87</span></dd>
+                  <dd id="amtText">Add IGST <span id="amtN">0.00</span></dd>
+                  <dd id="amtText">Tax Amount GST <span id="amtN">889.75</span></dd>
+                  <dd id="amtText">Total Amount After Tax <span id="amtN">{{ total }}</span></dd>
+                  <dd id="amtText">GST Payable on Reverse Charge <span id="amtN"></span></dd>
+                  <dd>I/We hereby certify that the food/foods mentioned in this invoice is/are warrented to be of the nature & quality which it/there purpose to be</dd>
+                  <dd style="text-align: center;">For <span id="shopN">CHIPO</span></dd>
+                </td>
+                <!-- <td   colspan="2" id="last_total_td">
+                    <dd id="lastCol_dd">7,414.61</dd>
+                    <dd id="lastCol_dd">444.87</dd>
+                    <dd id="lastCol_dd">444.87</dd>
+                    <dd id="lastCol_dd">0.00</dd>
+                    <dd id="lastCol_dd">889.75</dd>
+                    <dd id="lastCol_dd">8,304.36</dd>
+                </td>
+                <td  >
+                </td> -->
+            </tr>
+        </tbody>
+        
+      </table>
+  </div>
+
+  <div id="customers" style="display: none">
+      <table id="tab_customers" class="table table-striped" >
+          <colgroup>
+              <!-- <col width="10%">
+              <col width="7%">
+              <col width="27%">
+              <col width="7%">
+              <col width="13%">
+              <col width="7%">
+              <col width="7%">
+              <col width="7%">
+              <col width="7%">
+              <col width="7%">
+              <col width="7%">
+              <col width="7%">
+              <col width="7%"> -->
+          </colgroup>
+          <thead>         
+              <tr class='warning'>
+                  <th>
+                      SI NO</th>
+                  <th>MRP</th>
+                  <th>Name of product</th>
+                  <th>HSN</th>
+                  <th>Qty</th>
+                  <th>Free Qty</th>
+                  <th>Rate</th>
+                  <th>Amount</th>
+                  <th>Discount</th>
+                  <th>Taxable 
+                      value</th>
+                  <th>CGST</th>
+                  <th>SGST</th>
+                  <th>Total</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>1</td>
+                  <td>27</td>
+                  <td>Pop Corn</td>
+                  <td>2008</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>19.71</td>
+                  <td>118.26</td>
+                  <td>0</td>
+                  <td>118.26</td>
+                  <td>6.00</td>
+                  <td>6.00</td>
+                  <td>19.1</td>
+              </tr>
+              <tr>
+                  <td>1</td>
+                  <td>27</td>
+                  <td>Pop Corn</td>
+                  <td>2008</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>19.71</td>
+                  <td>118.26</td>
+                  <td>0</td>
+                  <td>118.26</td>
+                  <td>6.00</td>
+                  <td>6.00</td>
+                  <td>19.1</td>
+              </tr>
+              <tr>
+                  <td>1</td>
+                  <td>27</td>
+                  <td>Pop Corn</td>
+                  <td>2008</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>19.71</td>
+                  <td>118.26</td>
+                  <td>0</td>
+                  <td>118.26</td>
+                  <td>6.00</td>
+                  <td>6.00</td>
+                  <td>19.1</td>
+              </tr>
+              <tr>
+                  <td>1</td>
+                  <td>27</td>
+                  <td>Pop Corn</td>
+                  <td>2008</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>19.71</td>
+                  <td>118.26</td>
+                  <td>0</td>
+                  <td>118.26</td>
+                  <td>6.00</td>
+                  <td>6.00</td>
+                  <td>19.1</td>
+              </tr>
+              <tr>
+                  <td>1</td>
+                  <td>27</td>
+                  <td>Pop Corn</td>
+                  <td>2008</td>
+                  <td>6</td>
+                  <td>0</td>
+                  <td>19.71</td>
+                  <td>118.26</td>
+                  <td>0</td>
+                  <td>118.26</td>
+                  <td>6.00</td>
+                  <td>6.00</td>
+                  <td>19.1</td>
+              </tr>
+          </tbody>
+      </table> 
+  </div>
+
+
+  </div>
+
+
+
+
+  </div>
+
+  <!-- <script src="../../dist/html2pdf.bundle.js"></script> -->
+  </body>
+
+  </html>

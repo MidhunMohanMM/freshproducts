@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style>
+        .loader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F5F8FA;
+            z-index: 9998;
+            text-align: center;
+        }
+
+        .plane-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+   </head>
+<body class="light">
+
+ <div id="loader" >
+</div>
+<div id="app">
+    <app-adminsidebar></app-adminsidebar>
+
+    <script>
+      /*
+       *  Add sidebar classes (sidebar-mini sidebar-collapse sidebar-expanded-on-hover) in body tag
+       *  you can remove this script tag and add classes directly to body
+       *  this is only for demo
+       */
+      document.body.className += ' sidebar-mini' + ' sidebar-collapsex' + ' sidebar-expanded-on-hoverx';
+    </script>
+      <a    data-toggle="push-menu" class="paper-nav-toggle left ml-2 fixed">
+          <i></i>
+      </a>
+    <div class="has-sidebar-left has-sidebar-tabs sticky">
+      <!-- <div class="pos-f-t">
+      <div class="collapse" id="navbarToggleExternalContent">
+          <div class="bg-dark pt-2 pb-2 pl-4 pr-2">
+              <div class="search-bar">
+                  <input  [(ngModel)] = "search1" class="col-md-12 transparent s-24 text-white b-0 font-weight-lighter w-128 height-50" type="text"
+                         placeholder="start typing...">
+              </div>
+              <a    data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-expanded="false"
+                 aria-label="Toggle navigation" class="paper-nav-toggle paper-nav-white active "><i></i></a>
+          </div>
+      </div>
+    </div>
+      <div class="sticky">
+          <div class="navbar navbar-expand d-flex justify-content-between bd-navbar white shadow">
+              <div class="relative">
+                  <div class="d-flex">
+        
+                      <div class="d-none d-md-block">
+                          
+                        <h1 class="nav-title float-left custom-margin-left-40">E-WayBill </h1>
+  
+                    </div>
+                  </div>
+              </div>
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+
+          
+          <li>
+              <a class="nav-link " data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                 aria-controls="navbarToggleExternalContent"
+                 aria-expanded="false" aria-label="Toggle navigation">
+                  <i class=" icon-search3 "></i>
+              </a>
+          </li>
+        
+          <li class="dropdown custom-dropdown user user-menu ">
+              
+              <div class="dropdown-menu p-4 dropdown-menu-right">
+                  
+                  
+                  <hr>
+                  <div class="row box justify-content-between my-4">
+                      
+                  </div>
+              </div>
+          </li>
+      </ul>
+    </div>
+          </div>
+      </div> -->
+
+      <header class="white accent-3 relative nav-sticky">
+        <div class="container-fluid text-blue custom-padding-left-62 custom-border-bottom-eaeff3">
+            <div class="row p-t-b-10 ">
+                <div class="col">
+                    <h4>
+                        E-WayBill
+                    </h4>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                    <ul class="nav nav-material responsive-tab" id="v-pills-tab" role="tablist">
+                            <li>
+                                    <a class="nav-link active" id="v-pills-buyers-tab" data-toggle="pill" href="#v-pills-buyers" role="tab"
+                                       aria-controls="v-pills-buyers"><i class="icon icon-notebook-list2"></i>View E-WayBills</a>
+                                </li>
+                        <li>
+                            <a class="nav-link " id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all"
+                               role="tab" aria-controls="v-pills-all"><i class="icon icon-receipt"></i>Generate E-WayBill</a>
+                        </li>
+                     
+                     </ul>
+                </div>
+        </div>
+    </header>
+
+
+    </div>
+
+    <div class="has-sidebar-left has-sidebar-tabs">
+
+
+        <div class="content-wrapper animatedParent animateOnce">
+
+             <div class="tab-content " id="v-pills-tabContent">
+                        <div class="tab-pane animated fade " id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
+    
+          <div class="container">
+              <section class="paper-card">
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <div class="box">
+                              <div class="box-header with-border">
+                                  <h3 class="box-title float-left">E-WayBill </h3>
+                              </div>
+                        
+                              <!-- /.box-header -->
+                              <div class="box-body table-responsive no-padding my-3">
+                                  <div class="col-md-6 custom-padding-left-0">
+                                    <div class="form-group col-md-8 custom-padding-left-0 custom-margin-top-10" >
+                                      <label class="float-left">Select Route </label>
+                                     <ng-multiselect-dropdown 
+                                      [placeholder]="'Select Route'"
+                                      [data]="routeList"
+                                      [(ngModel)]="selectedroute1"
+                                      name="somethingvan"
+                                      [settings]="dropdownSettingsofroute"
+                                      (onSelect)="onItemSelect($event)"
+                                      (onSelectAll)="onSelectAll($event)"
+                                  >
+                                  </ng-multiselect-dropdown>
+
+
+                                          <label class="float-left custom-margin-top-1rem">Select Van </label>
+                                          <!-- <select  [(ngModel)] = "selectedvan"  class="custom-select custom-margin-bottom-1rem r-0"  required>                                         
+                                              <option value="">All Vans</option>
+                                              <option *ngFor = "let vanLists of vanList  | orderBy : 'name'"
+                                              [value]="vanLists.vansid">
+                                            {{vanLists.name  | titlecase }} - {{vanLists.regno }}
+                                          </select>   -->
+
+                                          <ng-multiselect-dropdown 
+                                                [placeholder]="'Select Van'"
+                                                [data]="vanList"
+                                                [(ngModel)]="selectedvan"
+                                                name="somethingvan"
+                                                [settings]="dropdownSettingsofvan"
+                                                (onSelect)="onItemSelect($event)"
+                                                (onSelectAll)="onSelectAll($event)"
+                                            >
+                                            </ng-multiselect-dropdown>
+
+                                            <label class="float-left custom-margin-top-1rem">Select Delivery Date </label>
+                                            <form class="custom-padding-left-0 my-3" id="date" #myForm="ngForm" novalidate>
+                                            
+                                            <my-date-picker (ngModelChange)="getorderbydeliverydate()" name="mydate"  [options]="myDatePickerOptions"
+                                                            [(ngModel)]="model" required></my-date-picker>
+                                            </form>
+
+
+                                            <div class="form-group custom-padding-left-0 ">
+                                                <label class="float-left" for="">Select number of products</label>
+                                        <select [(ngModel)] = "items" (ngModelChange)="changeflag()" id="custom-select" class=" custom-select  r-0" required>
+                                                <option value disabled>Number of Items</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="9">10</option>
+                                            </select>
+                                        </div>
+
+                                        <div *ngIf="mrpflag == true" class="form-group custom-padding-left-0 ">
+                                            <label class="float-left" for="">Total MRP (₹) </label>
+                                            <input [(ngModel)] = "totalmrp" class="form-control custom-margin-left-0 r-0" type="text"
+                                                placeholder="0.00 ₹" readonly>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div *ngFor="let dummy of ' '.repeat(items).split(''), let x = index" class="col-md-12 row custom-padding-left-0 custom-margin-left-0 custom-margin-right-0">
+                                        <div class="form-group  custom-padding-left-0 col-md-4">
+                                                <label class="float-left" for="">Item Name {{ x+1 }}</label>
+                                            <!-- <input  class="form-control custom-margin-left-0 r-0" type="text"
+                                                   placeholder="Type item name"> -->
+                                                <!-- <select id="selectedproduct{{x}}" [(ngModel)] = "selectedproduct[x]"  style="font-weight:300" class="custom-select r-0" required>
+                                                    <option value="">Select Product </option>
+                                                    <option *ngFor = " let product of products | orderBy : 'name'"  [value]="product.productsid" >{{ product.name | titlecase }}</option>
+                                                </select> -->
+
+                                                <ng-multiselect-dropdown 
+                                                [placeholder]="'Select Product'"
+                                                [data]="products"
+                                                [(ngModel)]="selectedproduct[x]"
+                                                name="somethingproduct"
+                                                [settings]="dropdownSettingsofproduct"
+                                                (onSelect)="onItemSelect($event)"
+                                                (onSelectAll)="onSelectAll($event)"
+                                            >
+                                            </ng-multiselect-dropdown>
+
+
+                                        </div>
+                                        <div class="form-group custom-padding-left-0 col-md-4 ">
+                                                <label class="float-left" for="">Quantity </label>
+                                            <input id="selectedquantity{{x}}" [(ngModel)] = "selectedquantity[x]" (ngModelChange) = "getmrp(x)" class="form-control custom-margin-left-0 r-0" type="text"
+                                                   placeholder="Type quantity">
+                                        </div>
+                                        <div class="form-group custom-padding-left-0 col-md-4 ">
+                                        <label class="float-left" for="">MRP</label>
+                                        <input [(ngModel)] = "mrp[x]" class="form-control custom-margin-left-0 r-0" type="text"
+                                            placeholder="0.00 ₹" readonly>
+                                        </div>
+                                 
+                                    </div>
+
+                             
+
+
+                                    <button  type="button" id ="placeOrder" (click)="addwaybillprofile()" class="btn btn-primary float-left btn-sm mt-3">Generate E-WayBill</button>
+                                   
+                                  <!-- <table class="table table-bordered my-3">
+                                      <tbody *ngIf="flag==false">
+
+                                      <tr>
+                                            <th class="custom-width-10">#</th>
+                                            <th (click)="sort('date')">Date
+                                                <span class="icon-sort" *ngIf="key =='date'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                              </th>
+                                            <th (click)="sort('routename')">Route
+                                            <span class="icon-sort" *ngIf="key =='routename'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                          </th>
+                                            <th (click)="sort('name')">Van Name
+                                                <span class="icon-sort" *ngIf="key =='name'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                            </th>
+                                            <th (click)="sort('regno')">Registration No.
+                                                <span class="icon-sort" *ngIf="key =='regno'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                         
+                                            </th>
+                                            <th class="custom-width-10">Actions</th>
+                                        </tr>
+
+                                        
+                                     
+                                        <tr  *ngFor = "let vanLists of waybillprofile| search : search1 | orderBy: key : reverse | paginate: { itemsPerPage: 5, currentPage: p };let i=index;">
+                                            <td>{{i+1}}</td>
+                                            <td>26-03-2019</td>
+                                            <td> {{vanLists.routename | titlecase }}</td>
+                                            <td>{{vanLists.name | titlecase}} </td>
+                                            <td>{{vanLists.regno | uppercase }}</td>
+                                         <td><button  type="button" class="btn btn-success btn-xs" >Generate</button></td>
+                                       
+                                          </tr>   
+                                       
+                                     
+
+                           
+                                      </tbody>
+                                      <tbody *ngIf="flag==true">
+                                        <tr >
+                                            <th class="custom-width-10" >#</th>
+                                            <th>Route </th>
+                                            <th>Van Name </th>
+                                            <th>Registration No. </th>
+                                            <th class="custom-width-10" >Actions</th>
+                                        </tr>
+                                       
+                                          <tr  >
+                                              <td>1</td>
+                                              <td> {{routename | titlecase }}</td>
+                                              <td>{{vanname | titlecase}} </td>
+                                              <td>{{regno | uppercase }}</td>
+                                              
+                                             <td><a data-toggle="modal" data-target="#modalEditHub"><i class="icon-eye s-18 mr-3"></i></a>
+                                              <a class=" "><i class="icon-delete_sweep s-18"></i></a></td>
+                                        
+                                            </tr>   
+                                         
+                                       
+  
+                             
+                                        </tbody>
+
+                                  </table> -->
+                              </div>
+                          </div>
+               
+                      </div>
+  
+                  </div>     
+                  <!-- <div class="custom-text-align-right" >
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>        -->
+              </section>
+          </div>
+
+
+          </div>
+          <div class="tab-pane animated fade show active" id="v-pills-buyers" role="tabpanel" aria-labelledby="v-pills-buyers-tab">
+                <div *ngIf="loading == true">
+                        <img src="assets/img/basic/loader2.gif" alt="" class="load" >
+                        
+                    </div>
+            
+            <div *ngIf="loading == false" class="container">
+                        <section class="paper-card">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="box">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title float-left">List of E-Waybills </h3>
+                                         
+                                        </div>
+                           
+                                        <div class="box-body table-responsive no-padding my-3 ">
+
+                                            <div class="col-md-6 custom-padding-left-0">
+                                                <div class="form-group col-md-8 custom-margin-top-10 custom-padding-left-0">
+                                                    <label class="float-left">Select Type </label>
+                                                        <select  [(ngModel)] = "selectedsubtype" (ngModelChange)="getewaybillbysubtype()" class="custom-select r-0" required>
+                                                            <option value disabled>Select Type </option>
+                                                            <option value="">All</option>
+                                                            <option value="Line Sales">Line Sales</option>
+                                                            <option value="Supply Sales">Supply Sales</option>
+                                                            <!-- <option *ngFor = " let hubs of hubList" [value]="hubs.hubsid" >{{ hubs.name | titlecase }}</option> -->
+                                                        </select>
+                                                        
+                                                    </div>
+                                                  </div>
+
+                                                  <label  class="float-left custom-margin-top-10" >E - Waybills </label>
+                                            <table class="table table-bordered mt-3">
+                                                <tbody>
+                                                <tr>
+                                                    <th class="custom-width-10">#</th>
+                                                    <th (click)="sort('hubname')">Hub
+                                                        <span class="icon-sort" *ngIf="key =='hubname'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                                      </th>
+                                                    <!-- <th  (click)="sort('routename')">Route
+                                                        <span class="icon-sort" *ngIf="key =='routename'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                                      </th> -->
+                                                    <th class="custom-width-233" (click)="sort('waybillvanname')">Van
+                                                    <span class="icon-sort" *ngIf="key =='waybillvanname'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                                  </th>
+                                                  <!-- <th (click)="sort('hubname')">Hub
+                                                        <span class="icon-sort" *ngIf="key =='hubname'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                 
+                                                    </th>  -->
+                                                    <!-- <th (click)="sort('waybillroutename')">Route
+                                                        <span class="icon-sort" *ngIf="key =='waybillroutename'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                    </th> -->
+                                                    <th (click)="sort('supplytype')">Supply Type
+                                                        <span class="icon-sort" *ngIf="key =='supplytype'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                    </th>
+                                                    <th (click)="sort('subtype')">Sub Type
+                                                        <span class="icon-sort" *ngIf="key =='subtype'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                    </th>
+                                                    <th class="custom-width-108" (click)="sort('doctype')">Doc Type
+                                                        <span class="icon-sort" *ngIf="key =='doctype'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                    </th>
+                                                    <th (click)="sort('doctype')">Trans Mode
+                                                        <span class="icon-sort" *ngIf="key =='doctype'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                    </th>
+                                                    <th class="custom-width-108" (click)="sort('newdate')">Date
+                                                        <span class="icon-sort" *ngIf="key =='newdate'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                 
+                                                    </th>
+                                           
+                                                    <!-- <th (click)="sort('productname')">Product Name
+                                                            <span class="icon-sort" *ngIf="key =='productname'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                     
+                                                    </th>
+                                                    <th (click)="sort('quantity')">Quantity
+                                                            <span class="icon-sort" *ngIf="key =='quantity'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                     
+                                                    </th> -->
+                                                     <th >Actions </th>
+                                                    <!-- <th class="custom-width-165">Actions</th> -->
+                                                </tr>
+        
+                                                <tr *ngFor = " let waybillsingle of waybills | search : search1 | orderBy: key : reverse | paginate: { itemsPerPage: 5, currentPage: p };let i = index">
+                                                    <td>{{i+1}}</td>
+                                                    <td *ngIf="waybillsingle.hubname != null">{{waybillsingle.hubname }}     </td>
+                                                    <td *ngIf="waybillsingle.hubname == null">NULL                                 </td>
+                                                    <!-- <td *ngIf="waybillsingle.vanroutename != null">{{waybillsingle.vanroutename }}     </td>
+                                                    <td *ngIf="waybillsingle.vanroutename == null">NULL  </td> -->
+                                                    
+                                                    <td *ngIf="waybillsingle.waybillvanname != null">{{waybillsingle.waybillvanname }}      <i class="icon-pencil edit" data-toggle="modal" (click)="getwaybillbyID(waybillsingle.waybillsid)" data-target="#modalAddHubstock"></i></td>
+                                                    <td *ngIf="waybillsingle.waybillvanname == null">NULL                                   <i class="icon-pencil edit" data-toggle="modal" (click)="getwaybillbyID(waybillsingle.waybillsid)" data-target="#modalAddHubstock"></i></td>
+                                                    <!-- <td>{{waybillsingle.waybillroutename  | titlecase }}</td> -->
+                                                    <td *ngIf="waybillsingle.supplytype != null">{{waybillsingle.supplytype  | titlecase }}</td>
+                                                    <td *ngIf="waybillsingle.supplytype == null">NULL</td>
+                                                    <td *ngIf="waybillsingle.subsupplytype != null">{{waybillsingle.subsupplytype  | titlecase }}</td>
+                                                    <td *ngIf="waybillsingle.subsupplytype == null">NULL</td>
+                                                    <td *ngIf="waybillsingle.doctype != null">{{waybillsingle.doctype  | titlecase }}</td>
+                                                    <td *ngIf="waybillsingle.doctype == null">NULL</td>
+                                                    <td *ngIf="waybillsingle.tranmode != null">{{waybillsingle.tranmode  | titlecase }}</td>
+                                                    <td *ngIf="waybillsingle.tranmode == null">NULL</td>
+                                                    <td>{{waybillsingle.newdate }}</td>
+                                                      <!-- <td>{{waybillsingle.productname  | titlecase}}</td>
+                                                      <td>{{waybillsingle.quantity }}</td> -->
+                                                      <td>
+                                                          <a title="View Waybill Details" (click)="getewaybilldetailID(waybillsingle.waybillsid)" ><i class="icon-eye3 s-18 mr-3"></i></a>
+                                                          <a title="Export as JSON" (click)="checkstatus(waybillsingle.waybillsid)" ><i class="icon-download s-18 mr-3"></i></a>
+                                                          <a title="Upload File" (click)="getewaybilldetailID(waybillsingle.waybillsid)" ><i class="icon-upload s-18"></i></a>
+                                                          <!-- <button id="btn" type="button" (click)="getewaybilldetailID(waybillsingle.waybillsid)" class="btn btn-xs purple lighten-2 btn-primary" >View </button>
+                                                        <button id="btn" type="button" (click)="checkstatus(waybillsingle.waybillsid)" class="custom-margin-left-10 btn btn-xs btn-primary " >Export to JSON </button>
+                                                        <button id="btn" type="button" class="custom-margin-left-10 btn btn-xs btn-danger " >Upload File </button></td> -->
+                                                
+                                                      <!-- <td><a (click) = "getFactoryByid(factory.factoriesid)" data-toggle="modal" data-target="#modalEditFactory"><i class="icon-mode_edit s-18 mr-3"></i></a>
+                                                        <a (click) = "deleteFactory(factory.factoriesid)" ><i class="icon-delete_sweep s-18"  mwlConfirmationPopover
+                                                          [popoverTitle]="popoverTitle"
+                                                          [popoverMessage]="popoverMessage"
+                                                          placement="left"
+                                                          (confirm)="confirmClicked = true"
+                                                          (cancel)="cancelClicked = true"></i></a></td>      -->                      
+                                                                    </tr>  
+           
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    
+                                    </div>
+                         
+                                </div>
+            
+                            </div>   
+                            <a id="downloadAnchorElem" style="display:none"></a> 
+                            <div class="custom-text-align-right" >
+                                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </div>      
+                 
+                        </section>
+                    </div>
+                    <div *ngIf="expanded == true">
+                        <div class="container mt-5">
+                            <section class="paper-card">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="box">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title float-left">E-Waybills Details </h3>
+                                             
+                                            </div>
+                               
+                                            <div class="box-body table-responsive no-padding my-3 ">
+                    
+                                                      <label  class="float-left custom-margin-top-10" >E - Waybills Details</label>
+                                                <table class="table table-bordered mt-3">
+                                                    <tbody>
+                                                    <tr>
+                                                        <th class="custom-width-10">#</th>
+                                                        
+                                                        <th  (click)="sort('productname')">Product Name
+                                                        <span class="icon-sort" *ngIf="key =='productname'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                                      </th>
+                        
+                                                        <th (click)="sort('quantity')">Quantity
+                                                            <span class="icon-sort" *ngIf="key =='quantity'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                        </th>
+                                                        <!-- <th (click)="sort('subtype')">Sub Type
+                                                            <span class="icon-sort" *ngIf="key =='subtype'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                        </th>
+                                                        <th class="custom-width-108" (click)="sort('doctype')">Doc Type
+                                                            <span class="icon-sort" *ngIf="key =='doctype'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                        </th>
+                                                        <th (click)="sort('doctype')">Trans Mode
+                                                            <span class="icon-sort" *ngIf="key =='doctype'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                        </th>
+                                                        <th class="custom-width-89" (click)="sort('newdate')">Date
+                                                            <span class="icon-sort" *ngIf="key =='newdate'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                     
+                                                        </th> -->
+                                               
+                    
+                                                         <!-- <th class="custom-width-201">Actions </th> -->
+                                  
+                                                    </tr>
+                    
+                                                    <tr *ngFor = " let waybilldetail of waybilldetails | search : search1 | orderBy: key : reverse | paginate: { itemsPerPage: 5, currentPage: p };let i = index">
+                                                        <td>{{i+1}}</td>
+                                                        <td *ngIf="waybilldetail.product.name != null">{{waybilldetail.product.name }} </td>
+                                                        <td *ngIf="waybilldetail.product.name == null">NULL </td>
+                                                        <!-- <td>{{waybillsingle.waybillroutename  | titlecase }}</td> -->
+                                                        <td *ngIf="waybilldetail.quantity != null">{{waybilldetail.quantity }}</td>
+                                                        <td *ngIf="waybilldetail.quantity == null">NULL</td>
+                                                        <!-- <td *ngIf="waybilldetail.subsupplytype != null">{{waybillsingle.subsupplytype  | titlecase }}</td>
+                                                        <td *ngIf="waybilldetail.subsupplytype == null">NULL</td>
+                                                        <td *ngIf="waybillsingle.doctype != null">{{waybillsingle.doctype  | titlecase }}</td>
+                                                        <td *ngIf="waybillsingle.doctype == null">NULL</td>
+                                                        <td *ngIf="waybillsingle.tranmode != null">{{waybillsingle.tranmode  | titlecase }}</td>
+                                                        <td *ngIf="waybillsingle.tranmode == null">NULL</td>
+                                                        <td>{{waybillsingle.newdate }}</td> -->
+                                                          <!-- <td>{{waybillsingle.productname  | titlecase}}</td>
+                                                          <td>{{waybillsingle.quantity }}</td> -->
+                                                          <!-- <td> -->
+                                                              <!-- <button id="btn" type="button" class="btn btn-xs btn-primary" >View E-Waybill </button> -->
+                                                            <!-- <button id="btn" type="button" (click)="exportasjson(waybilldetail.waybillsid)" class=" btn btn-xs btn-primary " >Export to JSON </button>
+                                                            <button id="btn" type="button" class="custom-margin-left-10 btn btn-xs btn-danger " >Upload File </button></td> -->
+                                                    
+                                                          <!-- <td><a (click) = "getFactoryByid(factory.factoriesid)" data-toggle="modal" data-target="#modalEditFactory"><i class="icon-mode_edit s-18 mr-3"></i></a>
+                                                            <a (click) = "deleteFactory(factory.factoriesid)" ><i class="icon-delete_sweep s-18"  mwlConfirmationPopover
+                                                              [popoverTitle]="popoverTitle"
+                                                              [popoverMessage]="popoverMessage"
+                                                              placement="left"
+                                                              (confirm)="confirmClicked = true"
+                                                              (cancel)="cancelClicked = true"></i></a></td>      -->                      
+                                                                        </tr>  
+                    
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        
+                                        </div>
+                             
+                                    </div>
+                    
+                                </div>   
+                                <a id="downloadAnchorElem" style="display:none"></a> 
+                                <div class="custom-text-align-right" >
+                                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                </div>      
+                     
+                            </section>
+                        </div>
+                    
+                    
+                    </div>
+            </div>
+
+          </div>
+
+ 
+
+          
+      </div>
+
+
+</div>
+</div>
+<div class="modal fade" id="modalAddHubstock" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-left">
+        <h4 class="modal-title w-100 font-weight-bold">Assign Van</h4>
+        <button type="button" id="editclose" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form ">
+                <div class="input-container">
+                <i class="fas fa-box prefix  input-icon"></i>
+                <!-- <input type="text" id="form3"  class="form-control validate input" placeholder="Name"> -->
+                <select  [(ngModel)] = "selectedvanedit" style="font-weight:300" class="custom-select r-0 selectmodal custom-margin-left-13" required>
+                      <option value disabled>Select Van </option>
+                      <option *ngFor = " let van of vanList" [value]="van.vansid" >{{ van.name | uppercase }}- {{ van.regno | uppercase }}</option>
+                  </select>
+                </div>
+              <div id="hubstock_ordertype_error"></div> 
+              </div>     
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-info btn-sm" (click)="editewaybill()" >Edit E-Waybill<i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

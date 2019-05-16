@@ -1,0 +1,64 @@
+.thead th{
+    font-weight: bold;
+    text-align:center;
+}
+.thead td{
+    text-align:center;
+    color:black;
+}
+.input-container {
+    
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+.input {
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid #bf7d7d73;
+    max-height: 2rem;
+  }
+  .selectmodal {
+    border: 0;
+    outline: 0;
+    border-bottom: 1px solid #bf7d7d73;
+    max-height: 2rem;
+  }
+  input[type=text]:focus{
+    border: 0;
+    outline: 0;
+    background: transparent;
+    border-bottom: 1px solid #ed5564;     /* oranges! yey */
+  }
+ .input-icon{
+    font-size: 2rem;
+    color:#ed5564;
+ } 
+ .form-control{
+     width:90%;
+     margin-left:10px;
+
+ }
+ .pin{
+     margin-left:16px;
+ }
+ .table{
+     width:99%;
+     /* color:black; */
+ }
+ #order_item_product_error,#order_item_customer_error{
+    margin-top: .1rem;
+    font-size: .8rem;
+    color: red;
+    margin-left:3rem;
+ }
+
+
+ tbody>tr>th {
+    cursor: pointer;
+}
+
+.custom-margin-left-13{
+    margin-left:13px;
+}

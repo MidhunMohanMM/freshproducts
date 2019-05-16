@@ -1,0 +1,84 @@
+.custom-dropdown-menu{
+    min-width: 213px;
+}
+#custom-like-button{
+    width:110px;
+}
+#custom-action-button{
+    margin-right:10px;
+}
+
+#custom-textarea{
+    width: -webkit-fill-available;
+    height: 93px;
+}
+
+#custom-col{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+
+#custom-permission{
+    font-weight: 300;margin-bottom: .75rem;
+}
+
+.custom-col-md-4{
+    padding-left:0px
+}
+
+.custom-col-md-6{
+    padding-left:0px
+}
+
+.custom-card-header{
+    background-color:white;
+    font-weight: 400;
+    font-size: medium;
+}
+
+.custom-counter-title{
+    margin-bottom:1rem!important;
+}
+
+.custom-font-size{
+    font-size: large;
+}
+
+.custom-row{
+    align-items: center;
+}
+
+.custom-canvas-div{
+    display: block;
+}
+
+.custom-canvas{
+    max-height: 350px;
+}
+
+@media only screen and (max-width: 767px) {
+    .custom-float-right{
+        margin-top:15px;
+    }
+    .custom-padding-navbar{
+        padding: 1.65rem!important;
+    }
+}
+
+.custom-padding-navbar{
+    padding: 0.55rem;
+}
+
+.custom-row{
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+
+
+
+

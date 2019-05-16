@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style>
+        .loader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F5F8FA;
+            z-index: 9998;
+            text-align: center;
+        }
+
+        .plane-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+   </head>
+<body class="light">
+
+ <div id="loader" >
+</div>
+<div id="app">
+    <app-freshsidebar></app-freshsidebar>
+
+    <script>
+      /*
+       *  Add sidebar classes (sidebar-mini sidebar-collapse sidebar-expanded-on-hover) in body tag
+       *  you can remove this script tag and add classes directly to body
+       *  this is only for demo
+       */
+      document.body.className += ' sidebar-mini' + ' sidebar-collapsex' + ' sidebar-expanded-on-hoverx';
+    </script>
+      <a    data-toggle="push-menu" class="paper-nav-toggle left ml-2 fixed">
+          <i></i>
+      </a>
+    <div class="has-sidebar-left has-sidebar-tabs">
+      <div class="pos-f-t">
+      <div class="collapse" id="navbarToggleExternalContent">
+          <div class="bg-dark pt-2 pb-2 pl-4 pr-2">
+              <div class="search-bar">
+                  <input class="transparent s-24 text-white b-0 font-weight-lighter w-128 height-50" type="text"
+                         placeholder="start typing...">
+              </div>
+              <a    data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-expanded="false"
+                 aria-label="Toggle navigation" class="paper-nav-toggle paper-nav-white active "><i></i></a>
+          </div>
+      </div>
+    </div>
+      <div class="sticky">
+          <div class="navbar navbar-expand d-flex justify-content-between bd-navbar white shadow">
+              <div class="relative">
+                  <div class="d-flex">
+                        <!-- <div class="w-80px ">
+                                <img src="assets/img/basic/chipologo.png" alt="">
+                            </div> -->
+                      <div class="d-none d-md-block">
+                          <h1 class="nav-title float-left custom-margin-left-40" >Employee</h1>
+                          <!-- <button type="button" style="margin-top:10px;margin-left:30px;" class="btn btn-danger btn-xs float-right" data-toggle="modal" data-target="#modalAddCollection">Add Employee</button> -->
+                      </div>
+                  </div>
+              </div>
+              <!--Top Menu Start -->
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+          <!-- Messages-->
+          
+          <!-- Notifications -->
+          
+          <li>
+              <a class="nav-link " data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                 aria-controls="navbarToggleExternalContent"
+                 aria-expanded="false" aria-label="Toggle navigation">
+                  <i class=" icon-search3 "></i>
+              </a>
+          </li>
+        
+          <li class="dropdown custom-dropdown user user-menu ">
+              
+              <div class="dropdown-menu p-4 dropdown-menu-right">
+                  
+                  
+                  <hr>
+                  <div class="row box justify-content-between my-4">
+                      
+                  </div>
+              </div>
+          </li>
+      </ul>
+    </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="has-sidebar-left has-sidebar-tabs">
+
+        <div class="content-wrapper animatedParent animateOnce">
+            <div class="container">
+                <section class="paper-card">
+                    <div class="row ">
+                        <div class="col-lg-12 ">
+                       
+                            <div class="box " >
+                                <div class="box-header with-border">
+                                    <h3 class="box-title float-left">List of Employees </h3>
+                                    <button class="btn btn-primary btn-xs float-right mb-3" (click)="exportAsXLSX()"><i class="icon icon-file-excel-o" ></i>Export to xls</button>
+                                   
+                                </div>
+                                <!-- /.box-header -->
+                                <div class=" box-body table-responsive no-padding my-3 custom-margin-left-right-auto" >
+                                     
+                                    <table class="table table-bordered ">
+                                        <tbody>
+                                        <tr>
+                                            <th class="custom-width-10" >#</th>
+                                            <th>Ledger </th>
+                                            <!-- <th  style="width: 140px">Actions </th> -->
+
+                                        </tr>
+                                        <!-- <tr *ngFor = " let hub of hubList;let i = index">
+                                              <td>{{i+1}}</td>
+                                              <td>{{hub.name  | titlecase}}</td>
+                                              <td>{{hub.address1  | titlecase}}</td>
+                                              <td>{{hub.address2 | titlecase }}</td>
+                                              <td><button (click) = "editHub(hub.hubsid)" type="button" class="btn btn-success btn-xs col-md-5 float-left" data-toggle="modal" data-target="#modalEditHub">Edit</button>
+                                              <button type="button" class="btn btn-danger btn-xs col-md-5 float-right">Delete</button></td>
+                                        </tr>    -->
+                                        <tr>
+                                            <td>1.</td>
+                                            <td>Biju K. (Driver) </td>
+                                
+                                           <!-- <td><button  type="button" class="btn btn-success btn-xs  float-left" data-toggle="modal" data-target="#modalEditHub">Edit</button>
+                                            <button type="button" class="btn btn-danger btn-xs  float-right">Delete</button></td> -->
+
+                                      </tr> 
+                                      <tr>
+                                        <td>2.</td>
+                                        <td>Ajeesh Chandran</td>
+                                         <!-- <td><button  type="button" class="btn btn-success btn-xs  float-left" data-toggle="modal" data-target="#modalEditHub">Edit</button>
+                                          <button type="button" class="btn btn-danger btn-xs  float-right">Delete</button></td> -->
+                                  </tr>   
+                                  <tr>
+                                    <td>3.</td>
+                                    <td>Nidhin V R(Driver) </td>
+                                   <!-- <td><button  type="button" class="btn btn-success btn-xs  float-left" data-toggle="modal" data-target="#modalEditHub">Edit</button>
+                                      <button type="button" class="btn btn-danger btn-xs  float-right">Delete</button></td> -->
+                              </tr>   
+                              <tr>
+                                <td>4.</td>
+                                <td>Sudheer M S(Driver) </td>
+                               <!-- <td><button  type="button" class="btn btn-success btn-xs  float-left" data-toggle="modal" data-target="#modalEditHub">Edit</button>
+                                  <button type="button" class="btn btn-danger btn-xs  float-right">Delete</button></td> -->
+                          </tr>      
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.box-body -->
+                                <div class="box-footer clearfix">
+                                    <ul class="pagination pagination-sm no-margin float-right">
+                                        <li class="page-item"><a    class="page-link">&#xAB;</a>
+                                        </li>
+                                        <li class="page-item"><a    class="page-link">1</a>
+                                        </li>
+                                        <li class="page-item"><a    class="page-link">2</a>
+                                        </li>
+                                        <li class="page-item"><a    class="page-link">3</a>
+                                        </li>
+                                        <li class="page-item"><a    class="page-link">&#xBB;</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                 
+                        </div>
+    
+                    </div>          
+                </section>
+            </div>
+        </div>
+
+</div>
+</div>
+
+
+
+</body>
+</html>

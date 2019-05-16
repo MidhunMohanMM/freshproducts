@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="assets/img/basic/favicon.ico" type="image/x-icon"> -->
+    <title>Paper</title>
+    <!-- CSS -->
+    <!-- <link rel="stylesheet" href="assets/css/app.css"> -->
+    <style>
+        .loader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F5F8FA;
+            z-index: 9998;
+            text-align: center;
+        }
+
+        .plane-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+
+   
+  </head>
+<body class="light">
+<!-- Pre loader -->
+<div id="loader">
+
+</div> 
+<div id="app">
+    <main>
+        <div id="primary" class="p-t-b-100 height-full ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 mx-md-auto">
+                        <div class="text-center">
+                            <img src="assets/img/dummy/u5.png" alt="">
+                            <h3 class="mt-2">Welcome back</h3>
+                            <p class="p-t-b-20">Welcome back! Login to access your Chipo Marketplace account.</p>
+                        </div>
+                        <form action="dashboard2.html">
+                            <div class="form-group has-icon"><i class="icon-envelope-o"></i>
+                                <input type="text" [(ngModel)] = "username" name="username" class="form-control form-control-lg"
+                                       placeholder="Email Address">
+                            </div>
+                            <div class="form-group has-icon"><i class="icon-user-secret"></i>
+                                <input type="password" [(ngModel)] = "password" name="password" class="form-control form-control-lg"
+                                       placeholder="Password">
+                            </div>
+
+                            <p class="my-3 text-red">{{ error }}</p>
+                            <input type="submit" (click) = "Dashboard()" class="btn btn-danger btn-lg btn-block" value="Continue">
+                            <p class="forget-pass">Have you forgot your username or password ?</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #primary -->
+    </main>
+<div class="control-sidebar-bg shadow white fixed"></div>
+</div>
+<!--/#app -->
+<script src="assets/js/app.js"></script>
+
+
+
+</body>
+</html>
+

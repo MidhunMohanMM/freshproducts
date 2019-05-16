@@ -1,0 +1,22 @@
+@media only screen and (min-width: 1024px) {
+    .custom-col-md-4{
+        padding-top:100px;
+    }
+}
+
+
+@media only screen and (max-width: 1035px) {
+    .custom-btn{
+        display:none;
+    }
+}
+
+@media only screen and (min-width: 1035px) {
+    .custom-a{
+        display: none;
+    }
+}
+
+#custom-white{
+    padding-top:30px;
+}

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style>
+        .loader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F5F8FA;
+            z-index: 9998;
+            text-align: center;
+        }
+
+        .plane-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+   </head>
+<body class="light">
+
+ <div id="loader" >
+</div>
+<div id="app">
+    <app-adminsidebar></app-adminsidebar>
+
+    <script>
+      /*
+       *  Add sidebar classes (sidebar-mini sidebar-collapse sidebar-expanded-on-hover) in body tag
+       *  you can remove this script tag and add classes directly to body
+       *  this is only for demo
+       */
+      document.body.className += ' sidebar-mini' + ' sidebar-collapsex' + ' sidebar-expanded-on-hoverx';
+    </script>
+      <a    data-toggle="push-menu" class="paper-nav-toggle left ml-2 fixed">
+          <i></i>
+      </a>
+
+      <div class="has-sidebar-left has-sidebar-tabs sticky">
+          <!-- <div class="pos-f-t">
+          <div class="collapse" id="navbarToggleExternalContent">
+              <div class="bg-dark pt-2 pb-2 pl-4 pr-2">
+                  <div class="search-bar">
+                      <input [(ngModel)] = "search1" class="col-md-12 transparent s-24 text-white b-0 font-weight-lighter w-128 height-50" type="text"
+                             placeholder="start typing...">
+                  </div>
+                  <a    data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-expanded="false"
+                     aria-label="Toggle navigation" class="paper-nav-toggle paper-nav-white active "><i></i></a>
+              </div>
+          </div>
+        </div> -->
+          <!-- <div class="sticky">
+              <div class="navbar navbar-expand d-flex justify-content-between bd-navbar white shadow">
+                  <div class="relative col-md-6">
+                      <div class="d-flex">
+                                <div class="d-none d-block">
+                                    <h1 class="nav-title float-left custom-margin-left-40">Hub Route Link</h1>
+                                </div>
+                          
+                      </div>
+                      
+                            
+                            
+                  </div>
+                  
+    
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+    
+              
+              <li>
+                  <a class="nav-link " data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                     aria-controls="navbarToggleExternalContent"
+                     aria-expanded="false" aria-label="Toggle navigation">
+                      <i class=" icon-search3 "></i>
+                  </a>
+              </li>
+            
+              <li class="dropdown custom-dropdown user user-menu ">
+                  
+                  <div class="dropdown-menu p-4 dropdown-menu-right">
+                      
+                      
+                      <hr>
+                      <div class="row box justify-content-between my-4">
+                          
+                      </div>
+                  </div>
+              </li>
+          </ul>
+        </div>
+              </div>
+          </div> -->
+          <header class="white accent-3 relative nav-sticky">
+              <div class="container-fluid text-blue custom-padding-left-62 custom-border-bottom-eaeff3">
+                  <div class="row p-t-b-10 ">
+                      <div class="col">
+                          <h4>
+                              Routes
+                          </h4>
+                      </div>
+                  </div>
+                  <div class="row justify-content-between">
+                          <ul class="nav nav-material responsive-tab" id="v-pills-tab" role="tablist">
+                              <li>
+                                  <a class="nav-link active" id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all"
+                                     role="tab" aria-controls="v-pills-all"><i class="icon icon-home2"></i>View all Routes</a>
+                              </li>
+                              <li>
+                                  <a class="nav-link" id="v-pills-buyers-tab" data-toggle="pill" href="#v-pills-buyers" role="tab"
+                                     aria-controls="v-pills-buyers"><i class="icon icon-link"></i>Hub - Route Link</a>
+                              </li>
+                              <li>
+                                  <a class="nav-link" id="v-pills-new-tab" data-toggle="pill" href="#v-pills-new" role="tab"
+                                     aria-controls="v-pills-new"><i class="icon icon-road"></i>New Route Approval Requests</a>
+                              </li>
+                           </ul>
+                      </div>
+              </div>
+          </header>
+        </div>
+
+    <div class="has-sidebar-left has-sidebar-tabs">
+
+        <div class="content-wrapper animatedParent animateOnce">
+            <div class="tab-content " id="v-pills-tabContent">
+                <div class="tab-pane animated fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
+
+                        <div *ngIf="routeloading == true">
+                                <img src="assets/img/basic/loader2.gif" alt="" class="load" >
+                                
+                            </div>
+                
+                          <div *ngIf="routeloading == false" class="container">
+              <section class="paper-card">
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <div class="box">
+                              <div class="box-header with-border ">
+                                  <h3 class="box-title float-left mb-3">List of Routes </h3>
+                              </div>
+                              <button type="button"  class="custom-margin-right-10 btn btn-primary btn-xs float-right " data-toggle="modal" data-target="#modalAddHub">Add New Route</button>
+                        
+                              <!-- /.box-header -->
+                              <div class="box-body table-responsive  ">
+                                  
+                                  <label  class="float-left " >Route List </label>
+                                  
+                                  <table class="table table-bordered ">
+                                    <thead>
+                                      
+                                    </thead>
+                                      <tbody>
+                                      <tr>
+                                          <th class="custom-width-10">#</th>
+                                          <th (click)="sort('name')">Route Name
+                                          <span class="icon-sort" *ngIf="key =='name'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                        </th>
+                                        <th (click)="sort('hubname')">Hub Name
+                                            <span class="icon-sort" *ngIf="key =='hubname'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                        </th>
+                                          <!-- <th (click)="sort('address1')">Location
+                                              <span class="icon-sort" *ngIf="key =='address1'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                          </th>
+                                          <th (click)="sort('address2')">Address
+                                              <span class="icon-sort" *ngIf="key =='address2'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                       
+                                          </th> -->
+                                          <th class="custom-width-10">Actions</th>
+                                      </tr>
+                                      <tr *ngFor = "let route of routeList | search : search1 | orderBy: key : reverse | paginate: { itemsPerPage: 15, currentPage: p }; let i=index;">
+                                            <td>{{i+1}}</td>
+                                            <td>{{route.name  | titlecase}}</td>
+                                            <td>{{route.hubname  | titlecase}}</td>
+                                            <!-- <td>{{hub.address1  | titlecase}}</td>
+                                            <td>{{hub.address2 | titlecase }}</td> -->
+                                            <!-- <td><button (click) = "editHub(hub.hubsid)" type="button" class="btn btn-success btn-xs col-md-5 float-left" data-toggle="modal" data-target="#modalEditRoute">Edit</button>
+                                            <button type="button" class="btn btn-danger btn-xs col-md-5 float-right">Delete</button></td> -->
+                                            
+                                            <td><a (click) = "getroutebyID(route.routesid)" data-toggle="modal" data-target="#modalEditRoute"><i class="icon-mode_edit s-18 mr-3"></i></a>
+                                              <a (click) = "deleteroute(route.routesid)" ><i class="icon-delete_sweep s-18"  mwlConfirmationPopover
+                                                [popoverTitle]="popoverTitle"
+                                                [popoverMessage]="popoverMessage"
+                                                placement="left"
+                                                (confirm)="confirmClicked = true"
+                                                (cancel)="cancelClicked = true"></i></a></td>
+                                      
+                                          </tr>   
+                                      </tbody>
+                                     
+                                  </table>
+                                 
+                              </div>
+                              <!-- /.box-body -->
+                              <!-- <div class="box-footer clearfix">
+                                  <ul class="pagination pagination-sm no-margin float-right">
+                                      <li class="page-item"><a  class="page-link">&#xAB;</a>
+                                      </li>
+                                      <li class="page-item"><a  class="page-link">1</a>
+                                      </li>
+                                      <li class="page-item"><a  class="page-link">2</a>
+                                      </li>
+                                      <li class="page-item"><a  class="page-link">3</a>
+                                      </li>
+                                      <li class="page-item"><a    class="page-link">&#xBB;</a>
+                                      </li>
+                                  </ul>
+                                 
+                              </div> -->
+                          </div>
+                       
+               
+                      </div>
+  
+                  </div>     
+                  <div class="custom-text-align-right" >
+                      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </div>     
+              </section>
+          </div>
+          </div>
+          <div class="tab-pane animated fade " id="v-pills-buyers" role="tabpanel" aria-labelledby="v-pills-buyers-tab">
+          
+              <div class="container">
+                  <section class="paper-card">
+              
+                      <div class="row">
+                              
+                          <div class="col-lg-12">
+                              <div class="box">
+                                 
+                                  <div class="box-header with-border">
+                                      <h3 class="box-title float-left">Hub - Route Link</h3>
+  
+                                      <!-- <button class="btn btn-primary btn-xs float-right mb-3 custom-margin-right-10"><i class="icon icon-file-excel-o" ></i>Export to xls</button> -->
+                           
+                                  </div>
+                                  <button type="button"  class="btn btn-primary btn-xs float-right custom-margin-right-10" data-toggle="modal" data-target="#modalAddVan">Assign Route to Hub </button>
+                          
+                                  <!-- /.box-header -->
+                                  <div class="box-body table-responsive no-padding my-3">
+                                      <div class="col-md-6 custom-padding-left-0">
+                                          <div class="form-group col-md-8 custom-margin-top-10 custom-padding-left-0">
+                                              <label class="float-left">Select Hub </label>
+                                                  <select  [(ngModel)] = "selectedhub" (ngModelChange)="getroutebyhub()" class="custom-select r-0" required>
+                                                      <option value disabled>Select Hub </option>
+                                                      <option *ngFor = " let hub of hubs  | orderBy : 'name'" [value]="hub.hubsid" >{{ hub.name | titlecase }}</option>
+                                                      <!-- <option >Palarivattom Rd </option>
+                                                      <option >Kaloor Rd </option> -->
+                                                  </select>
+                                                  
+                                              </div>
+                                            </div>
+                                              
+                                          <label  class="float-left custom-margin-top-10" >Route List </label>
+                                      <table class="table table-bordered ">
+                                          <tbody>
+                                              <!-- <tr>
+                                                  <th class="custom-width-10">#</th>
+                                                  <th> Van Name</th>
+                                                  <th>Registration No.</th>
+                                                  <th>Van Route</th>
+                                                  <th class="custom-width-10">Actions</th>
+                                                  
+                                              </tr> -->
+  
+                                              <tr>
+                                                      <th class="custom-width-10">#</th>
+                                                      <th (click)="sort('hubname')">Hub Name
+                                                      <span class="icon-sort" *ngIf="key =='hubname'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                                    </th>
+                                                      <th (click)="sort('name')">Route Name
+                                                          <span class="icon-sort" *ngIf="key =='name'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                      </th>
+                                                      <!-- <th (click)="sort('routename')">Van Route
+                                                          <span class="icon-sort" *ngIf="key =='routename'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                   
+                                                      </th>                                                                                                                                                   -->
+                                                      <th class="custom-width-10">Actions</th>
+                                                  </tr>
+  
+                                                  
+                                              <tr *ngFor = " let route of routeList | search : search1 | orderBy: key : reverse | paginate: { itemsPerPage: 5, currentPage: p };let i = index">
+                                                    <td>{{ i+1 }}</td>
+                                                    <td>{{route.hubname | titlecase }}</td>
+                                                    <td>{{ route.name | titlecase}}</td>
+                                                    <!-- <td >{{ route.routename | titlecase}}</td> -->
+                                                    <td><a class="float-right" (click)="getroutebyID(route.routesid)" data-toggle="modal" data-target="#modalEditVan"><i class="icon-mode_edit s-18 mr-3"></i></a>
+                                                      <!-- <a  (click) = "deleteroute(route.routesid)" ><i class="icon-delete_sweep s-18"  mwlConfirmationPopover
+                                                        [popoverTitle]="popoverTitle"
+                                                        [popoverMessage]="popoverMessage"
+                                                        placement="left"
+                                                        (confirm)="confirmClicked = true"
+                                                        (cancel)="cancelClicked = true"></i></a> -->
+                                                      </td>     
+                                                    
+                                              </tr>  
+                                              <!-- <tr >
+                                                <td>2.</td>
+                                                <td>GST</td>
+                                                <td>KL 12 1122</td>
+                                                <td >{{ select2 }}</td>
+                                           
+                                                <td *ngIf="route != ''"><button (click)="changevanroute2()" type="button" class="btn btn-xs  " [ngClass]="{'btn-success':select2btn == 'Select this Van','btn-danger':select2btn=='Change Route'}">{{ select2btn }}</button>
+                                                </td>
+                                          </tr>     -->
+                                              </tbody>
+                                      </table>
+                                  </div>
+
+                              </div>
+                   
+                          </div>
+      
+                      </div>   
+                      <div class="custom-text-align-right" >
+                              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                          </div>          
+                  </section>
+              </div>
+
+
+
+            </div>
+
+
+            <div class="tab-pane animated fade " id="v-pills-new" role="tabpanel" aria-labelledby="v-pills-new-tab">
+                <div class="container">
+                    <section class="paper-card">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="box">
+                                    <div class="box-header with-border ">
+                                        <h3 class="box-title float-left mb-3">New Route Approval Requests </h3>
+                                    </div>
+                                    <!-- <button type="button"  class="custom-margin-right-10 btn btn-primary btn-xs float-right " data-toggle="modal" data-target="#modalAddHub">Add New Route</button> -->
+                              
+                                    <!-- /.box-header -->
+                                    <div class="box-body table-responsive  ">
+                                        
+                                        <label  class="float-left " >Route List </label>
+                                        
+                                        <table class="table table-bordered ">
+                                          <thead>
+                                            
+                                          </thead>
+                                            <tbody>
+                                            <tr>
+                                                <th class="custom-width-10">#</th>
+                                                <th (click)="sort('name')">Route Name
+                                                <span class="icon-sort" *ngIf="key =='name'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                              </th>
+                                              <th (click)="sort('hubname')">Hub Name
+                                                  <span class="icon-sort" *ngIf="key =='hubname'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                              </th>
+                                                <!-- <th (click)="sort('address1')">Location
+                                                    <span class="icon-sort" *ngIf="key =='address1'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                </th>
+                                                <th (click)="sort('address2')">Address
+                                                    <span class="icon-sort" *ngIf="key =='address2'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                             
+                                                </th> -->
+                                                <th class="custom-width-201">Actions</th>
+                                            </tr>
+                                            <tr *ngFor = "let route of newrouteList | search : search1 | orderBy: key : reverse | paginate: { itemsPerPage: 15, currentPage: p }; let i=index;">
+                                                  <td>{{i+1}}</td>
+                                                  <td>{{route.name  | titlecase}}</td>
+                                                  <td>{{route.hubname  | titlecase}}</td>
+                                                  <!-- <td>{{hub.address1  | titlecase}}</td>
+                                                  <td>{{hub.address2 | titlecase }}</td> -->
+                                                  <!-- <td><button (click) = "editHub(hub.hubsid)" type="button" class="btn btn-success btn-xs col-md-5 float-left" data-toggle="modal" data-target="#modalEditRoute">Edit</button>
+                                                  <button type="button" class="btn btn-danger btn-xs col-md-5 float-right">Delete</button></td> -->
+                                                  
+                                                  <!-- <td><a (click) = "getroutebyID(route.routesid)" data-toggle="modal" data-target="#modalEditRoute"><i class="icon-mode_edit s-18 mr-3"></i></a>
+                                                    <a (click) = "deleteroute(route.routesid)" ><i class="icon-delete_sweep s-18"  mwlConfirmationPopover
+                                                      [popoverTitle]="popoverTitle"
+                                                      [popoverMessage]="popoverMessage"
+                                                      placement="left"
+                                                      (confirm)="confirmClicked = true"
+                                                      (cancel)="cancelClicked = true"></i></a></td> -->
+
+                                                      <td>
+                                                          <button  (click)="approveroute(route.routesid)"  type="button" class="btn btn-primary btn-xs  float-left col-5"  >Approve </button>
+                                                       <button  
+                                                       (click)="rejectroute(route.routesid)"
+                                                        type="button" class="col-5 btn btn-danger btn-xs float-right" >Reject</button>
+                                                         </td>
+                                            
+                                                </tr>   
+                                            </tbody>
+                                           
+                                        </table>
+                                       
+                                    </div>
+                
+                                </div>
+                             
+                     
+                            </div>
+        
+                        </div>     
+                        <div class="custom-text-align-right" >
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>     
+                    </section>
+                </div>
+
+              </div>
+
+
+
+          </div>
+      </div>
+
+
+</div>
+</div>
+
+<div class="modal fade" id="modalAddHub" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-left">
+        <h4 class="modal-title w-100 font-weight-bold">Add Route</h4>
+        <button type="button" id="addclose" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form ">
+          <div class="input-container">
+          <i class="fas fa-route prefix  input-icon"></i>
+          <input type="text" id="form3" [(ngModel)]="routename" class="form-control validate input" placeholder="Route Name">
+          </div>
+        <div id="hub_name_error"></div> 
+        </div>
+        <div class="md-form ">
+            <div class="input-container">
+            <i class="fab fa-product-hunt prefix  input-icon"></i>
+            <!-- <input type="text" id="form3"  class="form-control validate input" placeholder="Name"> -->
+            <select  [(ngModel)] = "selectedhub" style="font-weight:300" class="custom-select r-0 selectmodal custom-margin-left-13" required>
+                  <option value disabled>Select Product </option>
+                  <option *ngFor = " let hub of hubs" [value]="hub.hubsid" >{{ hub.name | titlecase }}</option>
+              </select>
+            </div>
+          <div id="hub_location_error"></div> 
+          </div>
+
+        <!-- <div class="md-form ">
+          <div class="input-container">
+                <i class="fas fa-map-marker-alt prefix input-icon "></i>
+          
+          <input type="text" id="form3" [(ngModel)]="address1" class="form-control validate input  pin" placeholder="Location">
+            
+        </div>
+        <div id="hub_location_error"></div>     
+        </div> -->
+        <!-- <div class="md-form ">
+                <div class="input-container">
+                        <i class="fas fa-envelope prefix input-icon"></i>
+                <input type="text" id="form4" [(ngModel)]="address2" class="form-control validate input" placeholder="City/District/Pin">
+                     
+            </div>
+            <div id="hub_add_error"></div> 
+        </div> -->
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-info btn-sm" (click)="addNewRoute()">Add Route<i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modalEditRoute" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-left">
+        <h4 class="modal-title w-100 font-weight-bold">Edit Route</h4>
+        <button type="button" id="editclose" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form ">
+          <div class="input-container">
+          <i class="icon-road s-36"></i>
+          <input type="text" id="form5" [(ngModel)]="routename" class="form-control validate input" placeholder="Name">
+          </div>
+        <div id="edit_hub_name_error"></div> 
+        </div>
+
+        <!-- <div class="md-form ">
+          <div class="input-container">
+                <i class="fas fa-map-marker-alt prefix input-icon "></i>
+          
+          <input type="text" id="form7" [(ngModel)]="address1" class="form-control validate input  pin" placeholder="Location">
+            
+        </div>
+        <div id="edit_hub_location_error"></div>     
+        </div> -->
+        <!-- <div class="md-form ">
+                <div class="input-container">
+                        <i class="fas fa-envelope prefix input-icon"></i>
+                <input type="text" id="form6" [(ngModel)]="address2" class="form-control validate input" placeholder="City/District/Pin">
+                     
+            </div>
+            <div id="edit_hub_add_error"></div> 
+        </div> -->
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-sm btn-success" (click)="editroute()">Edit Route</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

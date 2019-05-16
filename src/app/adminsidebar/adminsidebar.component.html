@@ -1,0 +1,442 @@
+<head>
+
+  </head>
+  
+  <body class="light " >
+  
+  
+    <aside class="main-sidebar fixed offcanvas b-r sidebar-tabs" data-toggle='offcanvas'>
+      <perfect-scrollbar class="sidebar" style="max-width: 600px; max-height: -webkit-fill-available;" [config]="config">
+          <div class="d-flex hv-100 align-items-stretch">
+              <div style="background-color:#7a46c6">
+                  <div  class="nav mt-5 pt-5 flex-column nav-pills" id="v-pills-tab" role="tablist"
+                       aria-orientation="vertical">
+                      <a class="white" class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+                         aria-controls="v-pills-home" aria-selected="true"><i  class="icon-inbox2"></i></a>
+                         <!-- <a class="nav-links" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+                         aria-controls="v-pills-profile" aria-selected="false"><i class="icon-add"></i></a> -->
+                         <a >
+                              <figure class="avatar">
+                                  <img src="assets/img/dummy/u4.png" alt="">
+                                  <span class="blink avatar-badge online"></span>
+                              </figure>
+                          </a>
+                      <!-- <a class="nav-link " id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+                         aria-controls="v-pills-profile" aria-selected="false"><i class="icon-add"></i></a> -->
+                      <!-- <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+                         aria-controls="v-pills-messages" aria-selected="false"><i class="icon-message"></i></a>
+                      <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+                         aria-controls="v-pills-settings" aria-selected="false"><i class="icon-settings"></i></a> -->
+                      
+                  </div>
+              </div>
+              <div class="tab-content flex-grow-1" id="v-pills-tabContent">
+                  <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                       aria-labelledby="v-pills-home-tab">
+                      <div class="relative brand-wrapper sticky b-b">
+                          <div class="d-flex justify-content-between align-items-center p-3">
+                              <div class="text-xs-center ">
+                                  <span class="font-weight-light s-18">Super Admin</span>
+                              </div>
+                              <a [routerLink]="['']" class="badge badge-danger r-0 " >Logout</a>
+                          </div>
+                      </div>
+
+
+                        <!-- <div class="d-flex justify-content-between align-items-center p-3">
+                            <div class="text-xs-center">
+                                <span class="font-weight-lighter s-18">Menu</span>
+                            </div>
+                            <div class="badge badge-danger r-0">New Panel</div>
+                        </div> -->
+                    
+
+                      <ul  class="sidebar-menu">
+                          <li class="treeview custom-dashboard-color-menu"><a [routerLink]="['/admin/dashboard' , hubuserid]">
+                              <i class="icon icon-dashboard2 s-24"></i> <span>Dashboard</span>
+                               <!-- <i
+                                  class=" icon-angle-left  pull-right"></i> -->
+                          </a>
+                     
+                          </li>
+                          <!-- <li  class="treeview custom-stock-color-menu"><a [routerLink]="['/hub/stock', hubuserid]">
+                              <i class="icon icon-industry s-24"></i> <span>Hub Stock </span>
+                    
+                          </a>
+                     
+                          </li> -->
+
+                          <li class="treeview custom-manage-color-menu"  ><a [routerLink]="['/hub/manage', hubuserid]">
+                              <i class="icon icon-device_hub s-24"></i> <span>Manage Hub </span>
+                               <!-- <i
+                                  class=" icon-angle-left  pull-right"></i> -->
+                          </a>
+                     
+                          </li>
+                          <li  class="treeview custom-stock-color-menu"><a [routerLink]="['/spr/hub/stock', hubuserid]">
+                            <i class="icon icon-store_mall_directory s-24"></i> <span>Hub Stocks </span>
+                             <!-- <
+                                class=" icon-angle-left  pull-right"></i> -->
+                        </a>
+                   
+                        </li>
+                        <li class="treeview custom-ewaybill-color-menu"><a [routerLink]="['/ewaybill', hubuserid]">
+                            <i class="icon icon-receipt s-24"></i> <span>E-Waybill </span>
+                             <!-- <i
+                                class=" icon-angle-left  pull-right"></i> -->
+                        </a>
+                   
+                        </li>
+
+                        <li  class="treeview custom-invoices-color-menu"><a [routerLink]="['/invoices', hubuserid]">
+                            <i class="icon icon-document-table2 s-24"></i> <span>Invoices </span>
+                                
+                        </a>
+                        
+                   
+                        </li>
+
+
+                          <li   class="treeview custom-transfer-color-menu"><a [routerLink]="['/transfer/request', hubuserid]">
+                              <i class="icon icon-transfer_within_a_station s-24"></i> <span>Transfer Request </span>
+                              <!-- <i class="icon icon-angle-left s-18 pull-right"></i> -->
+                                  <span *ngIf="factorytransferslength != 0" class=" badge r-3 badge-primary pull-right custom-margin-top-n10" >{{ factorytransferslength }}</span>
+                          </a>
+
+                          <!-- <ul class="treeview-menu " style="background: white;">
+                            <li  *ngFor="let hub of hubs" [class]="'custom-transfer-color-menu'+hub.hubsid" ><a [routerLink]="['/transfer/request', hubuserid, hub.hubsid]"><i class="icon icon-circle-o"></i>{{ hub.name | titlecase }}</a>
+                            </li>
+                           
+                        </ul> -->
+
+
+                     
+                          </li>
+                          <!-- <li class="treeview custom-acceptstock-color-menu"><a [routerLink]="['/acceptstock', hubuserid]">
+                              <i class="icon icon-call_received s-24"></i> <span>Accept Stock </span>
+                  
+                                  <span class="badge r-3 badge-success pull-right custom-margin-top-n10" >4</span>
+                                  
+                          </a>
+                     
+                          </li> -->
+                          <li  class="treeview custom-trips-color-menu"><a [routerLink]="['/trip/details', hubuserid]">
+                            <i class="icon icon-truck s-24"></i> <span>Trips </span>
+                             <!-- <i
+                                class=" icon-angle-left  pull-right"></i> -->
+                                <!-- <span class="badge r-3 badge-success pull-right custom-margin-top-n10" >4</span> -->
+                                
+                        </a>
+                   
+                        </li>
+                          <li  class="treeview custom-products-color-menu"><a [routerLink]="['/products', hubuserid]">
+                              <i class="icon icon-box6 s-24"></i> <span>Products </span>
+                               <!-- <i
+                                  class=" icon-angle-left  pull-right"></i> -->
+                                  <!-- <span class="badge r-3 badge-success pull-right custom-margin-top-n10" >4</span> -->
+                                  
+                          </a>
+                     
+                          </li>
+                          <li  class="treeview custom-items-color-menu"><a [routerLink]="['/order/items', hubuserid]">
+                              <i class="icon icon-shopping_cart s-24"></i> <span>Order Items </span>
+                               <!-- <i
+                                  class=" icon-angle-left  pull-right"></i> -->
+                                  <!-- <span class="badge r-3 badge-success pull-right custom-margin-top-n10" >4</span> -->
+                                  
+                          </a>
+                          
+                     
+                          </li>
+
+                          <li class="treeview custom-adminroutes-color-menu"><a [routerLink]="['/admin/routes', hubuserid]">
+                            <i class="icon icon-road s-24"></i> <span>Routes </span>
+                             <!-- <i
+                                class=" icon-angle-left  pull-right"></i> -->
+                        </a>
+                   
+                        </li>
+
+                          <!-- <li class="treeview custom-hubroutelink-color-menu"><a [routerLink]="['/hubroutelink', hubuserid]">
+                            <i class="icon icon-road s-24"></i> <span>Hub - Route Link </span>
+                     
+                        </a>
+                   
+                        </li> -->
+
+                        <li class="treeview custom-shops-color-menu"><a [routerLink]="['/admin/new/shops', hubuserid]">
+                            <i class="icon icon-local_convenience_store s-24"></i> <span>New Shops </span>
+                             <!-- <i
+                                class=" icon-angle-left  pull-right"></i> -->
+                        </a>
+                   
+                        </li>
+
+                     
+                          <li class="treeview custom-customers-color-menu"><a [routerLink]="['/customers', hubuserid]">
+                                <i class="icon icon-store_mall_directory s-24"></i> <span>Customers </span>
+                                 <!-- <i
+                                    class=" icon-angle-left  pull-right"></i> -->
+                            </a>
+                       
+                            </li>
+    
+
+                          <li class="treeview custom-factory-color-menu"><a [routerLink]="['/factory', hubuserid]">
+                            <i class="icon icon-industry s-24"></i> <span>Factory </span>
+                             <!-- <i
+                                class=" icon-angle-left  pull-right"></i> -->
+                        </a>
+                   
+                        </li>
+
+                          <li class="treeview custom-settings-color-menu"><a [routerLink]="['/settings', hubuserid]">
+                              <i class="icon icon-settings2 s-24"></i> <span>Settings </span>
+                               <!-- <i
+                                  class=" icon-angle-left  pull-right"></i> -->
+                          </a>
+                     
+                          </li>
+                         
+           
+                      </ul>
+                
+                  </div>
+                  <div class="tab-pane fade " id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                      <div class="relative brand-wrapper sticky b-b p-3">
+                          <form>
+                              <div class="form-group input-group-sm has-right-icon">
+                                  <input class="form-control form-control-sm light r-30" placeholder="Search" type="text">
+                                  <i class="icon-search"></i>
+                              </div>
+                          </form>
+                      </div>
+                      <div class="sticky slimScroll">
+  
+                          <div class="p-2">
+                              <ul class="list-unstyled">
+                                  <!-- Alphabet with number of contacts -->
+                                  <li class="pt-3 pb-3 sticky p-3 b-b white">
+                                      <span class="badge r-3 badge-success">A</span>
+                                  </li>
+                                  <!-- Single contact -->
+                                  <li class="my-1">
+                                      <div class="card no-b p-3">
+                                          <div class="">
+                                              
+                                              <div class="image mr-3  float-left">
+                                                  <img class="w-40px" src="assets/img/dummy/u1.png" alt="User Image">
+                                              </div>
+                                              <div>
+                                                  <div>
+                                                      <strong>Alexander Pierce</strong>
+                                                  </div>
+                                                  <small> alexander@paper.com</small>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </li>
+                                  <li class="my-1">
+                                      <div class="card no-b p-3">
+                                          <div class="">
+                                              
+                                              <div class="image mr-3  float-left">
+                                                  <img class="w-40px" src="assets/img/dummy/u6.png" alt="User Image">
+                                              </div>
+                                              <div>
+                                                  <div>
+                                                      <strong>Alexander Pierce</strong>
+                                                  </div>
+                                                  <small> alexander@paper.com</small>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </li>
+                                  <li class="my-1">
+                                      <div class="card no-b p-3">
+                                          <div class="">
+                                              
+                                              <div class="image mr-3  float-left">
+                                                  <img class="w-40px" src="assets/img/dummy/u6.png" alt="User Image">
+                                              </div>
+                                              <div>
+                                                  <div>
+                                                      <strong>Alexander Pierce</strong>
+                                                  </div>
+                                                  <small> alexander@paper.com</small>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </li>
+                              </ul>
+                              <ul class="list-unstyled">
+                                  <li class="pt-3 pb-3 sticky p-3 b-b white">
+                                      <span class="badge r-3 badge-danger">B</span>
+                                  </li>
+                                  <li class="my-1">
+                                      <div class="card no-b p-3">
+                                          <div class="">
+                                              
+                                              <div class="image mr-3  float-left">
+                                                  <img class="w-40px" src="assets/img/dummy/u2.png" alt="User Image">
+                                              </div>
+                                              <div>
+                                                  <div>
+                                                      <strong>Alexander Pierce</strong>
+                                                  </div>
+                                                  <small> alexander@paper.com</small>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </li>
+                                  <li class="my-1">
+                                      <div class="card no-b p-3">
+                                          <div class="">
+                                              
+                                              <div class="image mr-3  float-left">
+                                                  <img class="w-40px" src="assets/img/dummy/u3.png" alt="User Image">
+                                              </div>
+                                              <div>
+                                                  <div>
+                                                      <strong>Alexander Pierce</strong>
+                                                  </div>
+                                                  <small> alexander@paper.com</small>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </li>
+                                  <li class="my-1">
+                                      <div class="card no-b p-3">
+                                          <div class="">
+                                              
+                                              <div class="image mr-3  float-left">
+                                                  <img class="w-40px" src="assets/img/dummy/u4.png" alt="User Image">
+                                              </div>
+                                              <div>
+                                                  <div>
+                                                      <strong>Alexander Pierce</strong>
+                                                  </div>
+                                                  <small> alexander@paper.com</small>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </li>
+                              </ul>
+                              <ul class="list-unstyled">
+                                  <!-- Alphabet with number of contacts -->
+                                  <li class="pt-3 pb-3 sticky p-3 b-b white">
+                                      <span class="badge r-3 badge-success gradient">C</span>
+                                  </li>
+                                  <!-- Single contact -->
+                                  <li class="my-1">
+                                      <div class="card no-b p-3">
+                                          <div class="">
+                                              
+                                              <div class="image mr-3  float-left">
+                                                  <img class="w-40px" src="assets/img/dummy/u1.png" alt="User Image">
+                                              </div>
+                                              <div>
+                                                  <div>
+                                                      <strong>Alexander Pierce</strong>
+                                                  </div>
+                                                  <small> alexander@paper.com</small>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </li>
+                                  <li class="my-1">
+                                      <div class="card no-b p-3">
+                                          <div class="">
+                                              
+                                              <div class="image mr-3  float-left">
+                                                  <img class="w-40px" src="assets/img/dummy/u6.png" alt="User Image">
+                                              </div>
+                                              <div>
+                                                  <div>
+                                                      <strong>Alexander Pierce</strong>
+                                                  </div>
+                                                  <small> alexander@paper.com</small>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </li>
+                                  <li class="my-1">
+                                      <div class="card no-b p-3">
+                                          <div class="">
+                                              
+                                              <div class="image mr-3  float-left">
+                                                  <img class="w-40px" src="assets/img/dummy/u6.png" alt="User Image">
+                                              </div>
+                                              <div>
+                                                  <div>
+                                                      <strong>Alexander Pierce</strong>
+                                                  </div>
+                                                  <small> alexander@paper.com</small>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </li>
+                                  <li class="my-4">
+                                      <span class="badge r-3 badge-danger purple">D</span>
+                                  </li>
+                                  <li class="my-1">
+                                      <div class="card no-b p-3">
+                                          <div class="">
+                                              
+                                              <div class="image mr-3  float-left">
+                                                  <img class="w-40px" src="assets/img/dummy/u2.png" alt="User Image">
+                                              </div>
+                                              <div>
+                                                  <div>
+                                                      <strong>Alexander Pierce</strong>
+                                                  </div>
+                                                  <small> alexander@paper.com</small>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </li>
+                                  <li class="my-1">
+                                      <div class="card no-b p-3">
+                                          <div class="">
+                                              
+                                              <div class="image mr-3  float-left">
+                                                  <img class="w-40px" src="assets/img/dummy/u3.png" alt="User Image">
+                                              </div>
+                                              <div>
+                                                  <div>
+                                                      <strong>Alexander Pierce</strong>
+                                                  </div>
+                                                  <small> alexander@paper.com</small>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </li>
+                                  <li class="my-1">
+                                      <div class="card no-b p-3">
+                                          <div class="">
+                                              
+                                              <div class="image mr-3  float-left">
+                                                  <img class="w-40px" src="assets/img/dummy/u4.png" alt="User Image">
+                                              </div>
+                                              <div>
+                                                  <div>
+                                                      <strong>Alexander Pierce</strong>
+                                                  </div>
+                                                  <small> alexander@paper.com</small>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </perfect-scrollbar>
+  </aside>
+  
+  
+  
+  
+  </body>

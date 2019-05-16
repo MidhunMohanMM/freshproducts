@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style>
+        .loader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F5F8FA;
+            z-index: 9998;
+            text-align: center;
+        }
+
+        .plane-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+   </head>
+<body class="light">
+
+ <div id="loader" >
+</div>
+<div id="app">
+        <app-adminsidebar></app-adminsidebar>
+        <!-- <app-freshsidebar *ngIf="hubusertype != '1'"></app-freshsidebar> -->
+   
+    <script>
+        /*
+         *  Add sidebar classes (sidebar-mini sidebar-collapse sidebar-expanded-on-hover) in body tag
+         *  you can remove this script tag and add classes directly to body
+         *  this is only for demo
+         */
+        document.body.className += ' sidebar-mini' + ' sidebar-collapsex' + ' sidebar-expanded-on-hoverx';
+      </script>
+        <a    data-toggle="push-menu" class="paper-nav-toggle left ml-2 fixed">
+            <i></i>
+        </a>
+      <div class="has-sidebar-left has-sidebar-tabs sticky">
+        <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-dark pt-2 pb-2 pl-4 pr-2">
+                <div class="search-bar">
+                    <input class="transparent s-24 text-white b-0 font-weight-lighter w-128 height-50" type="text"
+                           placeholder="start typing...">
+                </div>
+                <a    data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-expanded="false"
+                   aria-label="Toggle navigation" class="paper-nav-toggle paper-nav-white active "><i></i></a>
+            </div>
+        </div>
+      </div>
+        <div class="sticky">
+            <div class="navbar navbar-expand d-flex justify-content-between bd-navbar white shadow custom-padding-navbar">
+                <div class="relative">
+                    <div class="d-flex">
+                          <!-- <div class="w-80px ">
+                                  <img src="assets/img/basic/chipologo.png" alt="">
+                              </div> -->
+                        <div class="d-none d-md-block">
+                            <h1 class="nav-title custom-margin-left-40">Dashboard</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav" >
+                        <!-- Messages-->
+                        
+                        <!-- Notifications -->
+                        
+                        <!-- <li>
+                            <a class="nav-link " data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                               aria-controls="navbarToggleExternalContent"
+                               aria-expanded="false" aria-label="Toggle navigation">
+                                <i class=" icon-search3 "></i>
+                            </a>
+                        </li> -->
+                      
+                        <li class="dropdown custom-dropdown user user-menu ">
+                            
+                            <div class="dropdown-menu p-4 dropdown-menu-right">
+                                
+                                
+                                <hr>
+                                <div class="row box justify-content-between my-4">
+                                    
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                  </div>
+            </div>
+        </div>
+      </div>
+
+    <div class="has-sidebar-left has-sidebar-tabs">
+
+
+
+            <div class="container-fluid relative animatedParent animateOnce p-lg-5 pt-5">
+        
+                <div class="animated ">
+                    <div class="row ">
+
+                            <div class="col-md-9">
+                                    <div class=" pb-lg-5 pt-xs-5 relative">
+                                        <h1>
+                                            Welcome back, {{ username | titlecase }}
+                                        </h1>
+                                        <strong>Current Hub Summary</strong>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4 my-3">
+                                            <div class="d-flex">
+                                                <a href="#">
+                                                    <i class="icon-apps purple lighten-2 avatar avatar-lg  mr-3 r-5"></i>
+                    
+                                                </a>
+                                                <div>
+                                                    <h6 class="mt-0 mb-1">Hub Name</h6>
+                                                    <h5 class="mt-1 text-dark-heading">{{ hubname }}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 my-3">
+                                            <div class="d-flex">
+                                                <img class="mr-3 r-3" src="assets/img/dummy/bootstrap.png" alt="" width="50" height="50">
+                                                <div>
+                                                    <h6 class="mt-0 mb-1">Company</h6>
+                                                    <h5 class="mt-1 text-dark-heading">Chipo </h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 my-3">
+                                            <div class="d-flex">
+                                                <img class="mr-3 r-3 circle" src="assets/img/dummy/u12.png" alt="" width="50" height="50">
+                                                <div>
+                                                    <h6 class="mt-0 mb-1">Designation</h6>
+                                                    <h5 class="mt-1 text-dark-heading"> {{ designation | titlecase }}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                        <div class="col-md-12 ">
+            <div class="row my-3">
+                    <div class="col-md-3">
+                        <!-- <div class="counter-box p-40 gradient  text-white shadow2 r-5">
+                            <div class="p-4">
+                                <div class="float-right">
+                                    <span class="icon icon-organization-1 text-light-blue s-48"></span>
+                                </div>
+                                <div class="counter-title custom-counter-title">Hubs </div>
+                                <strong>
+                                        <span class="s-36" [CountTo]="10" [from]="0" [duration]="1"></span>
+                                </strong>
+                            
+          
+                            </div>
+                
+                        </div> -->
+                        <div class="counter-box p-40 gradient  text-white shadow2 r-5">
+                            <div class="float-right">
+                                <span class="icon icon-organization-1 s-48"></span>
+                            </div>
+                            <div class="sc-counter s-36" [CountTo]="hublength" [from]="0" [duration]="1"></div>
+                            <h6 class="counter-title">Hubs</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <!-- <div class="counter-box p-40 gradient  text-white shadow2 r-5">
+                            <div class="p-4">
+                                <div class="float-right">
+                                    <span class="icon text-light-blue icon-shop s-48"></span>
+                                </div>
+                                <div class="counter-title custom-counter-title">Shops </div>
+                                <strong>
+                                        <span class="custom-font-size" [CountTo]="30" [from]="0" [duration]="1"></span>
+                                </strong>
+                            </div>
+            
+                        </div> -->
+                        <div class="counter-box p-40 gradient  text-white shadow2 r-5">
+                                <div class="float-right">
+                                    <span class="icon icon-road s-48"></span>
+                                </div>
+                                <div class="sc-counter s-36" [CountTo]="routelength" [from]="0" [duration]="1"></div>
+                                <h6 class="counter-title">Routes</h6>
+                            </div>
+                    </div>
+                    <div class="col-md-3">
+                  
+                        
+                        <div class="counter-box p-40 gradient  text-white shadow2 r-5">
+                                <div class="float-right">
+                                    <span class="icon icon-box5  s-48"></span>
+                                </div>
+                                <div class="sc-counter s-36" [CountTo]="productlength" [from]="count.from" [duration]="count.duration"></div>
+                                <h6 class="counter-title">Products</h6>
+                            </div>
+                    </div>
+                    <div class="col-md-3">
+                  
+                        
+                            <div class="counter-box p-40 gradient  text-white shadow2 r-5">
+                                    <div class="float-right">
+                                        <span class="icon icon-meeting   s-48"></span>
+                                    </div>
+                                    <div class="sc-counter s-36" [CountTo]="customerlength" [from]="0" [duration]="1"></div>
+                                    <h6 class="counter-title">Customers </h6>
+                                </div>
+                        </div>
+                </div>
+
+                <div class="my-5">
+                        <ul id="myTab4" role="tablist" class="nav nav-pills mb-3">
+                            <li>
+                                <a class="nav-link active show s-16 font-weight-lighter r-30 " id="tab1" data-toggle="tab" href="#v-pills-tab1" role="tab" aria-controls="tab1" aria-expanded="true" aria-selected="true">Basic Information</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link s-16 font-weight-lighter r-30" id="tab2" data-toggle="tab" href="#v-pills-tab2" role="tab" aria-controls="tab2" aria-selected="false">Your Progress</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link  s-16 font-weight-lighter r-30" id="tab3" data-toggle="tab" href="#v-pills-tab3" role="tab" aria-controls="tab3" aria-selected="false">Expense Report</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="v-pills-tab1" role="tabpanel" aria-labelledby="v-pills-tab1">
+                                <!-- <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card no-b my-3 shadow2">
+                                            <div class="card-header white no-b p-5 d-flex justify-content-between ">
+                                                <h4>Monthly Expenses</h4>
+                                                <div class="dropdown">
+                                                    <a class="" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="icon-more_vert p-0 s-16"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item" href="#">View
+                                                            Profile </a>
+                                                        <a class="dropdown-item" href="#">Account
+                                                            Settings </a>
+                                                        <a class="dropdown-item" href="#">
+                                                            Earning Reports </a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#">Logout
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body pb-5 pl-5 pr-5">
+                                                <div style="height: 400px">
+                                                    <canvas
+                                                            data-chart="line"
+                                                            data-dataset="[[20, 24, 32, 34, 38, 35, 37, 40, 53, 60, 62],[48, 54, 53, 58, 56, 62, 61, 59, 76, 78, 80],]"
+                                                            data-labels="['1', '4', '7', '10', '13', '16', '19', '22', '25', '28', '31']"
+                                                            data-dataset-options="datasets: [{
+                                label: 'Months',
+                                fill: !0,
+                                lineTension: 0,
+                                backgroundColor: 'rgba(101, 148, 255, 0.5)',
+                                borderWidth: 2,
+                                borderColor: 'rgba(101, 148, 255,1)',
+                                borderCapStyle: 'butt',
+                                borderDash: [],
+                                borderDashOffset: 0,
+                                borderJoinStyle: 'miter',
+                                pointRadius: 4,
+                                pointBorderColor: 'rgba(101, 148, 255,1)',
+                                pointBackgroundColor: '#fff',
+                                pointBorderWidth: 2,
+                                pointHoverRadius: 6,
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgba(101, 148, 255,1)',
+                                pointHoverBorderWidth: 2,
+                                spanGaps: !1
+                            }, {
+                                label: 'Hours',
+                                fill: !0,
+                                lineTension: 0,
+                                backgroundColor: 'rgba(136, 226, 255, 0.5)',
+                                borderWidth: 2,
+                                borderColor: 'rgba(136, 226, 255, 1)',
+                                pointRadius: 4,
+                                pointBorderColor: 'rgba(136, 226, 255, 1)',
+                                pointBackgroundColor: '#fff',
+                                pointBorderWidth: 2,
+                                pointHoverRadius: 6,
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgba(101, 148, 255,1)',
+                                pointHoverBorderWidth: 2,
+                                spanGaps: !1
+                            }]"
+                                                            data-options="{
+                            legend: {
+                                display: !0,
+                                labels: {
+                                    fontColor: '#7F8FA4',
+                                    boxRadius: 4,
+                                    usePointStyle: !0
+                                }
+                            },
+                            layout: {
+                                padding: {
+                                    left: 0,
+                                    right: 0,
+                                    top: 0,
+                                    bottom: 0
+                                }
+                            },
+                            scales: {
+                                xAxes: [{
+                                    display: !0,
+                                    ticks: {
+                                        fontSize: '11',
+                                        fontColor: '#969da5'
+                                    },
+                                    gridLines: {
+                                       display: false,
+                                       zeroLineColor: 'rgba(255,255,255,0.1)',
+                                                             color: 'rgba(255,255,255,0.1)',
+                                    }
+                                }],
+                                yAxes: [{
+                                    display: !0,
+                                    gridLines: {
+                                     display: false,
+                                     zeroLineColor: 'rgba(255,255,255,0.1)',
+                                                             color: 'rgba(255,255,255,0.1)',
+                                    },
+                                    ticks: {
+                                        beginAtZero: !0,
+                                        max: 100,
+                                        stepSize: 25,
+                                        fontSize: '11',
+                                        fontColor: '#969da5'
+                                    }
+                                }]
+                            }
+                        }">
+                                                    </canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card no-b my-3 shadow2">
+                                            <div class="card-header white no-b p-5 d-flex justify-content-between ">
+                                                <h4>Leaves Trend</h4>
+                                                <div class="dropdown">
+                                                    <a class="" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="icon-more_vert p-0 s-16"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item" href="#">View
+                                                            Profile </a>
+                                                        <a class="dropdown-item" href="#">Account
+                                                            Settings </a>
+                                                        <a class="dropdown-item" href="#">
+                                                            Earning Reports </a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#">Logout
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           <div class="card-body pb-5 pl-5 pr-5">
+                                               <div style="height: 400px">
+                                                   <canvas
+                                                           data-chart="bar"
+                                                           data-dataset="[
+                                                    [21, 90, 55, 0, 59, 77, 12,21, 90, 55, 0, 59, 77, 12,21, 90, 55, 0, 59, 77, 12],
+                                                    [12, 40, 16, 17, 89, 0, 12,12, 0, 55, 60, 79, 99, 12,12, 0, 55, 60, 79, 99, 12],
+                                                    [12, 40, 16, 17, 89, 0,12, 40, 16, 17, 89, 0, 12,12, 40, 16, 17, 89, 0, 12],
+                                                    ]"
+                                                           data-labels="['Blue','Yellow','Green','Purple','Orange','Red','Indigo','Blue','Yellow','Green','Purple','Orange','Red','Indigo','Blue','Yellow','Green','Purple','Orange','Red','Indigo']"
+                                                           data-dataset-options="[
+                                                {
+                                                    label: 'HTML',
+                                                    backgroundColor: '#6594ff',
+                                                    borderWidth: 0,
+            
+                                                },
+                                                {
+                                                     label: 'Wordpress',
+                                                     backgroundColor: '#88e2ff',
+                                                     borderWidth: 0,
+            
+                                                 },
+                                                {
+                                                      label: 'Laravel',
+                                                      backgroundColor: '#e2e8f0',
+                                                      borderWidth: 0,
+            
+                                                  }
+                                                ]"
+                                                           data-options="{
+                                                  legend: { display: true,},
+                                                  scales: {
+                                                    xAxes: [{
+                                                        stacked: true,
+                                                         barThickness:5,
+                                                         gridLines: {
+                                                            zeroLineColor: 'rgba(255,255,255,0.1)',
+                                                             color: 'rgba(255,255,255,0.1)',
+                                                             display: false,},
+                                                         }],
+                                                    yAxes: [{
+                                                            stacked: true,
+                                                                 gridLines: {
+                                                                    zeroLineColor: 'rgba(255,255,255,0.1)',
+                                                                    color: 'rgba(255,255,255,0.1)',
+                                                                }
+                                                   }]
+            
+                                                  }
+                                            }"
+                                                   >
+                                                   </canvas>
+                                               </div>
+                                           </div>
+                                        </div>
+                                    </div>
+                                </div> -->                       
+
+                                <div class=" align-items-center justify-content-center custom-row">              
+                                        <div class="card  mb-3 no-r col-md-12 custom-border-left-none"  >
+                                                <div class="card-header white no-b p-5 d-flex justify-content-between  custom-card-header " >
+                                                    <h4>Shops Added</h4> 
+                                                </div>
+                                                <div class="card-body">
+                                                        <div class="" >
+                                                                <canvas class="" baseChart
+                                                                    [data]="lineChartData"
+                                                                    [labels]="lineChartLabels"
+                                                                    [options]="lineChartOptions"
+                                                                    [chartType]="lineChartType"
+                                                                    (chartHover)="chartHovered($event)"
+                                                                    (chartClick)="chartClicked($event)"></canvas>
+                                                                </div>
+                                                </div>
+                
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="tab-pane fade text-center" id="v-pills-tab2" role="tabpanel" aria-labelledby="v-pills-tab2">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="card no-b my-3 shadow2">
+                                            <div class="card-header white no-b p-5 d-flex justify-content-between ">
+                                                <h4>Activity Feed</h4>
+                                                <div class="dropdown">
+                                                    <a class="" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="icon-more_vert p-0 s-16"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item" href="#">View
+                                                            Profile </a>
+                                                        <a class="dropdown-item" href="#">Account
+                                                            Settings </a>
+                                                        <a class="dropdown-item" href="#">
+                                                            Earning Reports </a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#">Logout
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body pb-5 pl-5 pr-5">
+                                                <div style="height: 400px">
+                                                    <canvas
+                                                            data-chart="line"
+                                                            data-dataset="[[20, 24, 32, 34, 38, 35, 37, 40, 53, 60, 62],[48, 54, 53, 58, 56, 62, 61, 59, 76, 78, 80],]"
+                                                            data-labels="['1', '4', '7', '10', '13', '16', '19', '22', '25', '28', '31']"
+                                                            data-dataset-options="datasets: [{
+                                label: 'Months',
+                                fill: !0,
+                                lineTension: 0,
+                                backgroundColor: 'rgba(101, 148, 255, 0.5)',
+                                borderWidth: 2,
+                                borderColor: 'rgba(101, 148, 255,1)',
+                                borderCapStyle: 'butt',
+                                borderDash: [],
+                                borderDashOffset: 0,
+                                borderJoinStyle: 'miter',
+                                pointRadius: 4,
+                                pointBorderColor: 'rgba(101, 148, 255,1)',
+                                pointBackgroundColor: '#fff',
+                                pointBorderWidth: 2,
+                                pointHoverRadius: 6,
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgba(101, 148, 255,1)',
+                                pointHoverBorderWidth: 2,
+                                spanGaps: !1
+                            }, {
+                                label: 'Hours',
+                                fill: !0,
+                                lineTension: 0,
+                                backgroundColor: 'rgba(136, 226, 255, 0.5)',
+                                borderWidth: 2,
+                                borderColor: 'rgba(136, 226, 255, 1)',
+                                pointRadius: 4,
+                                pointBorderColor: 'rgba(136, 226, 255, 1)',
+                                pointBackgroundColor: '#fff',
+                                pointBorderWidth: 2,
+                                pointHoverRadius: 6,
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgba(101, 148, 255,1)',
+                                pointHoverBorderWidth: 2,
+                                spanGaps: !1
+                            }]"
+                                                            data-options="{
+                            legend: {
+                                display: !0,
+                                labels: {
+                                    fontColor: '#7F8FA4',
+                                    boxRadius: 4,
+                                    usePointStyle: !0
+                                }
+                            },
+                            layout: {
+                                padding: {
+                                    left: 0,
+                                    right: 0,
+                                    top: 0,
+                                    bottom: 0
+                                }
+                            },
+                            scales: {
+                                xAxes: [{
+                                    display: !0,
+                                    ticks: {
+                                        fontSize: '11',
+                                        fontColor: '#969da5'
+                                    },
+                                    gridLines: {
+                                       display: false,
+                                       zeroLineColor: 'rgba(255,255,255,0.1)',
+                                                             color: 'rgba(255,255,255,0.1)',
+                                    }
+                                }],
+                                yAxes: [{
+                                    display: !0,
+                                    gridLines: {
+                                     display: false,
+                                     zeroLineColor: 'rgba(255,255,255,0.1)',
+                                                             color: 'rgba(255,255,255,0.1)',
+                                    },
+                                    ticks: {
+                                        beginAtZero: !0,
+                                        max: 100,
+                                        stepSize: 25,
+                                        fontSize: '11',
+                                        fontColor: '#969da5'
+                                    }
+                                }]
+                            }
+                        }">
+                                                    </canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="tab-pane fade text-center p-5" id="v-pills-tab3" role="tabpanel" aria-labelledby="v-pills-tab3">
+                                <h4 class="card-title">Tab 3</h4>
+                                <p class="card-text">With supporting text below as a natural lead-in to additional
+                                    content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+            
+                </div>
+
+              
+
+<!-- 
+        <div class="container-fluid relative animatedParent animateOnce my-3">
+            <div class="card no-b my-3">
+                <div class="card-body">
+                    <div class="my-2 col-md-12" style="min-height: 200px"> -->
+                 
+
+                                <div class=" align-items-center justify-content-center custom-row">
+                                        <!-- <div class="card mb-3   no-r col-md-6 custom-border-right-none"  >
+                                                <div class="card-header  custom-card-header  ">Pie Chart Data</div>
+                                                <div class="card-body">
+                                                        <div class="custom-canvas-div"  >
+                                                                <canvas class="custom-canvas" baseChart
+                                                                        [data]="pieChartData"
+                                                                        [labels]="pieChartLabels"
+                                                                        [chartType]="pieChartType"
+                                                                        (chartHover)="chartHovered($event)"
+                                                                        (chartClick)="chartClicked($event)"></canvas>
+                                                              </div>
+                                                </div>
+                                       
+                                        </div> -->
+<!--                 
+                                        <div class="card  mb-3 no-r col-md-12 custom-border-left-none"  >
+                                                <div class="card-header custom-card-header " >Shops Added </div>
+                                                <div class="card-body">
+                                                        <div class="" >
+                                                                <canvas class="" baseChart
+                                                                    [data]="lineChartData"
+                                                                    [labels]="lineChartLabels"
+                                                                    [options]="lineChartOptions"
+                                                                    [chartType]="lineChartType"
+                                                                    (chartHover)="chartHovered($event)"
+                                                                    (chartClick)="chartClicked($event)"></canvas>
+                                                                </div>
+                                                </div>
+                
+                                        </div> -->
+                                    </div>
+                    <!-- </div>
+                </div>
+                
+            </div>
+            
+           
+        </div> -->
+    </div>
+</div>
+</div>
+</div>
+ 
+
+</div>
+
+</div>
+
+</body>
+</html>

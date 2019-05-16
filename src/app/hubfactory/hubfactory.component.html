@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style>
+        .loader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F5F8FA;
+            z-index: 9998;
+            text-align: center;
+        }
+
+        .plane-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+   </head>
+<body class="light">
+
+ <div id="loader" >
+</div>
+<div id="app">
+    <app-freshsidebar></app-freshsidebar>
+
+    <script>
+      /*
+       *  Add sidebar classes (sidebar-mini sidebar-collapse sidebar-expanded-on-hover) in body tag
+       *  you can remove this script tag and add classes directly to body
+       *  this is only for demo
+       */
+      document.body.className += ' sidebar-mini' + ' sidebar-collapsex' + ' sidebar-expanded-on-hoverx';
+    </script>
+      <a    data-toggle="push-menu" class="paper-nav-toggle left ml-2 fixed">
+          <i></i>
+      </a>
+    <div class="has-sidebar-left has-sidebar-tabs sticky">
+      <!-- <div class="pos-f-t">
+      <div class="collapse" id="navbarToggleExternalContent">
+          <div class="bg-dark pt-2 pb-2 pl-4 pr-2">
+              <div class="search-bar">
+                  <input [(ngModel)] = "search1" class="transparent s-24 text-white b-0 font-weight-lighter w-128 height-50" type="text"
+                         placeholder="start typing...">
+              </div>
+              <a    data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-expanded="false"
+                 aria-label="Toggle navigation" class="paper-nav-toggle paper-nav-white active "><i></i></a>
+          </div>
+      </div>
+    </div> -->
+      <!-- <div class="sticky">
+          <div class="navbar navbar-expand d-flex justify-content-between bd-navbar white  shadow">
+              <div class="relative">
+                  <div class="d-flex">
+                      <div class="d-none d-block">
+                          <h1 class="nav-title float-left custom-margin-left-40">Factory</h1>
+                                   
+                          <button type="button" style="margin-top:10px;margin-left:30px;" class="btn btn-danger r-3 btn-xs float-right" data-toggle="modal" data-target="#modalAddFactory">Add Factory</button>
+                        
+                      </div>
+                  </div>
+              </div>
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+          
+          <li>
+              <a class="nav-link " data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                 aria-controls="navbarToggleExternalContent"
+                 aria-expanded="false" aria-label="Toggle navigation">
+                  <i class=" icon-search3 "></i>
+              </a>
+          </li>
+        
+          <li class="dropdown custom-dropdown user user-menu ">
+              
+              <div class="dropdown-menu p-4 dropdown-menu-right">
+                  
+                  
+                  <hr>
+                  <div class="row box justify-content-between my-4">
+                      
+                  </div>
+              </div>
+          </li>
+      </ul>
+    </div>
+          </div>
+      </div> -->
+
+      <header class="white accent-3 relative nav-sticky">
+          <div class="container-fluid text-blue custom-padding-left-62 custom-border-bottom-eaeff3">
+              <div class="row p-t-b-10 ">
+                  <div class="col">
+                      <h4>
+                          Factory
+                      </h4>
+                  </div>
+              </div>
+              <div class="row justify-content-between">
+                      <ul class="nav nav-material responsive-tab" id="v-pills-tab" role="tablist">
+                          <li>
+                              <a class="nav-link active" id="v-pills-buyers-tab" data-toggle="pill" href="#v-pills-buyers" role="tab"
+                                 aria-controls="v-pills-buyers"><i class="icon icon-inbox-filled2"></i>View Factory Stock</a>
+                          </li>
+                          <li>
+                              <a class="nav-link " id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all"
+                                 role="tab" aria-controls="v-pills-all"><i class="icon icon-home2"></i>View Factory Details </a>
+                          </li>
+                          <li>
+                              <a class="nav-link " id="v-pills-factorytransfer-tab" data-toggle="pill" href="#v-pills-factorytransfer"
+                                 role="tab" aria-controls="v-pills-factorytransfer"><i class="icon icon-swap_horiz"></i>View Factory Transfers </a>
+                          </li>
+                
+                       </ul>
+                  </div>
+          </div>
+      </header>
+
+    </div>
+
+    <div class="has-sidebar-left has-sidebar-tabs">      
+        <div class="content-wrapper animatedParent animateOnce">
+
+            <div class="tab-content " id="v-pills-tabContent">
+                <div class="tab-pane animated fade " id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
+
+
+
+            <div class="container">
+                <section class="paper-card">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="box">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title float-left">List of Factories </h3>
+                                 
+                                </div>
+                   
+                                <div class="box-body table-responsive no-padding my-3 p-t-10">
+                                    <table class="table table-bordered ">
+                                        <tbody>
+                                        <tr>
+                                            <th class="custom-width-10">#</th>
+                                            <th (click)="sort('name')">Name
+                                            <span class="icon-sort" *ngIf="key =='name'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                          </th>
+                                            <th (click)="sort('unit')">Address 1
+                                                <span class="icon-sort" *ngIf="key =='unit'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                            </th>
+                                            <th (click)="sort('hsn_code')">Address 2
+                                                <span class="icon-sort" *ngIf="key =='hsn_code'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                         
+                                            </th>
+                                      
+                 
+                                            <th class="custom-width-10">Actions</th>
+                                        </tr>
+
+                                        <tr *ngFor = " let factory of listFactory | orderBy: key : reverse | paginate: { itemsPerPage: 5, currentPage: p };let i = index">
+                                              <td>{{i+1}}</td>
+                                              <td>{{factory.name  | titlecase}}</td>
+                                              <td>{{factory.address1  | titlecase }}</td>
+                                              <td>{{factory.address2  | titlecase}}</td>
+                                              
+                                              <td><a (click) = "getFactoryByid(factory.factoriesid)" data-toggle="modal" data-target="#modalEditFactory"><i class="icon-mode_edit s-18 mr-3"></i></a>
+                                                <a (click) = "deleteFactory(factory.factoriesid)" ><i class="icon-delete_sweep s-18"  mwlConfirmationPopover
+                                                  [popoverTitle]="popoverTitle"
+                                                  [popoverMessage]="popoverMessage"
+                                                  placement="left"
+                                                  (confirm)="confirmClicked = true"
+                                                  (cancel)="cancelClicked = true"></i></a></td>                                        </tr>   
+   
+                                        </tbody>
+                                    </table>
+                                </div>
+                            
+                            </div>
+                 
+                        </div>
+    
+                    </div>   
+                    <!-- <div class="custom-text-align-right" >
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>       -->
+         
+                </section>
+            </div>
+            </div>
+
+            <div class="tab-pane animated fade show active " id="v-pills-buyers" role="tabpanel" aria-labelledby="v-pills-buyers-tab">
+                    <div *ngIf="loading == true">
+                            <img src="assets/img/basic/loader2.gif" alt="" class="load" >
+                            
+                        </div>
+            
+                      <div *ngIf="loading == false" class="container">
+                    <section class="paper-card">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title float-left">Factory Stock </h3>
+   
+                                    </div>
+                             
+                                    <!-- /.box-header -->
+                                    <div class="box-body table-responsive no-padding  my-3 p-t-10">
+                                        <div class="relative brand-wrapper sticky ">
+                                            <form>
+                                                <div class="form-group input-group-sm has-right-icon ">
+                                                    <input class="form-control form-control-sm light r-30" name="search" [(ngModel)] = "search1"  placeholder="Search" type="text">
+                                                    <i class="icon-search"></i>
+                                                </div>
+                                            </form>
+                                        </div>
+                                          <!-- <div class="col-md-6 custom-padding-left-0" >
+                                                  <div class="form-group col-md-8 custom-margin-top-10 custom-padding-left-0" >
+                                                          <label class="float-left">Select Order Type </label>
+                                                          <select  [(ngModel)] = "selectedorder" (ngModelChange)="getproductbyordertype()"  class="custom-select r-0 " required>
+                                                              <option value disabled>All Orders</option>
+                                                              <option value="1">Preorder</option>
+                                                              <option value="2">Open Stock</option>
+                                                          </select>
+                                                          
+                                                      </div></div> -->
+      
+                                        <table class="table table-bordered ">
+                                            <tbody>
+           
+      
+                                            <tr>
+                                              <th class="custom-width-10">#</th>
+                                              <th (click)="sort('productname')">Products
+                                              <span class="icon-sort" *ngIf="key =='productname'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                            </th>
+                                              <th (click)="sort('quantity')">Quantity
+                                                  <span class="icon-sort" *ngIf="key =='quantity'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                              </th>
+                                              <th (click)="sort('unit')">Unit
+                                                <span class="icon-sort" *ngIf="key =='unit'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                            </th>
+                                              <!-- <th (click)="sort('stocktypename')">Order Type
+                                                  <span class="icon-sort" *ngIf="key =='stocktypename'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                           
+                                              </th> -->
+                                              <!-- <th class="custom-width-10">Actions</th> -->
+                                          </tr>
+      
+      
+                                            <tr *ngFor = " let factorystock of factorystocks | search : search1 | orderBy: key : reverse | paginate: { itemsPerPage: 25, currentPage: p };let i = index">
+                                              <td>{{i+1}}</td>
+                                              <td>{{factorystock.productname | titlecase }} </td>
+                                              <td>{{factorystock.stock }}</td>
+                                              <!-- <td>{{factorystock.stocktypename | titlecase }}</td> -->
+                                              <td>{{factorystock.units | titlecase }}</td>
+                                              <!-- <td><a data-toggle="modal" data-target="#modalEditHub"><i class="icon-eye s-18 mr-3"></i></a>
+                                                <a class=" "><i class="icon-delete_sweep s-18"></i></a></td> -->
+                                              <!-- <td><a data-toggle="modal" data-target="#modalEditHub"><i class="icon-eye s-18 mr-3"></i></a>
+                                                  <a class=" "><i class="icon-delete_sweep s-18"></i></a></td> -->
+                                        
+                                                  <!-- <td><a (click)="gethubstockbyID(stock.hubsstocksid)" data-toggle="modal" data-target="#modalEditHubStock"><i class="icon-mode_edit s-18 mr-3"></i></a>
+                                                      <a (click) = "deletehubstock(stock.hubsstocksid)" ><i class="icon-delete_sweep s-18"  mwlConfirmationPopover
+                                                        [popoverTitle]="popoverTitle"
+                                                        [popoverMessage]="popoverMessage"
+                                                        placement="left"
+                                                        (confirm)="confirmClicked = true"
+                                                        (cancel)="cancelClicked = true"></i></a></td> -->
+      
+                                            </tr>   
+                                            <!-- <tr  >
+                                                  <td>1.</td>
+                                                  <td>Chips</td>
+                                                  <td>12</td>
+                                           
+                                                  <td><a data-toggle="modal" data-target="#modalEditHub"><i class="icon-eye s-18 mr-3"></i></a>
+                                                  <a class=" "><i class="icon-delete_sweep s-18"></i></a></td>
+                                            </tr>  
+                                            <tr  >
+                                              <td>2.</td>
+                                              <td>Halwa</td>
+                                              <td>30</td>
+                                          
+                                            <td><a data-toggle="modal" data-target="#modalEditHub"><i class="icon-eye s-18 mr-3"></i></a>
+                                              <a class=" "><i class="icon-delete_sweep s-18"></i></a></td>
+      
+                                        </tr>     -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+ 
+                                </div>
+                     
+                            </div>
+        
+                        </div>      
+                        <div class="custom-text-align-right" >
+                          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                      </div>       
+                    </section>
+                </div>
+
+
+            </div>
+
+            <div class="tab-pane animated fade " id="v-pills-factorytransfer" role="tabpanel" aria-labelledby="v-pills-factorytransfer-tab">
+
+
+
+                <div class="container">
+                    <section class="paper-card">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="box">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title float-left">List of Factory Transfers </h3>
+                                     
+                                    </div>
+                       
+                                    <div class="box-body table-responsive no-padding my-3 p-t-10">
+                                        <table class="table table-bordered ">
+                                            <tbody>
+                                            <tr>
+                                                <th class="custom-width-10">#</th>
+                                                <th (click)="sort('hubname')">Hub
+                                                <span class="icon-sort" *ngIf="key =='hubname'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                              </th>
+                                                <th (click)="sort('productname')">Products
+                                                    <span class="icon-sort" *ngIf="key =='productname'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                </th>
+                                                <th (click)="sort('quantity')">Quantity
+                                                    <span class="icon-sort" *ngIf="key =='quantity'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                             
+                                                </th>
+                                                <th (click)="sort('status')">Status
+                                                    <span class="icon-sort" *ngIf="key =='status'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                             
+                                                </th>
+                                          
+                     
+                                                <th class="custom-width-10">Actions</th>
+                                            </tr>
+    
+                                            <tr *ngFor = " let factorytransfer of factorytransfers | orderBy: key : reverse | paginate: { itemsPerPage: 25, currentPage: pq };let i = index">
+                                                  <td>{{i+1}}</td>
+                                                  <td>{{factorytransfer.hubname  | titlecase}}</td>
+                                                  <td>{{factorytransfer.productname  | titlecase }}</td>
+                                                  <td>{{factorytransfer.quantity }}</td>
+                                                  <td *ngIf="factorytransfer.status == '0'">Disabled</td>
+                                                  <td *ngIf="factorytransfer.status == '1'">Active</td>
+                                                  <td *ngIf="factorytransfer.status == '2'">Approved</td>
+                                                   <td *ngIf="factorytransfer.status == '3'">Rejected </td>
+                                                   <td *ngIf="factorytransfer.status == '4'">Completed </td>
+                                                  <td><a (click) = "getFactoryByid(factorytransfer.factoriesid)" data-toggle="modal" data-target="#modalEditFactory"><i class="icon-mode_edit s-18 mr-3"></i></a>
+                                                    <a (click) = "deleteFactory(factorytransfer.factoriesid)" ><i class="icon-delete_sweep s-18"  mwlConfirmationPopover
+                                                      [popoverTitle]="popoverTitle"
+                                                      [popoverMessage]="popoverMessage"
+                                                      placement="left"
+                                                      (confirm)="confirmClicked = true"
+                                                      (cancel)="cancelClicked = true"></i></a></td>                                        </tr>   
+       
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                
+                                </div>
+                     
+                            </div>
+        
+                        </div>   
+                        <div class="custom-text-align-right" >
+                            <pagination-controls (pageChange)="pq = $event"></pagination-controls>
+                        </div>      
+             
+                    </section>
+                </div>
+                </div>
+
+            </div>
+
+        </div>
+</div>
+</div>
+
+<div class="modal fade" id="modalAddFactory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-left">
+        <h4 class="modal-title w-100 font-weight-bold">Add Factory</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form">
+          <div class="input-container">
+          <i class="fas fa-user prefix  input-icon"></i>
+          <input  type="text" [(ngModel)]="name" id="name"  class="form-control validate input custom-margin-left-21" placeholder="Name">
+          </div>
+        <div id="factory_name_error"></div> 
+        </div>
+
+        <div class="md-form">
+          <div class="input-container">
+                <i class="icon-th-list prefix input-icon "></i>
+          
+          <input type="text" [(ngModel)]="address1" id="unit"  class="form-control validate input  pin" placeholder="Address 1">
+            
+        </div>
+        <div id="factory_address1_error"></div>     
+        </div>
+        <div class="md-form">
+                <div class="input-container">
+                        <i class="icon-blur_on prefix input-icon"></i>
+                <input type="text" [(ngModel)]="address2" id="hsnCode"  class="form-control validate input" placeholder="Address 2">
+                     
+            </div>
+            <div id="factory_address2_error"></div> 
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button (click)="addNewFactory()" class="btn btn-info btn-sm" >Add Factory</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalEditFactory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-left">
+        <h4 class="modal-title w-100 font-weight-bold">Edit Factory</h4>
+        <button type="button" id="editclose" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form">
+          <div class="input-container">
+          <i class="fas fa-user prefix  input-icon"></i>
+          <input  type="text" [(ngModel)]="name" id="name"  class="form-control validate input custom-margin-left-21" placeholder="Name">
+          </div>
+        <div id="factory_name_error"></div> 
+        </div>
+
+        <div class="md-form">
+          <div class="input-container">
+                <i class="icon-th-list prefix input-icon "></i>
+          
+          <input type="text" [(ngModel)]="address1" id="unit"  class="form-control validate input  pin" placeholder="Address 1">
+            
+        </div>
+        <div id="factory_address1_error"></div>     
+        </div>
+        <div class="md-form">
+                <div class="input-container">
+                        <i class="icon-blur_on prefix input-icon"></i>
+                <input type="text" [(ngModel)]="address2" id="hsnCode"  class="form-control validate input" placeholder="Address 2">
+                     
+            </div>
+            <div id="factory_address2_error"></div> 
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button (click)="editFactory()" class="btn btn-info btn-sm" >Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

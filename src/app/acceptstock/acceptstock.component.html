@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style>
+        .loader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F5F8FA;
+            z-index: 9998;
+            text-align: center;
+        }
+
+        .plane-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+   </head>
+<body class="light">
+
+ <div id="loader" >
+</div>
+<div id="app">
+    <app-freshsidebar></app-freshsidebar>
+
+    <script>
+      /*
+       *  Add sidebar classes (sidebar-mini sidebar-collapse sidebar-expanded-on-hover) in body tag
+       *  you can remove this script tag and add classes directly to body
+       *  this is only for demo
+       */
+      document.body.className += ' sidebar-mini' + ' sidebar-collapsex' + ' sidebar-expanded-on-hoverx';
+    </script>
+      <a    data-toggle="push-menu" class="paper-nav-toggle left ml-2 fixed">
+          <i></i>
+      </a>
+    <div class="has-sidebar-left has-sidebar-tabs">
+      <div class="pos-f-t">
+      <div class="collapse" id="navbarToggleExternalContent">
+          <div class="bg-dark pt-2 pb-2 pl-4 pr-2">
+              <div class="search-bar">
+                  <input [(ngModel)] = "search1" class="col-md-12 transparent s-24 text-white b-0 font-weight-lighter w-128 height-50" type="text"
+                         placeholder="start typing...">
+              </div>
+              <a    data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-expanded="false"
+                 aria-label="Toggle navigation" class="paper-nav-toggle paper-nav-white active "><i></i></a>
+          </div>
+      </div>
+    </div>
+      <div class="sticky">
+          <div class="navbar navbar-expand d-flex justify-content-between bd-navbar white shadow">
+              <div class="relative">
+                  <div class="d-flex">
+                        <!-- <div class="w-80px ">
+                                <img src="assets/img/basic/chipologo.png" alt="">
+                            </div> -->
+                      <div class="d-none d-md-block">
+                          
+                        <h1 class="nav-title float-left custom-margin-left-40" >Accept Stock </h1>
+  
+                    </div>
+                  </div>
+              </div>
+              <!--Top Menu Start -->
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+          <!-- Messages-->
+          
+          <!-- Notifications -->
+          
+          <li>
+              <a class="nav-link " data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                 aria-controls="navbarToggleExternalContent"
+                 aria-expanded="false" aria-label="Toggle navigation">
+                  <i class=" icon-search3 "></i>
+              </a>
+          </li>
+        
+          <li class="dropdown custom-dropdown user user-menu ">
+              
+              <div class="dropdown-menu p-4 dropdown-menu-right">
+                  
+                  
+                  <hr>
+                  <div class="row box justify-content-between my-4">
+                      
+                  </div>
+              </div>
+          </li>
+      </ul>
+    </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="has-sidebar-left has-sidebar-tabs">
+      
+        <div class="content-wrapper animatedParent animateOnce">
+            <div *ngIf="loading == true">
+                <img src="assets/img/basic/loader2.gif" alt="" class="load" >
+                
+            </div>
+
+          <div *ngIf="loading == false" class="container">
+              <section class="paper-card">
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <div class="box">
+                              <div class="box-header with-border">
+                                  <h3 *ngIf="acceptstockflag == true" class="box-title float-left">Accept Stock</h3>
+                              </div>
+                              <button *ngIf="acceptstockflag == true" (click)="acceptall()" type="button"  class="btn btn-primary btn-xs float-right custom-margin-right-10 lighten-2" >Accept all </button>
+                        
+                              <!-- /.box-header -->
+                              <div class="box-body table-responsive no-padding my-3">
+                                  <i *ngIf="acceptstockflag == false" class="icon-note-important s-64 text-primary"></i>
+                                  <h4 class="my-3" *ngIf="acceptstockflag == false">No Approved Stocks Found</h4>
+                                    <table  *ngIf="acceptstockflag == true" class="table table-bordered custom-margin-top-10">
+                                      <tbody>
+                                      <!-- <tr >
+                                          <th class="custom-width-10">#</th>
+                                    
+                                          <th>Order Item Name </th>                                           
+                                          <th>Order Quantity</th>
+                                          <th class="custom-width-165">Actions</th>
+                                      </tr> -->
+                                      <tr>
+                                            <th class="custom-width-10">#</th>
+                                            <th (click)="sort('productname')">Order Item Name
+                                            <span class="icon-sort" *ngIf="key =='productname'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                          </th>
+                                            <th (click)="sort('quantity')">Order Quantity
+                                                <span class="icon-sort" *ngIf="key =='quantity'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                            </th>
+                                           
+                                                    
+                                            <th class="custom-width-165">Actions</th>
+                                        </tr>
+                                    <tr *ngFor = " let factorytransfer of factorytransfers | search : search1 | orderBy: key : reverse | paginate: { itemsPerPage: 5, currentPage: p };let i = index">
+                                            <td>{{i+1}}</td>
+                                            <!-- <td>{{factorytransfer.hub.name  | titlecase}}</td> -->
+                                            <td>{{factorytransfer.productname  | titlecase}}</td>
+                                            <td>{{factorytransfer.quantity }}
+                                            <a (click)="gettransferreqbyID(factorytransfer.factoriestransfersid)"  data-toggle="modal" data-target="#modalEditTransferRequest" class="float-right s-12 custom-a" >
+                                                <i class="icon-pencil edit"></i>
+                                            </a></td>
+                                            
+                                            <td><button  (click)="acceptbtn(factorytransfer.factoriestransfersid)"  type="button" class="btn btn-success btn-xs  float-left col-5"  >Accept </button>
+                                              <button  (click)="rejectbtn(factorytransfer.factoriestransfersid)" type="button" class="col-5 btn btn-danger btn-xs float-right" >Reject </button>
+                                                </td>
+                                          </tr>    
+                                      </tbody>
+                                  </table>
+                              </div>
+
+                          </div>
+               
+                      </div>
+  
+                  </div>      
+                  <div  *ngIf="acceptstockflag == true" class="custom-text-align-right" >
+                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                    </div>        
+              </section>
+          </div>
+      </div>
+
+
+</div>
+</div>
+
+<div class="modal fade" id="modalEditTransferRequest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-left">
+        <h4 class="modal-title w-100 font-weight-bold">Edit Quantity</h4>
+        <button type="button" id="editclose" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+
+
+            <div class="md-form ">
+                    <div class="input-container">
+                    <i class="fas fa-boxes prefix  input-icon"></i>
+                    <input type="text" style="margin-left:26px;" [(ngModel)]="editquantity" class="form-control validate input" placeholder="Position" >
+                    </div>
+                  <div id="transferreq_quantity_error"></div> 
+                  </div>   
+
+
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button (click) ="editedtransferreq()" class="btn btn-info btn-sm" >Edit Quantity</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

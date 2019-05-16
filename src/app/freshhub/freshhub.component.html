@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style>
+        .loader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F5F8FA;
+            z-index: 9998;
+            text-align: center;
+        }
+
+        .plane-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+   </head>
+<body class="light">
+
+ <div id="loader" >
+</div>
+<div id="app">
+    <app-freshsidebar></app-freshsidebar>
+    <div class="has-sidebar-left has-sidebar-tabs">
+
+            <div class="container-fluid relative animatedParent animateOnce my-3">
+                <div class="card no-b my-3">
+                    <div class="card-body">
+                        <div class="my-2 col-md-12 custom-min-height-200" >
+    
+                         <div class="container-fluid relative">
+                            <div class="row">
+                                <div class="col-md-12">
+                                     <div class="card no-b shadow  mt-3 mb-3">
+                                        <div class="card-body">
+                                                <button type="button" class="btn btn-danger btn-lg">Add Hub</button>
+                                                <div class="box">
+
+                                                <div class="box-header with-border">
+                                                        <h3 class="box-title float-left">List of Hubs</h3>
+                                                    </div>
+                                                    <!-- /.box-header -->
+                                                    <div class="box-body">
+                                                        <table class="table table-bordered">
+                                                            <thead>    
+                                                            <tr >
+                                                                        <th class="custom-width-10">#</th>
+                                                                        <th>Name</th>
+                                                                        <th>Address 1</th>
+                                                                        <th>Address 2</th>
+                                                                        <th>Edit</th>
+                                                                        <th>Delete</th>
+                                                                       
+                                                                    </tr>
+                                                                </thead>        
+                                                            <tbody>
+                                                                  <tr *ngFor = " let hub of hubList">
+                                                                        <td>1.</td>
+                                                                        <td>{{hub?.name}}</td>
+                                                                        <td>{{hub?.address1}}</td>
+                                                                        <td>{{hub?.address2}}</td>
+                                                                        <td><button type="button" class="btn btn-success btn-xs">Edit</button></td>
+                                                                       <td> <button type="button" class="btn btn-danger btn-xs">Mini button</button></td>
+                                                                  </tr>                
+                                                            </tbody>
+                                                        </table>
+                                                    </div>   
+                                                </div>     
+                                        </div>
+                                        
+                                     </div>             
+                                 </div>
+                            </div>
+                         </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style>
+        .loader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F5F8FA;
+            z-index: 9998;
+            text-align: center;
+        }
+
+        .plane-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+   </head>
+<body class="light">
+
+ <div id="loader" >
+</div>
+<div id="app">
+  <app-freshsidebar></app-freshsidebar>
+
+    <script>
+      /*
+       *  Add sidebar classes (sidebar-mini sidebar-collapse sidebar-expanded-on-hover) in body tag
+       *  you can remove this script tag and add classes directly to body
+       *  this is only for demo
+       */
+      document.body.className += ' sidebar-mini' + ' sidebar-collapsex' + ' sidebar-expanded-on-hoverx';
+    </script>
+      <a    data-toggle="push-menu" class="paper-nav-toggle left ml-2 fixed">
+          <i></i>
+      </a>
+    <div class="has-sidebar-left has-sidebar-tabs sticky">
+      <div class="pos-f-t">
+      <div class="collapse" id="navbarToggleExternalContent">
+          <div class="bg-dark pt-2 pb-2 pl-4 pr-2">
+              <div class="search-bar">
+                  <input [(ngModel)] = "search1" class="col-md-12 transparent s-24 text-white b-0 font-weight-lighter w-128 height-50" type="text"
+                         placeholder="start typing...">
+              </div>
+              <a    data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-expanded="false"
+                 aria-label="Toggle navigation" class="paper-nav-toggle paper-nav-white active "><i></i></a>
+          </div>
+      </div>
+    </div>
+      <div class="sticky">
+          <div class="navbar navbar-expand d-flex justify-content-between bd-navbar white shadow">
+              <div class="relative col-md-6">
+                  <div class="d-flex">
+                        <!-- <div class="w-80px ">
+                                <img src="assets/img/basic/chipologo.png" alt="">
+                            </div> -->
+                            <div class="d-none d-block">
+                                <h1 class="nav-title float-left custom-margin-left-40">Van Route Link</h1>
+                                         
+                                <!-- <button type="button"  style="margin-top:10px;margin-left:30px;" class="btn btn-danger btn-xs float-right" data-toggle="modal" data-target="#modalAddVan">Assign Van</button> -->
+                              
+                            </div>
+                      
+                  </div>
+                  
+                        
+                        
+              </div>
+              
+              <!--Top Menu Start -->
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+          <!-- Messages-->
+          
+          <!-- Notifications -->
+          
+          <li>
+              <a class="nav-link " data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                 aria-controls="navbarToggleExternalContent"
+                 aria-expanded="false" aria-label="Toggle navigation">
+                  <i class=" icon-search3 "></i>
+              </a>
+          </li>
+        
+          <li class="dropdown custom-dropdown user user-menu ">
+              
+              <div class="dropdown-menu p-4 dropdown-menu-right">
+                  
+                  
+                  <hr>
+                  <div class="row box justify-content-between my-4">
+                      
+                  </div>
+              </div>
+          </li>
+      </ul>
+    </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="has-sidebar-left has-sidebar-tabs">
+
+      
+
+            <div class="content-wrapper animatedParent animateOnce">
+                <div *ngIf="loading == true">
+                    <img src="assets/img/basic/loader2.gif" alt="" class="load" >
+                    
+                </div>
+    
+              <div *ngIf="loading == false" class="container">
+                <section class="paper-card">
+            
+                    <div class="row">
+                            
+                        <div class="col-lg-12">
+                            <div class="box">
+                               
+                                <div class="box-header with-border">
+                                    <h3 class="box-title float-left">Van - Route Link</h3>
+
+                                    <!-- <button class="btn btn-primary btn-xs float-right mb-3 custom-margin-right-10"><i class="icon icon-file-excel-o" ></i>Export to xls</button> -->
+                         
+                                </div>
+                                <button type="button"  class="btn btn-primary btn-xs float-right custom-margin-right-10" data-toggle="modal" data-target="#modalAddVan">Assign Van to Route </button>
+                        
+                                <!-- /.box-header -->
+                                <div class="box-body table-responsive no-padding my-3">
+                                    <div class="col-md-6 custom-padding-left-0">
+                                        <div class="form-group col-md-8 custom-margin-top-10 custom-padding-left-0">
+                                            <label class="float-left">Select Route </label>
+                               
+                                              
+                                                <ng-multiselect-dropdown 
+                                                
+                                                [placeholder]="'Select Route'"
+                                                [data]="routes"
+                                                [(ngModel)]="selectedroute"
+                                                name="somethingroute"
+                                                [settings]="dropdownSettingsofroute"
+                                                (onSelect)="onItemSelect($event)"
+                                                (onSelectAll)="onSelectAll($event)"
+                                                (onDeSelect)="onItemDeSelect($event)"
+                                            >
+                                            </ng-multiselect-dropdown>
+
+
+                                            </div>
+                                          </div>
+                                            
+                                        <label  class="float-left custom-margin-top-10" >Van List </label>
+                                    <table class="table table-bordered ">
+                                        <tbody>
+                                            <!-- <tr>
+                                                <th class="custom-width-10">#</th>
+                                                <th> Van Name</th>
+                                                <th>Registration No.</th>
+                                                <th>Van Route</th>
+                                                <th class="custom-width-10">Actions</th>
+                                                
+                                            </tr> -->
+
+                                            <tr>
+                                                    <th class="custom-width-10">#</th>
+                                                    <th (click)="sort('name')">Van Name
+                                                    <span class="icon-sort" *ngIf="key =='name'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                                  </th>
+                                                    <th (click)="sort('regno')">Registration No.
+                                                        <span class="icon-sort" *ngIf="key =='regno'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                    </th>
+                                                    <th (click)="sort('routename')">Van Route
+                                                        <span class="icon-sort" *ngIf="key =='routename'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                 
+                                                    </th>                                                                                                                                                  
+                                                    <th class="custom-width-10">Actions</th>
+                                                </tr>
+
+                                                
+                                            <tr *ngFor = " let van of vans | search : search1 | orderBy: key : reverse | paginate: { itemsPerPage: 5, currentPage: p };let i = index">
+                                                  <td>{{ i+1 }}</td>
+                                                  <td>{{van.name | titlecase }}</td>
+                                                  <td>{{ van.regno | uppercase}}</td>
+                                                  <td >{{ van.routename | titlecase}}</td>
+                                                  <td><a (click)="getvanbyID(van.vansid)" data-toggle="modal" data-target="#modalEditVan"><i class="icon-mode_edit s-18 mr-3"></i></a>
+                                                    <a  ><i (click) = "deletevan(van.vansid)" class="icon-delete_sweep s-18"  mwlConfirmationPopover
+                                                      [popoverTitle]="popoverTitle"
+                                                      [popoverMessage]="popoverMessage"
+                                                      placement="left"
+                                                      (confirm)="confirmClicked = true"
+                                                      (cancel)="cancelClicked = true"></i></a></td>     
+                                                  
+                                            </tr>  
+                                            <!-- <tr >
+                                              <td>2.</td>
+                                              <td>GST</td>
+                                              <td>KL 12 1122</td>
+                                              <td >{{ select2 }}</td>
+                                         
+                                              <td *ngIf="route != ''"><button (click)="changevanroute2()" type="button" class="btn btn-xs  " [ngClass]="{'btn-success':select2btn == 'Select this Van','btn-danger':select2btn=='Change Route'}">{{ select2btn }}</button>
+                                              </td>
+                                        </tr>     -->
+                                            </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.box-body -->
+                                <!-- <div class="box-footer clearfix">
+                                    <ul class="pagination pagination-sm no-margin float-right">
+                                        <li class="page-item"><a    class="page-link">&#xAB;</a>
+                                        </li>
+                                        <li class="page-item"><a    class="page-link">1</a>
+                                        </li>
+                                        <li class="page-item"><a    class="page-link">2</a>
+                                        </li>
+                                        <li class="page-item"><a    class="page-link">3</a>
+                                        </li>
+                                        <li class="page-item"><a    class="page-link">&#xBB;</a>
+                                        </li>
+                                    </ul>
+                                </div> -->
+                            </div>
+                 
+                        </div>
+    
+                    </div>   
+                    <div class="custom-text-align-right" >
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>          
+                </section>
+            </div>
+        </div>
+</div>
+</div>
+
+
+<div class="modal fade" id="modalAddVan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-left">
+        <h4 class="modal-title w-100 font-weight-bold">Assign Van to a route</h4>
+        <button type="button" id="addclose" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form ">
+          <div class="input-container">
+          <i class="icon icon-truck s-24  input-icon"></i>
+          <!-- <input type="text" id="form3"  class="form-control validate input" placeholder="Name"> -->
+          <select  [(ngModel)] = "selectvan" style="font-weight:300;margin-left:17px;" class="custom-select r-0 selectmodal " required>
+            <option value disabled>Select Van </option>
+            <option *ngFor = " let van of vans" [value]="van.vansid" >{{ van.name | titlecase }} - {{ van.regno | uppercase }}</option>
+        </select>
+          </div>
+        <div id="select_van_error"></div> 
+        </div>
+
+        <div class="md-form ">
+          <div class="input-container"> 
+                <i class="fas fa-map-marker-alt prefix input-icon "></i>
+                
+                    <select  [(ngModel)] = "selectRoutes" style="font-weight:300" class="custom-select r-0 selectmodal custom-margin-left-13" required>
+                        <option value disabled>Select Route </option>
+                        <option *ngFor = " let route of routes" [value]="route.routesid" >{{ route.name | titlecase }}</option>
+                    </select>
+          <!-- <input type="text" id="form3"  class="form-control validate input  pin" placeholder="Location"> -->
+            
+        </div>
+        <div id="select_route_error"></div>     
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button (click) ="addVanRoute()" class="btn btn-info btn-sm" >Assign Van<i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalEditVan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-left">
+        <h4 class="modal-title w-100 font-weight-bold">Edit Van to a route</h4>
+        <button type="button" id="editclose" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form ">
+          <div class="input-container">
+          <i class="icon icon-truck s-24  input-icon"></i>
+          <!-- <input type="text" id="form3"  class="form-control validate input" placeholder="Name"> -->
+          <select  [(ngModel)] = "selectvan" style="font-weight:300;margin-left:17px;" class="custom-select r-0 selectmodal " required>
+            <option value disabled>Select Van </option>
+            <option *ngFor = " let van of vans" [value]="van.vansid" >{{ van.name | titlecase }}</option>
+        </select>
+          </div>
+        <div id="select_van_error"></div> 
+        </div>
+
+        <div class="md-form ">
+          <div class="input-container"> 
+                <i class="fas fa-map-marker-alt prefix input-icon "></i>
+                
+                    <select  [(ngModel)] = "selectRoutes" style="font-weight:300" class="custom-select r-0 selectmodal custom-margin-left-13" required>
+                        <option value disabled>Select Route </option>
+                        <option *ngFor = " let route of routes" [value]="route.routesid" >{{ route.name | titlecase }}</option>
+                    </select>
+          <!-- <input type="text" id="form3"  class="form-control validate input  pin" placeholder="Location"> -->
+            
+        </div>
+        <div id="select_route_error"></div>     
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button (click) ="editVanRoute()" class="btn btn-info btn-sm" >Edit<i class="fas fa-paper-plane-o ml-1"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

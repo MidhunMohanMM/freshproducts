@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style>
+        .loader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F5F8FA;
+            z-index: 9998;
+            text-align: center;
+        }
+
+        .plane-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
+   </head>
+<body class="light">
+
+ <div id="loader" >
+</div>
+<div id="app">
+        <app-adminsidebar></app-adminsidebar>
+
+    <script>
+      /*
+       *  Add sidebar classes (sidebar-mini sidebar-collapse sidebar-expanded-on-hover) in body tag
+       *  you can remove this script tag and add classes directly to body
+       *  this is only for demo
+       */
+      document.body.className += ' sidebar-mini' + ' sidebar-collapsex' + ' sidebar-expanded-on-hoverx';
+    </script>
+      <a    data-toggle="push-menu" class="paper-nav-toggle left ml-2 fixed">
+          <i></i>
+      </a>
+    <div class="has-sidebar-left has-sidebar-tabs sticky">
+      <!-- <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-dark pt-2 pb-2 pl-4 pr-2">
+                <div class="search-bar">
+                    <input [(ngModel)] = "search1" class="col-md-12 transparent s-24 text-white b-0 font-weight-lighter w-128 height-50" type="text"
+                           placeholder="start typing...">
+                </div>
+                <a    data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-expanded="false"
+                   aria-label="Toggle navigation" class="paper-nav-toggle paper-nav-white active "><i></i></a>
+            </div>
+        </div>
+    </div> -->
+      <!-- <div class="sticky">
+          <div class="navbar navbar-expand d-flex justify-content-between bd-navbar white shadow">
+              <div class="relative">
+                  <div class="d-flex">
+                       
+                      <div class="d-none d-md-block">
+                          
+                        <h1 class="nav-title float-left custom-margin-left-40" >Settings</h1>
+  
+                    </div>
+                  </div>
+              </div>
+              
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+    
+          
+          <li>
+              <a class="nav-link " data-toggle="collapse" data-target="#navbarToggleExternalContent"
+                 aria-controls="navbarToggleExternalContent"
+                 aria-expanded="false" aria-label="Toggle navigation">
+                  <i class=" icon-search3 "></i>
+              </a>
+          </li>
+        
+          <li class="dropdown custom-dropdown user user-menu ">
+              
+              <div class="dropdown-menu p-4 dropdown-menu-right">
+                  
+                  
+                  <hr>
+                  <div class="row box justify-content-between my-4">
+                      
+                  </div>
+              </div>
+          </li>
+      </ul>
+    </div>
+          </div>
+      </div> -->
+      <header class="white accent-3 relative nav-sticky">
+            <div class="container-fluid text-blue custom-padding-left-62 custom-border-bottom-eaeff3">
+                <div class="row p-t-b-10 ">
+                    <div class="col">
+                        <h4 style="margin-top: 5px;">
+                            <!-- <i class="icon icon-settings2"></i> -->
+                            Settings
+                        </h4>
+                    </div>
+                </div>
+                <div class="row justify-content-between">
+                        <ul class="nav nav-material responsive-tab" id="v-pills-tab" role="tablist">
+                   
+                            <li>
+                                <a class="nav-link active" id="v-pills-buyers-tab" data-toggle="pill" href="#v-pills-buyers" role="tab"
+                                   aria-controls="v-pills-buyers"><i class="icon icon-truck"></i> Van Users</a>
+                            </li>
+                            <li>
+                                    <a class="nav-link" id="v-pills-sellers-tab" data-toggle="pill" href="#v-pills-sellers" role="tab"
+                                       aria-controls="v-pills-sellers"><i class="icon  icon-device_hub"></i> Hub Users</a>
+                                </li>
+                            <li>
+                                    <a class="nav-link" id="v-pills-data-tab" data-toggle="pill" href="#v-pills-data" role="tab"
+                                       aria-controls="v-pills-data"><i class="icon icon-database"></i> Data Management </a>
+                                </li>
+                     
+                                     <li>
+                                <a class="nav-link " id="v-pills-all-tab" data-toggle="pill" href="#v-pills-all"
+                                   role="tab" aria-controls="v-pills-all"><i class="icon icon-box4"></i>Stock Types</a>
+                            </li>
+                       
+                     
+                        </ul>
+                    </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="has-sidebar-left has-sidebar-tabs">
+        <div class="content-wrapper animatedParent animateOnce">
+                <div class="tab-content " id="v-pills-tabContent">
+                        <div class="tab-pane animated fade " id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
+                      
+                            <div class="container">
+                                <section class="paper-card">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="box">
+                                                <div class="box-header with-border">
+                                                    <h3 class="box-title float-left">Stock Types</h3>
+                                                </div>
+                                
+                                                <!-- /.box-header -->
+                                                <div class="box-body table-responsive no-padding my-3">
+
+                                                    <table class="table table-bordered ">
+                                                        <tbody>
+                                                        <tr>
+                                                            <th class="custom-width-10">#</th>
+                                                            <th (click)="sort('name')">Name
+                                                            <span class="icon-sort" *ngIf="key =='name'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                                        </th>
+                                                            <!-- <th (click)="sort('status')">Status
+                                                                <span class="icon-sort" *ngIf="key =='status'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                            </th> -->
+                                                            <!-- <th (click)="sort('ordertype')">Order Type
+                                                                <span class="icon-sort" *ngIf="key =='ordertype'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                        
+                                                            </th> -->
+                                                            <th class="custom-width-10">Actions</th>
+                                                        </tr>
+
+
+                                                        <tr *ngFor = "let stocktype of stocktypes | search : search1 | paginate: { itemsPerPage: 5, currentPage: p };let i=index;">
+                                                            <td>{{i+1}}</td>
+                                                            <td>{{stocktype.name | titlecase }} </td>
+                                                            <!-- <td *ngIf="stocktype.status == null">NULL</td>
+                                                            <td *ngIf="stocktype.status != null">{{stocktype.status  }}</td> -->
+                                                            <td><a data-toggle="modal" data-target="#modalEditHub"><i class="icon-mode_edit s-18 mr-3"></i></a>
+                                                                <a class=" "><i class="icon-delete_sweep s-18"></i></a></td>
+                                                    
+                                                        </tr>   
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                
+                                        </div>
+                    
+                                    </div>      
+                                    <div class="custom-text-align-right" >
+                                        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                                    </div>       
+                                </section>
+                            </div>
+                        </div>
+                        <div class="tab-pane animated fade show active" id="v-pills-buyers" role="tabpanel" aria-labelledby="v-pills-buyers-tab">
+                                <div *ngIf="settingsloading == true">
+                                        <img src="assets/img/basic/loader2.gif" alt="" class="load" >
+                                        
+                                    </div>
+                        
+                                  <div *ngIf="settingsloading == false" class="container">
+              <section class="paper-card ">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title float-left">Van Users</h3>
+                            </div>
+            
+                            <!-- /.box-header -->
+                            <div class="box-body table-responsive no-padding my-3">
+
+                                <table class="table table-bordered ">
+                                    <tbody>
+                                    <tr>
+                                      <th class="custom-width-10">#</th>
+                                      <th (click)="sort('name1')">Name
+                                      <span class="icon-sort" *ngIf="key =='name1'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                    </th>
+                                      <th (click)="sort('username')">Username
+                                          <span class="icon-sort" *ngIf="key =='username'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                      </th>
+                                      <th (click)="sort('vans_userstypename')">Van User Type
+                                            <span class="icon-sort" *ngIf="key =='vans_userstypename'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                        </th>
+                                        <!-- <th (click)="sort('status')">Status
+                                                <span class="icon-sort" *ngIf="key =='status'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                            </th> -->
+                                      <!-- <th (click)="sort('ordertype')">Order Type
+                                          <span class="icon-sort" *ngIf="key =='ordertype'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                   
+                                      </th> -->
+                                      <th class="custom-width-10">Actions</th>
+                                  </tr>
+
+
+                                    <tr *ngFor = "let vanuser of vanusers | search : search1 | paginate: { itemsPerPage: 5, currentPage: p };let i=index;">
+                                      <td>{{i+1}}</td>
+                                      <td>{{vanuser.name | titlecase }} </td>
+                                      <td>{{vanuser.username  }} </td>
+                                      <td>{{vanuser.vans_userstypename}} </td>
+                                      <!-- <td *ngIf="vanuser.status == null">NULL</td>
+                                      <td *ngIf="vanuser.status != null">{{vanuser.status  }}</td> -->
+                                      <!-- <td><a data-toggle="modal" data-target="#modalEditHub"><i class="icon-eye s-18 mr-3"></i></a>
+                                          <a class=" "><i class="icon-delete_sweep s-18"></i></a></td> -->
+                                          <td><a data-toggle="modal" data-target="#modalEditHub"><i class="icon-mode_edit s-18 mr-3"></i></a>
+                                            <a class=" "><i class="icon-delete_sweep s-18"></i></a></td>
+                                    </tr>   
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+             
+                    </div>
+
+                </div>      
+                <div class="custom-text-align-right" >
+                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              </div>       
+            </section>
+            <section class="paper-card mt-5">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="box">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title float-left">Van User Types</h3>
+                                </div>
+                
+                                <!-- /.box-header -->
+                                <div class="box-body table-responsive no-padding my-3">
+    
+                                    <table class="table table-bordered ">
+                                        <tbody>
+                                        <tr>
+                                          <th class="custom-width-10">#</th>
+                                          <th (click)="sort('name1')">Name
+                                          <span class="icon-sort" *ngIf="key =='name1'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                        </th>
+                                          <!-- <th (click)="sort('status')">Status
+                                              <span class="icon-sort" *ngIf="key =='status'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                          </th> -->
+                                          <!-- <th (click)="sort('ordertype')">Order Type
+                                              <span class="icon-sort" *ngIf="key =='ordertype'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                       
+                                          </th> -->
+                                          <th class="custom-width-10">Actions</th>
+                                      </tr>
+    
+    
+                                        <tr *ngFor = "let vantype of vantypes | search : search1 | paginate: { itemsPerPage: 5, currentPage: p };let i=index;">
+                                          <td>{{i+1}}</td>
+                                          <td>{{vantype.name | titlecase }} </td>
+                                          <!-- <td *ngIf="vantype.status == null">NULL</td>
+                                          <td *ngIf="vantype.status != null">{{vantype.status  }}</td> -->
+                                          <td><a data-toggle="modal" data-target="#modalEditHub"><i class="icon-mode_edit s-18 mr-3"></i></a>
+                                              <a class=" "><i class="icon-delete_sweep s-18"></i></a></td>
+                                    
+                                        </tr>   
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                 
+                        </div>
+    
+                    </div>      
+                    <div class="custom-text-align-right" >
+                      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </div>       
+                </section>
+            </div>
+            </div>
+            <div class="tab-pane animated fade" id="v-pills-sellers" role="tabpanel" aria-labelledby="v-pills-sellers-tab">
+                    <div class="container">
+            <section class="paper-card ">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title float-left">Hub Users</h3>
+                            </div>
+            
+                            <!-- /.box-header -->
+                            <div class="box-body table-responsive no-padding my-3">
+
+                                <table class="table table-bordered ">
+                                    <tbody>
+                                    <tr>
+                                      <th class="custom-width-10">#</th>
+                                      <th (click)="sort('name')">Name
+                                      <span class="icon-sort" *ngIf="key =='name'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                    </th>
+                                      <th (click)="sort('username')">User Name
+                                          <span class="icon-sort" *ngIf="key =='status'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                      </th>
+                                      <th (click)="sort('hubname')">Hub
+                                            <span class="icon-sort" *ngIf="key =='hubname'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                        </th>
+                                        <th (click)="sort('hubs_userstypename')">Hub User Type
+                                                <span class="icon-sort" *ngIf="key =='hubs_userstypename'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                            </th>
+                                      <!-- <th (click)="sort('ordertype')">Order Type
+                                          <span class="icon-sort" *ngIf="key =='ordertype'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                   
+                                      </th> -->
+                                      <th class="custom-width-10">Actions</th>
+                                  </tr>
+
+
+                                    <tr *ngFor = "let hubtype of hubusers | search : search1 | paginate: { itemsPerPage: 5, currentPage: p };let i=index;">
+                                      <td>{{i+1}}</td>
+                                      <td>{{hubtype.name | titlecase }} </td>
+                                      <td>{{hubtype.username | titlecase }} </td>
+                                      <td>{{hubtype.hubname | titlecase }} </td>
+                                      <td>{{hubtype.hubs_userstypename | titlecase }} </td>
+                                      <!-- <td *ngIf="hubtype.status == null">NULL</td>
+                                      <td *ngIf="hubtype.status != null">{{hubtype.status  }}</td> -->
+                                      <td><a data-toggle="modal" data-target="#modalEditHub"><i class="icon-mode_edit s-18 mr-3"></i></a>
+                                          <a class=" "><i class="icon-delete_sweep s-18"></i></a></td>
+                                
+                                    </tr>   
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+             
+                    </div>
+
+                </div>      
+                <div class="custom-text-align-right" >
+                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              </div>       
+            </section>
+            <section class="paper-card mt-5">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="box">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title float-left">Hub User Types</h3>
+                                </div>
+                
+                                <!-- /.box-header -->
+                                <div class="box-body table-responsive no-padding my-3">
+    
+                                    <table class="table table-bordered ">
+                                        <tbody>
+                                        <tr>
+                                          <th class="custom-width-10">#</th>
+                                          <th (click)="sort('name')">Name
+                                          <span class="icon-sort" *ngIf="key =='name'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                        </th>
+                                          <th (click)="sort('status')">Status
+                                              <span class="icon-sort" *ngIf="key =='status'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                          </th>
+                                          <!-- <th (click)="sort('ordertype')">Order Type
+                                              <span class="icon-sort" *ngIf="key =='ordertype'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                       
+                                          </th> -->
+                                          <th class="custom-width-10">Actions</th>
+                                      </tr>
+    
+    
+                                        <tr *ngFor = "let hubtype of hubtypes | search : search1 | paginate: { itemsPerPage: 5, currentPage: p };let i=index;">
+                                          <td>{{i+1}}</td>
+                                          <td>{{hubtype.name | titlecase }} </td>
+                                          <td *ngIf="hubtype.status == null">NULL</td>
+                                          <td *ngIf="hubtype.status != null">{{hubtype.status  }}</td>
+                                          <td><a data-toggle="modal" data-target="#modalEditHub"><i class="icon-mode_edit s-18 mr-3"></i></a>
+                                              <a class=" "><i class="icon-delete_sweep s-18"></i></a></td>
+                                    
+                                        </tr>   
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                 
+                        </div>
+    
+                    </div>      
+                    <div class="custom-text-align-right" >
+                      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                  </div>       
+                </section>
+            </div>
+            </div>
+            <div class="tab-pane animated fade" id="v-pills-data" role="tabpanel" aria-labelledby="v-pills-data-tab">
+
+            <div class="container relative">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card no-b shadow   mb-3">
+                            <div class="card-body">
+                                <table class="table cell-vertical-align-middle  table-responsive mb-4">
+                                    <tbody>
+                                    <tr class="no-b">
+                                     
+                                        <td style="width:100%">Update Reference Sheet</td>
+                           
+                                        <td>
+                                            <button type="button"   class=" btn btn-secondary btn-sm">Generate</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td  style="width:100%">Generate Reference Sheet</td>
+                                        <!-- <td>
+                                            <button type="button" class="btn btn-secondary btn-xs">Mini button</button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-sm">Small button</button>
+                                        </td> -->
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-sm">Generate </button>
+                                        </td>
+                                        <!-- <td>
+                                            <button type="button" class="btn btn-secondary btn-lg">Large button</button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-lg btn-block">Block level button</button>
+                                        </td> -->
+                                    </tr>
+                                    <tr>
+                                        <td  style="width:100%">Generate Products</td>
+                                        <!-- <td>
+                                            <button type="button" class="btn btn-secondary btn-xs">Mini button</button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-sm">Small button</button>
+                                        </td> -->
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-sm">Generate </button>
+                                        </td>
+                                        <!-- <td>
+                                            <button type="button" class="btn btn-secondary btn-lg">Large button</button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-lg btn-block">Block level button</button>
+                                        </td> -->
+                                    </tr>
+                                    <tr>
+                                        <td>Generate Routes</td>
+                                        <!-- <td>
+                                            <button type="button" class="btn btn-info btn-xs">Mini button</button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info btn-sm">Small button</button>
+                                        </td> -->
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-sm">Generate </button>
+                                        </td>
+                                        <!-- <td>
+                                            <button type="button" class="btn btn-info btn-lg">Large button</button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info btn-lg btn-block">Block level button</button>
+                                        </td> -->
+                                    </tr>
+                                    <tr>
+                                        <td>Generate Customers </td>
+                                        <!-- <td>
+                                            <button type="button" class="btn btn-success btn-xs">Mini button</button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success btn-sm">Small button</button>
+                                        </td> -->
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-sm">Generate </button>
+                                        </td>
+                                        <!-- <td>
+                                            <button type="button" class="btn btn-success btn-lg">Large button</button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success btn-lg btn-block">Block level button</button>
+                                        </td> -->
+                                    </tr>
+                                    <tr>
+                                        <td>Generate Customer Rates</td>
+                                        <!-- <td>
+                                            <button type="button" class="btn btn-warning btn-xs">Mini button</button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning btn-sm">Small button</button>
+                                        </td> -->
+                                        <td>
+                                            <button type="button" class="btn btn-secondary  btn-sm">Generate </button>
+                                        </td>
+                                        <!-- <td>
+                                            <button type="button" class="btn btn-warning btn-lg">Large button</button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning btn-lg btn-block">Block level button</button>
+                                        </td> -->
+                                    </tr>
+                                    <tr>
+                                        <td>Generate Vans </td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-sm">Generate </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Generate Vans </td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-sm">Generate </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Generate Order Items </td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-sm">Generate </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Generate Orders </td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-sm">Generate </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Generate Order Details </td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-sm">Generate </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Generate Trips </td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-sm">Generate </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Generate Trip Details </td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary btn-sm">Generate </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                         </div>
+ 
+                    </div>
+          
+                </div>
+        
+            </div>
+
+            </div>
+            </div>
+          </div>
+      </div>
+</div>
+
+
+
+</body>
+</html>
