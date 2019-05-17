@@ -215,6 +215,10 @@ a{
     width: 79%;
 }
 
+.custom-padding-left-30{
+    padding-left:30px;
+}
+
 .custom-width-108{
     width:108px;
 }

@@ -135,7 +135,7 @@ public model: any = { date: { year: 2019, month: 10, day: 9 } };
   
   onItemDeSelectroute(item: any) {
     // console.log("item");
-    this.getcustomerprofiles();
+    this.getcustomerbyroute();
     // this.selectedroute = item.name;
   }
 
@@ -208,14 +208,28 @@ public model: any = { date: { year: 2019, month: 10, day: 9 } };
 
   getcustomerbyroute(){
     var self = this;
-    axios.get(`http://${this._global.baseUrl}:${this._global.port}/${this._global.version_no}/secure/customers/profiles?customers[status]=1&routes[hubsid]=${self.hubsid}&routes[routesid]=${self.selectedroute[0].routesid}`)
+    if(self.selectedroute == ""){
+      self.getcustomerorderprofiles();
+    }
+    else{
+
+ 
+    axios.get(`http://${this._global.baseUrl}:${this._global.port}/${this._global.version_no}/secure/customers/orders/profiles?customers[status]=1&routes[hubsid]=${self.hubsid}&routes[routesid]=${self.selectedroute[0].routesid}`)
         .then(function (res) {
           console.log(res);
-          self.customerprofiles = res.data;   
+          // self.customerorderprofiles = response.data;
+          for(let key in res.data){
+            if(res.data[key]){
+              res.data[key].customername = res.data[key].customer.name;
+              res.data[key].customerroutename = res.data[key].customer.route.name;
+            }
+          }
+          self.customerorderprofiles = res.data;   
         })
         .catch(function (error) {
           console.log(error);
         });
+      }
   }
 
   customerordersbyID(cstID){

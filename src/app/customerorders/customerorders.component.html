@@ -221,7 +221,7 @@
                                             </th> -->
                                       
                  
-                                            <th class="custom-width-10">Actions</th>
+                                            <th class="custom-width-10">Orders </th>
                                         </tr>
 
                                         <tr *ngFor = " let customerorder of customerorderprofiles | search : search1 | orderBy: key : reverse | paginate: { itemsPerPage: 5, currentPage: p };let i = index">
@@ -286,14 +286,14 @@
                                                  
                                                     </th>
 
-                                                <th (click)="sort('discount_perc')">Discount Percentage
+                                                <th (click)="sort('discount_perc')">Margin Percentage
                                                     <span class="icon-sort" *ngIf="key =='discount_perc'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
                                                 
                                                 </th>
-                                                <th (click)="sort('discount_amt')">Discount Amount
+                                                <!-- <th (click)="sort('discount_amt')">Discount Amount
                                                     <span class="icon-sort" *ngIf="key =='discount_amt'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
                                                 
-                                                </th>
+                                                </th> -->
                                                 <th (click)="sort('product_amt')">Product Amount
                                                         <span class="icon-sort" *ngIf="key =='product_amt'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
                                                     
@@ -314,7 +314,7 @@
                                                   <td>{{customerorderdetail.product_rate }}</td>
                                                   <td>{{customerorderdetail.mrp }}</td>
                                                   <td>{{customerorderdetail.discount_perc }}</td>
-                                                  <td>{{customerorderdetail.discount_amt }}</td>
+                                                  <!-- <td>{{customerorderdetail.discount_amt }}</td> -->
                                                   <td>{{customerorderdetail.product_amt }}</td>
 
                                                

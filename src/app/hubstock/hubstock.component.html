@@ -126,7 +126,7 @@
                                   <i *ngIf="hubstockflag == false" class="icon-note-important s-64 text-primary"></i>
                                   <h4 class="my-3" *ngIf="hubstockflag == false">No Hub Stocks Found</h4>
 
-                                    <div  *ngIf="hubstockflag == true" class="col-md-6 custom-padding-left-0" >
+                                    <!-- <div  *ngIf="hubstockflag == true" class="col-md-6 custom-padding-left-0" >
                                             <div class="form-group col-md-8 custom-margin-top-10 custom-padding-left-0" >
                                                     <label class="float-left">Select Order Type </label>
                                                     <select  [(ngModel)] = "selectedorder" (ngModelChange)="getproductbyordertype()"  class="custom-select r-0 " required>
@@ -135,9 +135,9 @@
                                                         <option value="2">Open Stock</option>
                                                     </select>
                                                     
-                                                </div></div>
+                                                </div></div> -->
 
-                                  <table  *ngIf="hubstockflag == true" class="table table-bordered ">
+                                  <table  *ngIf="hubstockflag == true" class="table table-bordered mt-3">
                                       <tbody>
                                       <!-- <tr>
                                           <th class="custom-width-10">#</th>
@@ -152,13 +152,14 @@
                                         <th (click)="sort('productname')">Products
                                         <span class="icon-sort" *ngIf="key =='productname'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
                                       </th>
-                                        <th (click)="sort('quantity')">Quantity
+                                      <th (click)="sort('preorder')">Pre Order
+                                        <span class="icon-sort" *ngIf="key =='preorder'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                 
+                                    </th>
+                                        <th (click)="sort('quantity')">Hub Stock
                                             <span class="icon-sort" *ngIf="key =='quantity'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
                                         </th>
-                                        <th (click)="sort('stocktypename')">Order Type
-                                            <span class="icon-sort" *ngIf="key =='stocktypename'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
-                                     
-                                        </th>
+                                 
                                         <!-- <th class="custom-width-10">Actions</th> -->
                                     </tr>
 
@@ -166,8 +167,9 @@
                                       <tr *ngFor = "let stock of hubStock | search : search1 | orderBy: key : reverse | paginate: { itemsPerPage: 5, currentPage: p };let i=index;">
                                         <td>{{i+1}}</td>
                                         <td>{{stock.productname | titlecase }} </td>
+                                        <td>0</td>
                                         <td>{{stock.quantity }}</td>
-                                        <td>{{stock.stocktypename | titlecase }}</td>
+                                        <!-- <td>{{stock.stocktypename | titlecase }}</td> -->
                                         
                                         <!-- <td><a data-toggle="modal" data-target="#modalEditHub"><i class="icon-eye s-18 mr-3"></i></a>
                                             <a class=" "><i class="icon-delete_sweep s-18"></i></a></td> -->

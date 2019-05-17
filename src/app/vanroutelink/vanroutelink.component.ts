@@ -39,7 +39,7 @@ export class VanroutelinkComponent implements OnInit {
   public popoverMessage: string = 'Are you really <b>sure</b> you want to do this?';
   public confirmClicked: boolean = false;
   public cancelClicked: boolean = false;
-  key: any = "name";
+  key: any = "regno";
   reverse: boolean;
   public p: any;
   search1: any = "";

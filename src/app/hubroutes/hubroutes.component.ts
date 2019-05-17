@@ -154,7 +154,7 @@ deleteroute(routeID){
   console.log(routeID);
   if(self.confirmClicked == true){
   axios.put(`http://${this._global.baseUrl}:${this._global.port}/${this._global.version_no}/secure/routes/profiles/${routeID}`,{
-    "status" : "0"
+    "status" : "3"
   })
       .then(function (response) {
         console.log(response);
@@ -162,7 +162,7 @@ deleteroute(routeID){
           Swal.fire({
             position: 'top',
             type: 'success',
-            title: 'Route Deleted',
+            title: 'Delete Request Submitted for verification',
             showConfirmButton: false,
             timer: 1500
           })

@@ -122,6 +122,10 @@
                                   <a class="nav-link" id="v-pills-new-tab" data-toggle="pill" href="#v-pills-new" role="tab"
                                      aria-controls="v-pills-new"><i class="icon icon-road"></i>New Route Approval Requests</a>
                               </li>
+                              <li>
+                                <a class="nav-link" id="v-pills-delete-tab" data-toggle="pill" href="#v-pills-delete" role="tab"
+                                   aria-controls="v-pills-delete"><i class="icon icon-delete_sweep"></i>New Route Delete Requests</a>
+                            </li>
                            </ul>
                       </div>
               </div>
@@ -415,6 +419,88 @@
 
               </div>
 
+              <div class="tab-pane animated fade " id="v-pills-delete" role="tabpanel" aria-labelledby="v-pills-delete-tab">
+                <div class="container">
+                    <section class="paper-card">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="box">
+                                    <div class="box-header with-border ">
+                                        <h3 class="box-title float-left mb-3">Delete Route Approval Requests </h3>
+                                    </div>
+                                    <!-- <button type="button"  class="custom-margin-right-10 btn btn-primary btn-xs float-right " data-toggle="modal" data-target="#modalAddHub">Add New Route</button> -->
+                              
+                                    <!-- /.box-header -->
+                                    <div class="box-body table-responsive  ">
+                                        
+                                        <label  class="float-left " >Route List </label>
+                                        
+                                        <table class="table table-bordered ">
+                                          <thead>
+                                            
+                                          </thead>
+                                            <tbody>
+                                            <tr>
+                                                <th class="custom-width-10">#</th>
+                                                <th (click)="sort('name')">Route Name
+                                                <span class="icon-sort" *ngIf="key =='name'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
+                                              </th>
+                                              <th (click)="sort('hubname')">Hub Name
+                                                  <span class="icon-sort" *ngIf="key =='hubname'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                              </th>
+                                                <!-- <th (click)="sort('address1')">Location
+                                                    <span class="icon-sort" *ngIf="key =='address1'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                </th>
+                                                <th (click)="sort('address2')">Address
+                                                    <span class="icon-sort" *ngIf="key =='address2'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                             
+                                                </th> -->
+                                                <th class="custom-width-201">Actions</th>
+                                            </tr>
+                                            <tr *ngFor = "let route of deleterouteList | search : search1 | orderBy: key : reverse | paginate: { itemsPerPage: 15, currentPage: p }; let i=index;">
+                                                  <td>{{i+1}}</td>
+                                                  <td>{{route.name  | titlecase}}</td>
+                                                  <td>{{route.hubname  | titlecase}}</td>
+                                                  <!-- <td>{{hub.address1  | titlecase}}</td>
+                                                  <td>{{hub.address2 | titlecase }}</td> -->
+                                                  <!-- <td><button (click) = "editHub(hub.hubsid)" type="button" class="btn btn-success btn-xs col-md-5 float-left" data-toggle="modal" data-target="#modalEditRoute">Edit</button>
+                                                  <button type="button" class="btn btn-danger btn-xs col-md-5 float-right">Delete</button></td> -->
+                                                  
+                                                  <!-- <td><a (click) = "getroutebyID(route.routesid)" data-toggle="modal" data-target="#modalEditRoute"><i class="icon-mode_edit s-18 mr-3"></i></a>
+                                                    <a (click) = "deleteroute(route.routesid)" ><i class="icon-delete_sweep s-18"  mwlConfirmationPopover
+                                                      [popoverTitle]="popoverTitle"
+                                                      [popoverMessage]="popoverMessage"
+                                                      placement="left"
+                                                      (confirm)="confirmClicked = true"
+                                                      (cancel)="cancelClicked = true"></i></a></td> -->
+
+                                                      <td>
+                                                          <button  (click)="deleteroute(route.routesid)"  type="button" class="btn btn-primary btn-xs  float-left col-5"  >Approve </button>
+                                                       <button  
+                                                       (click)="rejectdeleteroute(route.routesid)"
+                                                        type="button" class="col-5 btn btn-danger btn-xs float-right" >Reject</button>
+                                                         </td>
+                                            
+                                                </tr>   
+                                            </tbody>
+                                           
+                                        </table>
+                                       
+                                    </div>
+                
+                                </div>
+                             
+                     
+                            </div>
+        
+                        </div>     
+                        <div class="custom-text-align-right" >
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                        </div>     
+                    </section>
+                </div>
+
+              </div>
 
 
           </div>

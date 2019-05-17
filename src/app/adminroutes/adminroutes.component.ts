@@ -40,6 +40,7 @@ export class AdminroutesComponent implements OnInit {
   routesid: any;
   hubs: any;
   newrouteList: any;
+  deleterouteList: any;
   sort(key){
     this.key = key;
     this.reverse = !this.reverse;
@@ -63,6 +64,7 @@ export class AdminroutesComponent implements OnInit {
     this.gethubuser();
     this.getallhubs();
     this.getallapprovalroutes();
+    this.getalldeleteroutes();
   }
 
   getallroutes(){
@@ -93,6 +95,22 @@ export class AdminroutesComponent implements OnInit {
               res.data[key].hubname = res.data[key].hub.name;
           }
           self.newrouteList = res.data;
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
+
+  getalldeleteroutes(){
+    var self = this;
+    axios.get(`http://${this._global.baseUrl}:${this._global.port}/${this._global.version_no}/secure/routes/profiles?routes[status]=3`)
+        .then(function (res) {
+          console.log(res);
+          for(let key in res.data){
+              res.data[key].hubname = res.data[key].hub.name;
+          }
+          self.deleterouteList = res.data;
           
         })
         .catch(function (error) {
@@ -241,7 +259,7 @@ getroutebyID(routeID){
 deleteroute(routeID){
   var self = this;
   console.log(routeID);
-  if(self.confirmClicked == true){
+  // if(self.confirmClicked == true){
   axios.put(`http://${this._global.baseUrl}:${this._global.port}/${this._global.version_no}/secure/routes/profiles/${routeID}`,{
     "status" : "0"
   })
@@ -256,14 +274,44 @@ deleteroute(routeID){
             timer: 1500
           })
         }
-        self.getallroutes();
+        self.getalldeleteroutes();
         self.confirmClicked = false;
       })
       .catch(function (error) {
         console.log(error);
       });
-    }
+  //  }
 }
+
+
+
+rejectdeleteroute(routeID){
+  var self = this;
+  console.log(routeID);
+  // if(self.confirmClicked == true){
+  axios.put(`http://${this._global.baseUrl}:${this._global.port}/${this._global.version_no}/secure/routes/profiles/${routeID}`,{
+    "status" : "1"
+  })
+      .then(function (response) {
+        console.log(response);
+        if(response){
+          Swal.fire({
+            position: 'top',
+            type: 'success',
+            title: 'Route Deleted',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+        self.getalldeleteroutes();
+        self.confirmClicked = false;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    //}
+}
+
 
 editroute(){
   if(this.routename== undefined || this.routename == ''){

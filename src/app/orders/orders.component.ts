@@ -77,6 +77,21 @@ export class OrdersComponent implements OnInit {
     // this.gethubstock();
     // this.getallhubs();
     this.getProducts();
+
+    $(window).scroll(function(){ 
+      if ($(this).scrollTop() > 100) { 
+          $('#scroll').fadeIn(); 
+      } else { 
+          $('#scroll').fadeOut(); 
+      } 
+  }); 
+  $('#scroll').click(function(){ 
+    
+  var WH = $(window).height();  
+  var SH = $('body').prop("scrollHeight");
+  $('html, body').stop().animate({scrollTop: SH-WH}, 1000);
+        return false;
+  }); 
     
     // this.getorderdetails();
 

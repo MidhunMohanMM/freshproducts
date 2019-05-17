@@ -49,6 +49,7 @@ export class HubstockComponent implements OnInit {
   product = [];
   hubstockflag: boolean = false;
   loading: boolean = true;
+  cstorders: any;
 
     
   sort(key){
@@ -73,6 +74,7 @@ export class HubstockComponent implements OnInit {
   ngOnInit() {
     this.gethubuser();
     this.getstocktypes();
+    // this.takeproducts()
   }
 
   onItemSelect(item: any) {
@@ -96,7 +98,9 @@ export class HubstockComponent implements OnInit {
           if(self.hubusertypeid == '1'){
             self.router.navigate(['']);
           }
+          // self.takeproducts();
           self.hubStockTable();
+         
         })
         .catch(function (error) {
           console.log(error);
@@ -106,25 +110,96 @@ export class HubstockComponent implements OnInit {
   hubStockTable(){
     var self = this;
     console.log(self.hubsid);
-    axios.get(`http://${this._global.baseUrl}:${this._global.port}/${this._global.version_no}/secure/hubs/stocks?hubs[hubsid]=${self.hubsid}&hubsstocks[status]=1`)
+    axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/hubs/stocks?hubs[hubsid]=${self.hubsid}&hubsstocks[status]=1`)
         .then(function (res) {
           self.loading = false;
           if(res.data.length != 0){
             self.hubstockflag = true;
           }
          console.log(res.data);
+
+
+
         for (let key in res.data){
           res.data[key].productname = res.data[key].product.name;
           res.data[key].stocktypename = res.data[key].stocks_type.name;
         }
         console.log(res.data);
           self.hubStock = res.data;
+
+          // self.addpreorder();
           
         })
         .catch(function (error) {
           console.log(error);
         });
   }
+
+  takeproducts(){
+    var self = this;
+    console.log(self.selectedorder);
+    axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/customers/orders/details` )
+        .then(function (response) {
+          console.log(response);
+          
+          for (let key in response.data){
+            response.data[key].preorder = "0";
+                if(self.hubsid == response.data[key].order.customer.route.hubsid){
+                  response.data[key].preorder = parseInt(response.data[key].preorder) + response.data[key].quantity;
+
+                  
+                }
+
+          }
+
+          self.cstorders = response.data;
+
+          console.log(self.cstorders);
+          
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
+
+
+  addpreorder(){
+    var self = this;
+
+    for (let key1 in self.hubStock){
+      self.hubStock[key1].preorder = 0;
+      console.log(self.hubStock[key1].productsid);
+      axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/customers/orders/details?products[productsid]=${self.hubStock[key1].productsid}` )
+      .then(function (response) {
+        console.log(response);
+        for (let key2 in response.data){
+          // console.log(response.data[key2].order.customer.route.hubsid);
+          // console.log(self.hubsid);
+            if(self.hubsid == response.data[key2].order.customer.route.hubsid){
+              console.log(self.hubStock[key1].productsid);
+              console.log(self.hubStock[key1].preorder) 
+              console.log(self.hubStock[key2].quantity) 
+              
+              self.hubStock[key1].preorder = parseInt(self.hubStock[key1].preorder) + parseInt(response.data[key2].quantity);
+              console.log(self.hubStock[key1].preorder) 
+            }
+          }
+
+        
+           console.log(self.hubStock)
+        
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    }
+
+
+// console.log(self.hubStock)
+  }
+
 
   getproductbyordertype(){
     var self = this;

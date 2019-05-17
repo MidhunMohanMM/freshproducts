@@ -172,12 +172,13 @@
 
                                             <tr>
                                                     <th class="custom-width-10">#</th>
+                                                    <th (click)="sort('regno')">Registration No.
+                                                      <span class="icon-sort" *ngIf="key =='regno'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
+                                                  </th>
                                                     <th (click)="sort('name')">Van Name
                                                     <span class="icon-sort" *ngIf="key =='name'" [ngClass]="{'icon-sort-asc':reverse == false,'icon-sort-down':reverse==true}"></span>
                                                   </th>
-                                                    <th (click)="sort('regno')">Registration No.
-                                                        <span class="icon-sort" *ngIf="key =='regno'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
-                                                    </th>
+                                           
                                                     <th (click)="sort('routename')">Van Route
                                                         <span class="icon-sort" *ngIf="key =='routename'" [ngClass]="{'icon-sort-asc':reverse,'icon-sort-down':!reverse}"></span>
                                                  
@@ -188,8 +189,9 @@
                                                 
                                             <tr *ngFor = " let van of vans | search : search1 | orderBy: key : reverse | paginate: { itemsPerPage: 5, currentPage: p };let i = index">
                                                   <td>{{ i+1 }}</td>
-                                                  <td>{{van.name | titlecase }}</td>
                                                   <td>{{ van.regno | uppercase}}</td>
+                                                  <td>{{van.name | titlecase }}</td>
+                                                  
                                                   <td >{{ van.routename | titlecase}}</td>
                                                   <td><a (click)="getvanbyID(van.vansid)" data-toggle="modal" data-target="#modalEditVan"><i class="icon-mode_edit s-18 mr-3"></i></a>
                                                     <a  ><i (click) = "deletevan(van.vansid)" class="icon-delete_sweep s-18"  mwlConfirmationPopover
