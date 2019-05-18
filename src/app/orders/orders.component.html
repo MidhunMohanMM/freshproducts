@@ -131,11 +131,16 @@
                         <div class="tab-pane animated fade show active" id="v-pills-all" role="tabpanel" aria-labelledby="v-pills-all-tab">
     
 
-            <div class="container">
+                            <div *ngIf="loading == true">
+                                <img src="assets/img/basic/loader2.gif" alt="" class="load" >
+                                
+                            </div>
+                
+                          <div *ngIf="loading == false" class="container">
                    
-                    <section class="paper-card " >
+                    <section class="paper-card custom-padding-right-120" >
 
-                            <!-- <a href="#" id="scroll" style="display: none;"><span ></span></a> -->
+                            <a href="#" id="scroll" style="display: none;"><span ></span></a>
                             <div class="row ">
                                     <div class="col-lg-12 ">
                                         <div class="box" >
@@ -147,11 +152,11 @@
                          
                                                     <label class="float-left mt-3" for="">Product List</label>
                                                     <div  class="col-md-12 row custom-padding-left-0 custom-margin-left-0 custom-margin-right-0">
-                                                            <div *ngFor="let product of productList, let x = index" class="form-group  custom-padding-left-0 row col-md-12">
-                                                                    <!-- <label class="float-left" for="">Item Name {{ x+1 }}</label> -->
+                                                            <div *ngFor="let product of productList| orderBy: key : reverse ; let x = index" class="form-group  custom-padding-left-0 row col-md-12">
+                                                                    <!-- <label > {{ x+1 }}</label> -->
                                                                     <input [(ngModel)] = "product.name" class="form-control border-0 custom-padding-left-30 r-0 col-md-4" type="text"
                                                                      readonly>
-                                                                     <input [(ngModel)] = "quantity" class="form-control col-md-4 custom-margin-left-30 r-0 " type="text"
+                                                                     <input attr.id="{{product.productsid}}product"  class="form-control col-md-4 custom-margin-left-30 r-0 " type="text"
                                                                      placeholder="Type Quantity">
                     
                                                             </div>
@@ -174,7 +179,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" id="addNameQnty" (click)="addproduct()"  class="btn btn-sm float-left btn-primary">Place Order</button>
+                            <button type="submit" id="addNameQnty" (click)="placeordernew()"  class="btn float-left btn-primary">Place Order</button>
     
 
 

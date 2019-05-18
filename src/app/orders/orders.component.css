@@ -12,17 +12,17 @@
 
  #scroll {
     position:fixed;
-    right:6%;
-    bottom:6%;
+    right:77px;
+    bottom:72px;
     cursor:pointer;
-    width:50px;
-    height:50px;
-    background-color:#3498db;
+    width:40px;
+    height:40px;
+    background-color:#03a9f4;
     text-indent:-9999px;
     display:none;
-    -webkit-border-radius:60px;
-    -moz-border-radius:60px;
-    border-radius:60px
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:3px
 }
 #scroll span {
     position:absolute;
@@ -32,9 +32,9 @@
     margin-top:-4px;
     height:0;
     width:0;
-    transform: rotate(180deg);
     border:8px solid transparent;
     border-bottom-color:#ffffff;
+    transform: rotate(180deg)
 }
 #scroll:hover {
     background-color:#e74c3c;

@@ -211,6 +211,10 @@ a{
     width: 60%;
 }
 
+.custom-padding-right-120{
+    padding-right: 120px;
+}
+
 .custom-width-79-percent{
     width: 79%;
 }

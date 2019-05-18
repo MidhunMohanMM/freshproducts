@@ -20,7 +20,7 @@ export class OrdersComponent implements OnInit {
   itemname: any  = "Add Item";
   i: any = "0";
   selectProduct:any="";
-  key: string = 'date'; //set default
+  key: string = 'name'; //set default
   reverse: boolean = false;
   search1: any = "";
   selectedstock: string;
@@ -34,6 +34,7 @@ export class OrdersComponent implements OnInit {
   preorderlength: any;
   public p: any;
   number: any;
+  loading:boolean = true;
   hubuserid: any;
   hubsid: any;
   hubname: any;
@@ -284,10 +285,57 @@ export class OrdersComponent implements OnInit {
 
   }
 
+
+  
+  placeordernew(){
+    var self = this;
+   for (let key in self.productList){
+
+     console.log(self.productList[key]);
+     var id = self.productList[key].productsid;
+
+     console.log($('#'+id+'product').val());
+     var quantity = $('#'+id+'product').val()
+
+     if(quantity != ""){
+
+      $('#'+id+'product').val("");
+     
+   
+        axios.post(`http://${this._global.baseUrl}:${this._global.port}/${this._global.version_no}/secure/factories/initialise/transfers`,{
+          "factoriesid" : "1",
+          "hubsid" : self.hubsid,
+          "status" : "1",
+          "productsid" : id,
+          "quantity" : quantity
+        })
+            .then(function (res) {
+              console.log(res);
+              if(res){
+                        Swal.fire({
+                          position: 'top',
+                          type: 'success',
+                          title: 'Order is placed',
+                          showConfirmButton: false,
+                          timer: 1500
+                        })
+                      }
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+
+
+      }
+    }
+
+  }
+
   getProducts(){
     var self = this;
     axios.get(`http://${this._global.baseUrl}:${this._global.port}/${this._global.version_no}/secure/products/profiles?products[status]=1`)
         .then(function (res) {
+          self.loading = false;
           console.log(res);
           self.productList = res.data;
           

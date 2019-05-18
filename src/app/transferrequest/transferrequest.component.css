@@ -12,6 +12,15 @@
     width: 100%;
     margin-bottom: 15px;
   }
+
+  .edit{
+    float: right;
+    margin-top: 3px;
+    cursor: pointer;
+    font-size: small;
+}
+
+
 .input {
     border: 0;
     outline: 0;
