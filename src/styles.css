@@ -211,6 +211,19 @@ a{
     width: 60%;
 }
 
+body{
+    font-weight: 400;
+    color:#777777
+}
+
+.sidebar-menu>li>a {
+    color: #717171;
+}
+
+.custom-cursor-pointer{
+    cursor: pointer;
+}
+
 .custom-padding-right-120{
     padding-right: 120px;
 }

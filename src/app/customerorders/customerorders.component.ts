@@ -311,7 +311,7 @@ public model: any = { date: { year: 2019, month: 10, day: 9 } };
   }
 
 
-  getcustomerorderprofiles(){
+ async getcustomerorderprofiles(){
     var self = this;
     axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/customers/orders/profiles?orders[status]=1`)
     .then(function (response) {
@@ -325,6 +325,7 @@ public model: any = { date: { year: 2019, month: 10, day: 9 } };
             // if(response.data[key]){
               response.data[i].customername = response.data[i].customer.name;
               response.data[i].customerroutename = response.data[i].customer.route.name;
+              response.data[i].ordercount = "0";
             // }
           // }
 
@@ -333,6 +334,7 @@ public model: any = { date: { year: 2019, month: 10, day: 9 } };
     }
   }
     console.log(self.customerorderprofiles);
+    self.test();
    
       // for(var i = 0; i < response.data.length; i++ ){
       // self.customersid = response.data[i].customersid;
@@ -375,6 +377,30 @@ public model: any = { date: { year: 2019, month: 10, day: 9 } };
 
   
   }
+
+  async  test(){
+    await Promise.all( this.customerorderprofiles.map(async (num) => {
+      const result = await this.getorderdetailcount(num);
+    }));
+  }
+
+  getorderdetailcount(x){
+    return new Promise((resolve, reject) => {
+      var self = this;
+      axios.get(`http://${this._global.baseUrl}:${this._global.port}/${this._global.version_no}/secure/customers/orders/details?ordersdetails[status]=1&orders[ordersid]=${x.ordersid}`)
+      .then(function (response) {
+        self.loading = false;
+        console.log(response);
+        x.ordercount = response.data.length;
+        // self.customerorders = response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    });
+  }
+
+
 
 
   getcustomerorder(){

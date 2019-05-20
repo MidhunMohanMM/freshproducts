@@ -50,6 +50,10 @@ export class HubstockComponent implements OnInit {
   hubstockflag: boolean = false;
   loading: boolean = true;
   cstorders: any;
+  day: number;
+  month: any;
+  year: number;
+  deliverydate: string;
 
     
   sort(key){
@@ -107,7 +111,7 @@ export class HubstockComponent implements OnInit {
         });
   }
 
-  hubStockTable(){
+  async  hubStockTable(){
     var self = this;
     console.log(self.hubsid);
     axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/hubs/stocks?hubs[hubsid]=${self.hubsid}&hubsstocks[status]=1`)
@@ -123,16 +127,65 @@ export class HubstockComponent implements OnInit {
         for (let key in res.data){
           res.data[key].productname = res.data[key].product.name;
           res.data[key].stocktypename = res.data[key].stocks_type.name;
+          res.data[key].preorder = "0";
         }
         console.log(res.data);
           self.hubStock = res.data;
-
+          self.test();
           // self.addpreorder();
           
         })
         .catch(function (error) {
           console.log(error);
         });
+  }
+
+  async  test(){
+    await Promise.all( this.hubStock.map(async (num) => {
+      const result = await this.getpreorder(num);
+    }));
+  }
+
+  getpreorder(x){
+
+    return new Promise((resolve, reject) => {
+      var self = this;
+
+      var today = new Date();
+      console.log(today);
+      self.day = today.getDate();
+      self.month = today.getMonth() + 1;
+      if(self.month == 1 || 2 || 3 || 4 || 5 || 6 || 7 || 8 || 9)
+      {
+        self.month = '0'+self.month;
+      }
+      self.year = today.getFullYear() ;
+      self.deliverydate = self.year + '-' + self.month+ '-' +self.day+'T00:00:00.000Z';
+      console.log(self.deliverydate);
+
+      console.log(self.selectedorder);
+      axios.get(`http://${this._global.baseUrl}:${this._global.port}/${this._global.version_no}/secure/customers/orders/details?products[productsid]=${x.productsid}&orders[deliverydate]=${self.deliverydate}` )
+          .then(function (response) {
+            console.log(response);
+            for(let key in response.data){
+              if(self.hubsid == response.data[key].order.customer.route.hubsid){
+                var pre = response.data[key].quantity + parseInt(x.preorder);
+                x.preorder = pre;
+              }
+           
+              
+            }
+            var diff = parseInt(x.quantity) - parseInt(x.preorder);
+            x.quantity = diff;
+            // x.preorder = response.data[0].quantity;
+            // self.stocktypes = response.data;
+            
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    });
+
   }
 
   takeproducts(){

@@ -232,8 +232,9 @@
                                               <!-- <td>{{customerorder.deliverydate}}</td> -->
                                               <td>{{customerorder.orders_amt }}</td>
                                               <!-- <td>{{customerorder.productunit }}</td> -->
-                                               <td><a title="View Order Details" (click)="customerordersbyID(customerorder.customersid)"><i class="icon-details s-18"></i></a>
-                                            </td>
+                                              <td><span (click)="customerordersbyID(customerorder.customersid)" class="badge custom-cursor-pointer text-white bg-light-blue">{{ customerorder.ordercount}}</span></td>
+                                               <!-- <td><a title="View Order Details" (click)="customerordersbyID(customerorder.customersid)"><i class="icon-details s-18"></i></a>
+                                            </td> -->
                                         </tr>   
                              
                                         </tbody>

@@ -167,7 +167,7 @@
                                       <tr *ngFor = "let stock of hubStock | search : search1 | orderBy: key : reverse | paginate: { itemsPerPage: 5, currentPage: p };let i=index;">
                                         <td>{{i+1}}</td>
                                         <td>{{stock.productname | titlecase }} </td>
-                                        <td>0</td>
+                                        <td>{{ stock.preorder }}</td>
                                         <td>{{stock.quantity }}</td>
                                         <!-- <td>{{stock.stocktypename | titlecase }}</td> -->
                                         
