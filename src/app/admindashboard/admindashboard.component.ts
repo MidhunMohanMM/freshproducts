@@ -52,14 +52,14 @@ export class AdmindashboardComponent implements OnInit {
   hubuserid: any;
   hubusertype: any;
   designation: any;
-  routelength: any;
+  routelength: any  = "";
   routes: any;
   products: any;
-  productlength: any;
+  productlength: any = "";
   customers: any;
-  customerlength: any;
+  customerlength: any  = "";
   hubs: any;
-  hublength: any;
+  hublength: any  = "";
  
   // events
   public chartClicked(e:any):void {

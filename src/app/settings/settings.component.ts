@@ -5,6 +5,8 @@ import { AppGlobals } from '../app.global';
 import {ActivatedRoute} from '@angular/router';
 import { NavigationEnd  } from '@angular/router';
 import {Location} from '@angular/common';
+import * as $ from 'jquery';
+import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 @Component({
@@ -33,7 +35,27 @@ export class SettingsComponent implements OnInit {
   hubusertypeid: any;
   vanusers: any;
   hubusers: any;
+  name: any;
+  usernameadd: any;
+  selectedvanusertype: any = "";
+  selectedstaff: any = "";
+
+  namehub: any= "";
+  usernameaddhub: any = "";
+  passwordhub: any = "";
+  passwordconfirmhub: any = "";
+  selectedhub: any = "";
+  selectedhubusertype: any = "";
+
   settingsloading: boolean = true;
+  vanusertypes: any;
+  staffs: any;
+  vanuserstypes: any;
+  alreadyselectedstaff: boolean = false;
+  passwordconfirm: any;
+  password: any;
+  hubusertypes: any;
+  hubs: any;
   sort(key){
     this.key = key;
     this.reverse = !this.reverse;
@@ -54,7 +76,10 @@ export class SettingsComponent implements OnInit {
     this.gethubuser();
     this.getallhubusers();
     this.getallvanusers();
- 
+    this.getallvanusertypes();
+    this.getallstaffs();
+    this.getallhubusertypes();
+    this.getallhubs();
     // this.http.get('http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/hubs/users/profiles/1').subscribe(res){
 
     //     this.ngProgress.done();
@@ -62,6 +87,201 @@ export class SettingsComponent implements OnInit {
 
   }
 
+  getallhubs(){
+    var self = this;
+    axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/hubs/profiles`)
+        .then(function (response) {
+          console.log(response);
+          self.hubs = response.data;
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
+
+  addvanuser(){
+    var self = this;
+
+    if(self.name == undefined || self.name == ''){
+      $("#name_error").html("Please enter name").show().fadeOut(2000);
+     }else if(self.usernameadd == undefined ||  self.usernameadd == ''){
+      $("#username_error").html("Please enter Username").show().fadeOut(2000);
+     }else if(self.selectedvanusertype == undefined ||  self.selectedvanusertype == ''){
+      $("#vanuserstype_error").html("Please Select Van User Type").show().fadeOut(2000);
+     }
+     else if(self.selectedstaff == undefined ||  self.selectedstaff == ''){
+      $("#staff_error").html("Please Select Staff").show().fadeOut(2000);
+     }
+     else if(self.password == undefined ||  self.password == ''){
+      $("#staff_error").html("Please enter password").show().fadeOut(2000);
+     }
+     else if(self.passwordconfirm == undefined ||  self.passwordconfirm == '' || self.passwordconfirm != self.password){
+      $("#staff_error").html("Please confirm your password").show().fadeOut(2000);
+      self.password = "";
+      self.passwordconfirm = "";
+     }else{
+
+      console.log(self.alreadyselectedstaff)
+    if(self.alreadyselectedstaff == false){
+console.log(self.selectedvanusertype);
+console.log(self.selectedstaff);
+console.log(self.name);
+console.log(self.usernameadd);
+
+
+    axios.post(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/vans/users/profiles`,{
+      "vansuserstypesid": self.selectedvanusertype,
+      "staffsid": self.selectedstaff,
+      "name" : self.name,
+      "username" : self.usernameadd,
+      "password" : self.password,
+      "status" : "1"
+    })
+        .then(function (response) {
+          console.log(response);
+          if(response){
+            Swal.fire({
+              position: 'top',
+              type: 'success',
+              title: 'Van User is Added',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          } 
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        $("#addclose").click();
+        self.getallvanusers();
+      }
+      else{
+        $("#staff_error").html("Please Select Different Staff, this staff is already assigned").show().fadeOut(2000);
+      }
+    }
+
+  }
+
+  addhubuser(){
+    var self = this;
+
+    if(self.namehub == undefined || self.namehub == ''){
+      $("#name_error_hub").html("Please enter name").show().fadeOut(2000);
+     }else if(self.usernameaddhub == undefined ||  self.usernameaddhub == ''){
+      $("#username_error_hub").html("Please enter Username").show().fadeOut(2000);
+     }else if(self.selectedhub == undefined ||  self.selectedhub == ''){
+      $("#hub_error_hub").html("Please Select Hub").show().fadeOut(2000);
+     }
+     else if(self.selectedhubusertype == undefined ||  self.selectedhubusertype == ''){
+      $("#hubusertypes_error_hub").html("Please Select Hub User Type").show().fadeOut(2000);
+     }
+     else if(self.passwordhub == undefined ||  self.passwordhub == ''){
+      $("#password_error_hub").html("Please Enter Password").show().fadeOut(2000);
+     }
+     else if(self.passwordconfirmhub == undefined ||  self.passwordconfirmhub == '' || self.passwordconfirmhub != self.passwordhub){
+      $("#confirm_password_error_hub").html("Please confirm your password").show().fadeOut(2000);
+      self.password = "";
+      self.passwordconfirmhub = "";
+     }else{
+
+      console.log(self.selectedhub);
+      console.log(self.selectedhubusertype);
+      console.log(self.namehub);
+      console.log(self.usernameaddhub);
+      console.log(self.passwordhub);
+    axios.post(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/hubs/users/profiles`,{
+        "hubsid" : self.selectedhub,
+        "hubsuserstypesid": self.selectedhubusertype,
+        "name" : self.namehub,
+        "username" : self.usernameaddhub,
+        "password": self.passwordhub,
+        "status" : "1"
+
+    })
+        .then(function (response) {
+          console.log(response);
+          if(response){
+            Swal.fire({
+              position: 'top',
+              type: 'success',
+              title: 'Hub User is Added',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          } 
+          // self.staffs = response.data;
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        $("#addclosehub").click();
+        self.getallhubusers();
+
+     }
+  }
+
+  getallstaffs(){
+    var self = this;
+    axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/staffs/profiles`)
+        .then(function (response) {
+          console.log(response);
+          self.staffs = response.data;
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
+  
+  checkstaff(){
+    var self = this;
+    axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/vans/users/profiles`)
+        .then(function (response) {
+          console.log(response);
+          console.log(self.selectedstaff);
+          // self.vanuserstypes = response.data;
+          for(let key in response.data){
+            if(response.data[key].staffsid == self.selectedstaff)
+            {
+              self.alreadyselectedstaff = true;
+              break;
+            }
+
+          }
+          self.addvanuser();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
+
+  getallvanusertypes(){
+    var self = this;
+    axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/vans/users/types`)
+        .then(function (response) {
+          console.log(response);
+          self.vanuserstypes = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
+
+  getallhubusertypes(){
+    var self = this;
+    axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/hubs/users/types`)
+        .then(function (response) {
+          console.log(response);
+          self.hubusertypes = response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
 
 
   gethubuser(){
@@ -131,6 +351,7 @@ export class SettingsComponent implements OnInit {
           self.getallvanusertype();
           for(let key in response.data){
             response.data[key].vans_userstypename = response.data[key].vans_userstype.name;
+            response.data[key].staffname = response.data[key].staff.name;
           }
         })
         .catch(function (error) {

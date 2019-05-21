@@ -211,6 +211,10 @@ a{
     width: 60%;
 }
 
+.custom-color-white{
+    color:white;
+}
+
 body{
     font-weight: 400;
     color:#777777

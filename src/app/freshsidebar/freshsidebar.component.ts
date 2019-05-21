@@ -4,6 +4,7 @@ import { Router, NavigationEnd  } from '@angular/router';
 import {Location} from '@angular/common';
 declare var require: any
 var $ = require("jquery");
+import Swal from 'sweetalert2';
 import axios from "axios";
 import 'rxjs/add/observable/interval';
 import { Observable } from 'rxjs';
@@ -20,6 +21,9 @@ export class FreshsidebarComponent implements OnInit {
   config:any;
   number: any;
   hubuserid: any;
+  password: any = "";
+  passwordconfirm: any = "";
+
   hubname: any;
   username: any;
   hubuserstypesid: any;
@@ -28,6 +32,8 @@ export class FreshsidebarComponent implements OnInit {
   factoryrejectlength: any;
   hubsid: any;
   sub: any;
+  hubusertype:any = "";
+  name: any;
   
   
   constructor(  private route : ActivatedRoute ,  private router: Router, private _location: Location, private _global: AppGlobals) {
@@ -142,6 +148,53 @@ export class FreshsidebarComponent implements OnInit {
 
   }
 
+  changecredentials(){
+    var self = this;
+
+    if(self.username == undefined ||  self.username == ''){
+      $("#username_error_hub").html("Please enter Username").show().fadeOut(2000);
+     }
+     else if(self.password == undefined ||  self.password == ''){
+      $("#password_error_hub").html("Please Enter Password").show().fadeOut(2000);
+     }
+     else if(self.passwordconfirm == undefined ||  self.passwordconfirm == '' || self.passwordconfirm != self.password){
+      $("#confirm_password_error_hub").html("Please confirm your password").show().fadeOut(2000);
+      self.password = "";
+      self.passwordconfirm = "";
+     }else{
+
+      console.log(self.username);
+      console.log(self.password);
+   
+    axios.put(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/hubs/users/profiles/${self.hubuserid}`,{
+        "username" : self.username,
+        "password": self.password
+
+    })
+        .then(function (response) {
+          console.log(response);
+          if(response){
+            Swal.fire({
+              position: 'top',
+              type: 'success',
+              title: 'Credentials Edited',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          } 
+          // self.staffs = response.data;
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        $("#addclosehub").click();
+        // self.getallhubusers();
+
+     }
+  }
+
   gethubuser(){
     var self = this;
     var hubsid = localStorage.getItem('Hubsid');
@@ -150,7 +203,9 @@ export class FreshsidebarComponent implements OnInit {
           console.log(res);
           self.hubsid = res.data.hubsid
           self.hubname = res.data.hub.name;
-          self.username = res.data.name;
+          self.hubusertype = res.data.hubs_userstype.name;
+          self.name = res.data.name;
+          self.username = res.data.username
           self.hubuserstypesid = res.data.hubsuserstypesid;
           console.log(self.hubuserstypesid);
           self.factorytransfer();

@@ -3,6 +3,7 @@ import { ActivatedRoute, Params } from "@angular/router";
 import { Router, NavigationEnd  } from '@angular/router';
 import {Location} from '@angular/common';
 declare var require: any
+import Swal from 'sweetalert2';
 var $ = require("jquery");
 import axios from "axios";
 import { AppGlobals } from '../app.global';
@@ -25,12 +26,15 @@ export class AdminsidebarComponent implements OnInit {
   hubuserid: any;
   hubname: any;
   username: any;
+  password: any;
+  passwordconfirm: any;
   hubuserstypesid: any;
   factorytransfers: any;
   factorytransferslength: any;
   sub: any;
   hubs: any;
   userSubscription: Subscription;
+  name: any;
   
   constructor(  private route : ActivatedRoute ,  private router: Router, private _location: Location, private _global: AppGlobals) {
     this.route.params.subscribe(params => {
@@ -158,6 +162,53 @@ export class AdminsidebarComponent implements OnInit {
 
   }
 
+  changecredentials(){
+    var self = this;
+
+    if(self.username == undefined ||  self.username == ''){
+      $("#username_error_hub").html("Please enter Username").show().fadeOut(2000);
+     }
+     else if(self.password == undefined ||  self.password == ''){
+      $("#password_error_hub").html("Please Enter Password").show().fadeOut(2000);
+     }
+     else if(self.passwordconfirm == undefined ||  self.passwordconfirm == '' || self.passwordconfirm != self.password){
+      $("#confirm_password_error_hub").html("Please confirm your password").show().fadeOut(2000);
+      self.password = "";
+      self.passwordconfirm = "";
+     }else{
+
+      console.log(self.username);
+      console.log(self.password);
+   
+    axios.put(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/hubs/users/profiles/${self.hubuserid}`,{
+        "username" : self.username,
+        "password": self.password
+
+    })
+        .then(function (response) {
+          console.log(response);
+          if(response){
+            Swal.fire({
+              position: 'top',
+              type: 'success',
+              title: 'Credentials Edited',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          } 
+          // self.staffs = response.data;
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        $("#addclosehub").click();
+        // self.getallhubusers();
+
+     }
+  }
+
   gethubuser(){
     var self = this;
     var hubsid = localStorage.getItem('Hubsid');
@@ -166,7 +217,8 @@ export class AdminsidebarComponent implements OnInit {
           console.log(res);
           if(res.data.hub)
           self.hubname = res.data.hub.name;
-          self.username = res.data.name;
+          self.name = res.data.name;
+          self.username = res.data.username;
           self.hubuserstypesid = res.data.hubsuserstypesid;
           console.log(self.hubuserstypesid);
         })
