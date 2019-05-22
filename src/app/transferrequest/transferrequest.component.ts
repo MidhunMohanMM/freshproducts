@@ -202,33 +202,46 @@ export class TransferrequestComponent implements OnInit {
  }
 
 
- getallhubs(){
+async getallhubs(){
   var self = this;
   axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/hubs/profiles`)
       .then(function (res) {
-        // console.log(res);
-       
-        // self.hublength  = res.data.length;
-        // for(let key in res.data){
-          
-        //   if(res.data[key].hubsid == self.selectedhub){
 
-        //   console.log(res.data[key].hubsid);
-        //     res.data[key].transferlength = self.transferlength;
-        //   }
-        //   else{
-            
-        //     res.data[key].transferlength = 0;
-        //   }
-          
-        // }
         self.hubs = res.data;
-        // console.log(self.hubs);
+        for(let key in res.data){
+          res.data[key].transferreqcount = "0";
+        }
+        self.test();
       })
       .catch(function (error) {
         console.log(error);
       });
 }
+
+async  test(){
+  await Promise.all( this.hubs.map(async (num) => {
+    const result = await this.gettransferrequestcount(num);
+  }));
+}
+
+gettransferrequestcount(x){
+  return new Promise((resolve, reject) => {
+    var self = this;
+    axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/factories/transfers?factoriestransfers[status]=1&hubs[hubsid]=${x.hubsid}`)
+    .then(function (response) {
+      console.log(response);
+      x.transferreqcount = response.data.length;
+      // self.customerorders = response.data;
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  });
+}
+
+
+
+
 
 factorytransfer(){
   var self = this;

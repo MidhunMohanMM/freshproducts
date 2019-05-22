@@ -107,10 +107,10 @@
                     <ul class="nav nav-material responsive-tab" id="v-pills-tab" role="tablist">
                         <li *ngFor="let hub of hubs; let i = index">
                             <a  *ngIf="i == 0" class="nav-link active" (click)="hubassign(hub.hubsid)" [id]="'v-pills-all-tab' + hub.hubsid" data-toggle="pill" [href]="'#v-pills-all'+ hub.hubsid"
-                               role="tab" [attr.aria-controls]="'v-pills-all' + hub.hubsid"><i class="icon icon-receipt"></i>{{ hub.name }}  <span class="badge custom-margin-left-8 badge-secondary  pull-right r-3" >{{hub.transferlength}}</span>
+                               role="tab" [attr.aria-controls]="'v-pills-all' + hub.hubsid"><i class="icon icon-receipt"></i>{{ hub.name | titlecase }}  <span  *ngIf="hub.transferreqcount!= 0"   class="badge badge-primary text-white r-3 custom-margin-left-13" >{{hub.transferreqcount}}</span>
                               </a>
                                <a  *ngIf="i != 0" class="nav-link " (click)="hubassign(hub.hubsid)" [id]="'v-pills-all-tab' + hub.hubsid" data-toggle="pill" [href]="'#v-pills-all'+ hub.hubsid"
-                               role="tab" [attr.aria-controls]="'v-pills-all' + hub.hubsid"><i class="icon icon-receipt"></i>{{ hub.name }} <span *ngIf="hub.transferlength!= 0" class="badge custom-margin-left-8 badge-secondary  pull-right r-3" >{{hub.transferlength}}</span></a>
+                               role="tab" [attr.aria-controls]="'v-pills-all' + hub.hubsid"><i class="icon icon-receipt"></i>{{ hub.name | titlecase }} <span *ngIf="hub.transferreqcount!= 0" class="badge badge-primary text-white r-3 custom-margin-left-13"   >{{hub.transferreqcount}}</span></a>
                     
                             </li>
                         <!-- <li>
