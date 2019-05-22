@@ -456,6 +456,7 @@ factorytransferapproval(){
         } 
         self.factorytransfer(); 
         self.generatewaybill();
+        self.getallhubs();
       })
       .catch(function (error) {
         console.log(error);
