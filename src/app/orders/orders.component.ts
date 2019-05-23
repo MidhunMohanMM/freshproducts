@@ -327,6 +327,8 @@ export class OrdersComponent implements OnInit {
                           timer: 1500
                         })
                       }
+
+                      self.getplacedorders();
             })
             .catch(function (error) {
               console.log(error);
