@@ -29,6 +29,10 @@ export class SettingsComponent implements OnInit {
   vantypes: any;
   number: any;
   public p: any;
+  public p1: any;
+  public p2: any;
+  public p3: any;
+  public p4: any;
   hubuserid: any;
   hubname: any;
   username: any;
@@ -56,6 +60,7 @@ export class SettingsComponent implements OnInit {
   password: any;
   hubusertypes: any;
   hubs: any;
+  vanusersid: any;
   sort(key){
     this.key = key;
     this.reverse = !this.reverse;
@@ -98,6 +103,86 @@ export class SettingsComponent implements OnInit {
         .catch(function (error) {
           console.log(error);
         });
+  }
+
+  editvanuser(){
+    var self = this;
+
+    if(self.name == undefined || self.name == ''){
+      $("#name_error_edit_vanuser").html("Please enter name").show().fadeOut(2000);
+     }else if(self.usernameadd == undefined ||  self.usernameadd == ''){
+      $("#username_error_edit_vanuser").html("Please enter Username").show().fadeOut(2000);
+     }else if(self.selectedvanusertype == undefined ||  self.selectedvanusertype == ''){
+      $("#vanuserstype_error_edit_vanuser").html("Please Select Van User Type").show().fadeOut(2000);
+     }
+     else if(self.selectedstaff == undefined ||  self.selectedstaff == ''){
+      $("#staff_error_edit_vanuser").html("Please Select Staff").show().fadeOut(2000);
+     }
+     else if(self.password == undefined ||  self.password == ''){
+      $("#staff_error_edit_vanuser").html("Please enter password").show().fadeOut(2000);
+     }
+     else if(self.passwordconfirm == undefined ||  self.passwordconfirm == '' || self.passwordconfirm != self.password){
+      $("#staff_error_edit_vanuser").html("Please confirm your password").show().fadeOut(2000);
+      self.password = "";
+      self.passwordconfirm = "";
+     }else{
+
+      console.log(self.alreadyselectedstaff)
+    if(self.alreadyselectedstaff == false){
+console.log(self.selectedvanusertype);
+console.log(self.selectedstaff);
+console.log(self.name);
+console.log(self.usernameadd);
+
+
+    axios.put(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/vans/users/profiles/${self.vanusersid}`,{
+      "vansuserstypesid": self.selectedvanusertype,
+      "staffsid": self.selectedstaff,
+      "name" : self.name,
+      "username" : self.usernameadd,
+      "password" : self.password,
+      "status" : "1"
+    })
+        .then(function (response) {
+          console.log(response);
+          if(response){
+            Swal.fire({
+              position: 'top',
+              type: 'success',
+              title: 'Van User is Edited',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          } 
+          $("#addcloseeditvan").click();
+          self.getallvanusers();
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+       
+      }
+      else{
+        $("#staff_error_edit_vanuser").html("Please Select Different Staff, this staff is already assigned").show().fadeOut(2000);
+      }
+    }
+  }
+
+  editvanusertype(){
+
+  }
+
+  edithubuser(){
+
+  }
+
+  edithubusertype(){
+
+  }
+
+  editstocktype(){
+
   }
 
   addvanuser(){
@@ -259,6 +344,59 @@ console.log(self.usernameadd);
         });
   }
 
+  getvanuserbyid(vanusersid){
+    var self = this;
+    axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/vans/users/profiles/${vanusersid}` )
+        .then(function (response) {
+          console.log(response);
+          self.vanusersid = response.data.vansusersid;
+          self.name = response.data.name;
+          self.usernameadd = response.data.username;
+          // self.password = response.data.password;
+
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
+
+  deletevanuserbyid(vanusersid){
+    var self = this;
+    axios.put(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/vans/users/profiles/${vanusersid}`,{
+      "status" : "0"
+    } )
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
+
+  checkstaffedit(){
+    var self = this;
+    axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/vans/users/profiles`)
+        .then(function (response) {
+          console.log(response);
+          console.log(self.selectedstaff);
+          // self.vanuserstypes = response.data;
+          for(let key in response.data){
+            if(response.data[key].staffsid == self.selectedstaff)
+            {
+              self.alreadyselectedstaff = true;
+              break;
+            }
+
+          }
+          self.editvanuser();
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }
+
+
   getallvanusertypes(){
     var self = this;
     axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/vans/users/types`)
@@ -344,7 +482,7 @@ console.log(self.usernameadd);
 
   getallvanusers(){
     var self = this;
-    axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/vans/users/profiles` )
+    axios.get(`http://${self._global.baseUrl}:${self._global.port}/${self._global.version_no}/secure/vans/users/profiles?vansusers[status]=1` )
         .then(function (response) {
           console.log(response);
           self.vanusers = response.data;

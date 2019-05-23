@@ -124,7 +124,9 @@
      /* color:black; */
  }
  #vanuserstype_error,#staff_error, #username_error, #name_error, #password_error, #confirm_password_error,
- #name_error_hub,#username_error_hub,#password_error_hub,#confirm_password_error_hub,#hub_error_hub,#hubusertypes_error_hub{
+ #name_error_hub,#username_error_hub,#password_error_hub,#confirm_password_error_hub,#hub_error_hub,#hubusertypes_error_hub,
+ #name_error_edit_vanuser,#username_error_edit_vanuser,#password_error_edit_vanuser,#confirm_password_error_edit_vanuser,
+ #vanuserstype_error_edit_vanuser,#staff_error_edit_vanuser{
     margin-top: .1rem;
     font-size: .8rem;
     color: red;
