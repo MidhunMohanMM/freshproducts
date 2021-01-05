@@ -39,7 +39,7 @@
     "angular4-datepicker": "^1.0.1",
     "angular5-csv": "^0.2.11",
     "angular7-material-datepicker": "^1.0.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "chart.js": "^2.7.3",
     "core-js": "^2.5.4",
     "datatables.net": "^1.10.19",
