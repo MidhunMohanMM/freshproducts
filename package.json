@@ -51,7 +51,7 @@
     "html2pdf.js": "^0.9.1",
     "jquery": "^3.4.1",
     "jqvmap": "^1.5.1",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.3.1",
     "mydatepicker": "^2.6.6",
     "ng-multiselect-dropdown": "^0.2.3",
     "ng-select2": "^1.0.8",
