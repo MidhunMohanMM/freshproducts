@@ -42,7 +42,7 @@
     "axios": "^0.18.0",
     "chart.js": "^2.7.3",
     "core-js": "^2.5.4",
-    "datatables.net": "^1.10.19",
+    "datatables.net": "^1.11.3",
     "datatables.net-dt": "^1.10.19",
     "easy-pie-chart": "~2.1.7",
     "exceljs": "^1.7.0",
